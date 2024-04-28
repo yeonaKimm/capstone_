@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <!-- 홈 화면 -->
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.myapplication.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <!-- 게시판 화면 -->
+    <fragment
+        android:id="@+id/navigation_board"
+        android:name="com.example.myapplication.ui.board.MainActivity_Board"
+        android:label="@string/title_board"
+        tools:layout="@layout/board_main" >
+
+        <!-- 게시판 화면에서 게시글 목록으로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_board_to_navigation_board_postlist"
+            app:destination="@id/navigation_board_postlist"
+            app:popUpTo="@id/navigation_board_postlist"
+            app:popUpToInclusive="false" />
+
+        <!-- 게시판 화면에서 홈 화면으로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_board_to_navigation_home"
+            app:destination="@id/navigation_home"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- 게시글 목록 화면 -->
+    <fragment
+        android:id="@+id/navigation_board_postlist"
+        android:name="com.example.myapplication.ui.board.PostList_Board"
+        android:label="@string/title_board_postlist"
+        tools:layout="@layout/board_postlist" >
+
+        <!-- 게시글 목록 화면에서 등록 폼으로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_board_postlist_to_navigation_board_regform"
+            app:destination="@id/navigation_board_regform"
+            app:popUpTo="@id/navigation_board_postlist"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <!-- 등록 폼 화면 -->
+    <fragment
+        android:id="@+id/navigation_board_regform"
+        android:name="com.example.myapplication.ui.board.RegForm_Board"
+        android:label="@string/title_board_regform"
+        tools:layout="@layout/board_regform" >
+
+        <!-- 등록 폼 화면에서 출력 폼으로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_board_regform_to_navigation_board_printform"
+            app:destination="@id/navigation_board_printform"
+            app:popUpTo="@id/navigation_board_postlist"
+            app:popUpToInclusive="false"/>
+    </fragment>
+
+    <!-- 출력 폼 화면 -->
+    <fragment
+        android:id="@+id/navigation_board_printform"
+        android:name="com.example.myapplication.ui.board.PrintForm_Board"
+        android:label="@string/title_board_printform"
+        tools:layout="@layout/board_printform" >
+
+        <!-- 출력 폼 화면에서 게시글 목록으로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_board_printform_to_navigation_board_postlist"
+            app:destination="@id/navigation_board_postlist"
+            app:popUpTo="@id/navigation_board_postlist"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <!-- 기타 프래그먼트들 -->
+    <!-- SafetyFragment, ChatFragment, MypageFragment 등 -->
+</navigation>

@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="title_home">홈</string>
+
+    <string name="title_board">게시판</string>
+    <string name="title_board_postlist">전체게시글</string>
+    <string name="title_board_regform">글쓰기</string>
+    <string name="title_board_printform">게시글</string>
+
+    <string name="title_safety">안전기능</string>
+
+    <string name="title_chat">채팅</string>
+
+    <string name="title_mypage">마이페이지</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
