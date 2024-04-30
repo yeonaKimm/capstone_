@@ -25,32 +25,34 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:padding="16dp" >
 
         <Button
             android:id="@+id/button1"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="의견공유"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:drawableTop="@drawable/delivery"
+            android:text="자유게시판"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:elevation="16dp"
+            android:drawablePadding="-20dp" />
 
         <Button
             android:id="@+id/button2"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:drawableTop="@drawable/texi"
             android:text="투표"
-            android:textSize="22sp"
-            android:textStyle="bold"/>
-
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="유머글"
-            android:textSize="22sp"
-            android:textStyle="bold"/>
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:elevation="16dp"
+            android:drawablePadding="-20dp" />
 
     </LinearLayout>
 
