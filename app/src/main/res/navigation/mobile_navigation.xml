@@ -10,7 +10,8 @@
         android:id="@+id/navigation_home"
         android:name="com.example.myapplication.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+    </fragment>
 
     <!-- 게시판 화면 -->
     <fragment
@@ -39,7 +40,6 @@
             app:destination="@id/navigation_board_votelist"
             app:popUpTo="@id/navigation_board_votelist"
             app:popUpToInclusive="false" />
-
 
     </fragment>
 
@@ -136,6 +136,60 @@
             android:id="@+id/action_navigation_board_printvote_to_navigation_board_votelist"
             app:destination="@id/navigation_board_votelist"
             app:popUpTo="@id/navigation_board_votelist"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+
+    <!-- 안전 화면 메인 -->
+    <fragment
+        android:id="@+id/navigation_safety"
+        android:name="com.example.myapplication.ui.safety.MainActivity_Safety"
+        android:label="@string/title_safety"
+        tools:layout="@layout/safety_main" >
+
+        <!-- 안전 화면에서 비상연락망으로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_satety_to_navigation_safety_contact"
+            app:destination="@id/navigation_safety_contact"
+            app:popUpTo="@id/navigation_safety_contact"
+            app:popUpToInclusive="false" />
+
+        <!-- 안전 화면 화면에서 홈 화면으로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_safety_to_navigation_home"
+            app:destination="@id/navigation_home"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="true" />
+
+        <!-- 안전 화면 화면에서 음성지원 목록으로 이동하는 액션 -->
+
+    </fragment>
+
+    <!-- 비상연락망 목록 화면 -->
+    <fragment
+        android:id="@+id/navigation_safety_contact"
+        android:name="com.example.myapplication.ui.safety.Contact_Safety"
+        android:label="@string/title_safety_contact"
+        tools:layout="@layout/safety_contact" >
+
+        <!-- 비상연락망 목록 화면에서 등록 폼으로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_safety_contact_to_navigation_safety_regform"
+            app:destination="@id/navigation_safety_regform"
+            app:popUpTo="@id/navigation_safety_contact"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_safety_regform"
+        android:name="com.example.myapplication.ui.safety.RegForm_Safety"
+        android:label="@string/title_safety_contact"
+        tools:layout="@layout/safety_regform" >
+        <!-- 등록 폼에서 비상연락망으로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_safety_regform_to_navigation_safety_contact"
+            app:destination="@id/navigation_safety_contact"
+            app:popUpTo="@id/navigation_safety_contact"
             app:popUpToInclusive="false" />
     </fragment>
 

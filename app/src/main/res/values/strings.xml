@@ -12,6 +12,8 @@
     <string name="title_board_printvote">자유게시글</string>
 
     <string name="title_safety">안전기능</string>
+    <string name="title_safety_contact">비상연락망</string>
+    <string name="title_safety_regform">새로운 연락처</string>
 
     <string name="title_chat">채팅</string>
 
