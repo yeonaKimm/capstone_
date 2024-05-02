@@ -27,7 +27,7 @@ public class BoardDBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    // 새로운 게시글을 추가하는 메서드입니다. 외부에서 호출할 수 있도록 public으로 지정합니다.
+    // 새로운 게시글을 추가하는 메서드 외부에서 호출할 수 있도록 public으로 지정합니다.
     public void insertPost(String topic, String content) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();

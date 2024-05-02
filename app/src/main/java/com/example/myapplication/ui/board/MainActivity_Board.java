@@ -33,7 +33,7 @@ public class MainActivity_Board extends Fragment {
 
         // SearchView에 대한 이벤트 리스너 설정
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            // 검색 버튼을 누를 때 호출됨
+            // 검색 버튼을 누를때 호출됨
             @Override
             public boolean onQueryTextSubmit(String query) {
                 if (query != null && !query.isEmpty()) {

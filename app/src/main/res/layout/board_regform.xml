@@ -59,7 +59,7 @@
     </LinearLayout>
 
 
-
+    <!-- 사진 -->
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

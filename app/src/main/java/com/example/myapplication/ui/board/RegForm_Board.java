@@ -18,7 +18,7 @@ import com.example.myapplication.ui.board.BoardDBHelper;
 
 public class RegForm_Board extends Fragment {
 
-    private BoardRegformBinding binding; // 바인딩 변수 선언
+    private BoardRegformBinding binding; // 바인딩변수 선언
 
     public static RegForm_Board newInstance() {
         return new RegForm_Board();

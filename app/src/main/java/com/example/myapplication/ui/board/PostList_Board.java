@@ -20,7 +20,7 @@ import java.util.List;
 
 public class PostList_Board extends Fragment {
 
-    private BoardPostlistBinding binding; // 바인딩 변수 선언
+    private BoardPostlistBinding binding; // 바인딩변수 선언
     private ListView listView;
     private ArrayAdapter<String> adapter;
     private BoardDBHelper dbHelper;

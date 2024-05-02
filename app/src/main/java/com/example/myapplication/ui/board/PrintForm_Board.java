@@ -16,7 +16,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class PrintForm_Board extends Fragment {
 
-    private BoardPrintformBinding binding; // 바인딩 변수 선언
+    private BoardPrintformBinding binding; // 바인딩변수 선언
 
     public static PrintForm_Board newInstance() {
         return new PrintForm_Board();
