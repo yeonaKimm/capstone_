@@ -50,8 +50,8 @@ public class MainActivity_Board extends Fragment {
             }
         });
 
-        // button1 클릭 시에 이 액션을 트리거하도록 설정
-        binding.button1.setOnClickListener(new View.OnClickListener() {
+        // 자유게시판 클릭 시에 이 액션을 트리거하도록 설정
+        binding.freeBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // NavController를 가져옴
@@ -59,6 +59,18 @@ public class MainActivity_Board extends Fragment {
 
                 // 액션을 트리거하여 navigation_board_postlist로 이동
                 navController.navigate(R.id.action_navigation_board_to_navigation_board_postlist);
+            }
+        });
+
+        // 투표게시판 클릭 시에 이 액션을 트리거하도록 설정
+        binding.voteBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // NavController를 가져옴
+                NavController navController = Navigation.findNavController(v);
+
+                // 액션을 트리거하여 navigation_board_votelist로 이동
+                navController.navigate(R.id.action_navigation_board_to_navigation_board_votelist);
             }
         });
 

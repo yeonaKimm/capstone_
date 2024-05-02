@@ -3,9 +3,13 @@
     <string name="title_home">홈</string>
 
     <string name="title_board">게시판</string>
-    <string name="title_board_postlist">전체게시글</string>
-    <string name="title_board_regform">글쓰기</string>
-    <string name="title_board_printform">게시글</string>
+    <string name="title_board_postlist">자유게시판</string>
+    <string name="title_board_regform">자유글쓰기</string>
+    <string name="title_board_printform">자유게시글</string>
+
+    <string name="title_board_votelist">투표게시판</string>
+    <string name="title_board_regvote">자유글쓰기</string>
+    <string name="title_board_printvote">자유게시글</string>
 
     <string name="title_safety">안전기능</string>
 

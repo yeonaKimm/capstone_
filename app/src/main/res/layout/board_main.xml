@@ -27,9 +27,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="16dp" >
-
+        <!-- 자유게시판 -->
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/free_bt"
             android:layout_width="0dp"
             android:layout_height="200dp"
             android:layout_weight="1"
@@ -40,9 +40,9 @@
             android:textStyle="bold"
             android:elevation="16dp"
             android:drawablePadding="-20dp" />
-
+        <!-- 투표게시판 -->
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/vote_bt"
             android:layout_width="0dp"
             android:layout_height="200dp"
             android:layout_weight="1"
