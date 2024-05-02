@@ -98,6 +98,17 @@ public class MainActivity_Safety extends Fragment {
             }
         });
 
+        binding.callBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // NavController를 가져옴
+                NavController navController = Navigation.findNavController(v);
+
+                // 액션을 트리거하여 navigation_board_votelist로 이동
+                navController.navigate(R.id.action_navigation_satety_to_navigation_safety_calldisplay);
+            }
+        });
+
         return binding.getRoot();
     }
 

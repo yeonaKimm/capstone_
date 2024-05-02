@@ -161,7 +161,12 @@
             app:popUpTo="@id/navigation_home"
             app:popUpToInclusive="true" />
 
-        <!-- 안전 화면 화면에서 음성지원 목록으로 이동하는 액션 -->
+        <!-- 안전 화면 화면에서 통화화면으로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_satety_to_navigation_safety_calldisplay"
+            app:destination="@id/navigation_safety_calldisplay"
+            app:popUpTo="@id/navigation_safety_calldisplay"
+            app:popUpToInclusive="false" />
 
     </fragment>
 
@@ -178,6 +183,13 @@
             app:destination="@id/navigation_safety_regform"
             app:popUpTo="@id/navigation_safety_contact"
             app:popUpToInclusive="false" />
+    </fragment>
+
+    <!-- 통화 화면 -->
+    <fragment
+        android:id="@+id/navigation_safety_calldisplay"
+        android:name="com.example.myapplication.ui.safety.CallDisplay_Safety"
+        tools:layout="@layout/safety_calldisplay" >
     </fragment>
 
     <fragment
