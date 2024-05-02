@@ -4,57 +4,51 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+
 import com.example.myapplication.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.example.myapplication.databinding.BoardPostlistBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 public class PostList_Board extends Fragment {
 
     private BoardPostlistBinding binding; // 바인딩 변수 선언
+    private ListView listView;
+    private ArrayAdapter<String> adapter;
+    private BoardDBHelper dbHelper;
 
-    public static PostList_Board newInstance() {
-        return new PostList_Board();
-    }
-
+    @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = BoardPostlistBinding.inflate(inflater, container, false); // 바인딩 초기화
-
-        // SearchView 초기화
-        SearchView searchView = binding.searchView;
-
-        // SearchView에 대한 이벤트 리스너 설정
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            // 검색 버튼을 누를 때 호출됨
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                if (query != null && !query.isEmpty()) {
-                    // 검색어를 사용하여 작업 수행
-                }
-                return true; // 이벤트가 처리되었음을 반환
-            }
-
-            // 검색어가 변경될 때 호출됨
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                // newText를 사용하여 필요한 작업을 수행
-                return false;
-            }
-        });
-
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // UI 요소 초기화
+        listView = view.findViewById(R.id.listView);
+
+        // 데이터베이스 헬퍼 초기화
+        dbHelper = new BoardDBHelper(requireContext()); // requireContext()를 사용하여 Fragment의 Context를 가져옵니다.
+
+        // 모든 게시글을 가져와서 리스트에 추가
+        List<String> postsList = dbHelper.getAllPosts();
+
+        // 어댑터를 사용하여 리스트에 데이터 연결
+        adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, postsList);
+        listView.setAdapter(adapter);
 
         // fab 클릭 시에 이 액션을 트리거하도록 설정
         FloatingActionButton fab = view.findViewById(R.id.fab);
@@ -66,6 +60,7 @@ public class PostList_Board extends Fragment {
             }
         });
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

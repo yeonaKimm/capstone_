@@ -8,27 +8,33 @@
     tools:context=".ui.board.PostList_Board">
 
     <!-- 게시글 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="489dp"
-        android:orientation="horizontal"
-        android:padding="16dp"></LinearLayout>
 
     <!-- 게시글 댓글 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="459dp"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="16dp">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="댓글"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black" />
+
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="댓글"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
 
 </LinearLayout>
