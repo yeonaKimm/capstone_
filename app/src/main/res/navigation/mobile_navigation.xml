@@ -147,27 +147,63 @@
         android:label="@string/title_safety"
         tools:layout="@layout/safety_main" >
 
-        <!-- 안전 화면에서 비상연락망으로 이동하는 액션 -->
-        <action
-            android:id="@+id/action_navigation_satety_to_navigation_safety_contact"
-            app:destination="@id/navigation_safety_contact"
-            app:popUpTo="@id/navigation_safety_contact"
-            app:popUpToInclusive="false" />
-
-        <!-- 안전 화면 화면에서 홈 화면으로 이동하는 액션 -->
+        <!-- 안전 화면에서 홈화면으로 이동하는 액션 -->
         <action
             android:id="@+id/action_navigation_safety_to_navigation_home"
             app:destination="@id/navigation_home"
             app:popUpTo="@id/navigation_home"
             app:popUpToInclusive="true" />
 
-        <!-- 안전 화면 화면에서 통화화면으로 이동하는 액션 -->
+
+        <!-- 안전 화면에서 안전귀가 화면으로 이동하는 액션 -->
         <action
-            android:id="@+id/action_navigation_satety_to_navigation_safety_calldisplay"
+            android:id="@+id/action_navigation_safety_to_navigation_safety_home"
+            app:destination="@id/navigation_safety_home"
+            app:popUpTo="@id/navigation_safety_home"
+            app:popUpToInclusive="false" />
+
+
+        <!-- 안전 화면에서 통화화면으로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_safety_to_navigation_safety_calldisplay"
             app:destination="@id/navigation_safety_calldisplay"
             app:popUpTo="@id/navigation_safety_calldisplay"
             app:popUpToInclusive="false" />
 
+        <!-- 안전 화면에서 음성지원 화면으로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_safety_to_navigation_safety_voice"
+            app:destination="@id/navigation_safety_voice"
+            app:popUpTo="@id/navigation_safety_voice"
+            app:popUpToInclusive="false" />
+
+        <!-- 안전 화면에서 비상연락처로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_safety_to_navigation_safety_contact"
+            app:destination="@id/navigation_safety_contact"
+            app:popUpTo="@id/navigation_safety_contact"
+            app:popUpToInclusive="false" />
+
+
+    </fragment>
+
+    <!-- 안전귀가 등록 화면 -->
+    <fragment
+        android:id="@+id/navigation_safety_home"
+        android:name="com.example.myapplication.ui.safety.Home_Safety"
+        android:label="@string/title_safety_home"
+        tools:layout="@layout/safety_home">
+        <action
+            android:id="@+id/action_navigation_safety_home_to_navigation_safety_homenext"
+            app:destination="@id/navigation_safety_homenext" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/navigation_safety_homenext"
+        android:name="com.example.myapplication.ui.safety.HomeNext_Safety"
+        android:label="@string/title_safety_home"
+        tools:layout="@layout/safety_homenext" >
     </fragment>
 
     <!-- 비상연락망 목록 화면 -->
@@ -189,7 +225,16 @@
     <fragment
         android:id="@+id/navigation_safety_calldisplay"
         android:name="com.example.myapplication.ui.safety.CallDisplay_Safety"
+        android:label="@string/title_safety_calldisplay"
         tools:layout="@layout/safety_calldisplay" >
+    </fragment>
+
+    <!-- 음성지원 화면 -->
+    <fragment
+        android:id="@+id/navigation_safety_voice"
+        android:name="com.example.myapplication.ui.safety.Voice_Safety"
+        android:label="@string/title_safety_voice"
+        tools:layout="@layout/safety_voice" >
     </fragment>
 
     <fragment

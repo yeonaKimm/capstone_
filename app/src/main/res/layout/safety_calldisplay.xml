@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.safety.Contact_Safety">
+    tools:context=".ui.safety.CallDisplay_Safety">
 
     <!-- 통화화면 -->
     <RelativeLayout

@@ -58,7 +58,7 @@ public class MainActivity_Safety extends Fragment {
                 NavController navController = Navigation.findNavController(v);
 
                 // 액션을 트리거하여 navigation_board_postlist로 이동
-                navController.navigate(R.id.action_navigation_board_to_navigation_board_postlist);
+                navController.navigate(R.id.action_navigation_safety_to_navigation_safety_home);
             }
         });
 
@@ -70,7 +70,7 @@ public class MainActivity_Safety extends Fragment {
                 NavController navController = Navigation.findNavController(v);
 
                 // 액션을 트리거하여 navigation_board_votelist로 이동
-                navController.navigate(R.id.action_navigation_board_to_navigation_board_votelist);
+                navController.navigate(R.id.action_navigation_safety_to_navigation_safety_calldisplay);
             }
         });
 
@@ -82,7 +82,7 @@ public class MainActivity_Safety extends Fragment {
                 NavController navController = Navigation.findNavController(v);
 
                 // 액션을 트리거하여 navigation_board_votelist로 이동
-                navController.navigate(R.id.action_navigation_board_to_navigation_board_votelist);
+                navController.navigate(R.id.action_navigation_safety_to_navigation_safety_voice);
             }
         });
 
@@ -94,18 +94,7 @@ public class MainActivity_Safety extends Fragment {
                 NavController navController = Navigation.findNavController(v);
 
                 // 액션을 트리거하여 navigation_board_votelist로 이동
-                navController.navigate(R.id.action_navigation_satety_to_navigation_safety_contact);
-            }
-        });
-
-        binding.callBt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // NavController를 가져옴
-                NavController navController = Navigation.findNavController(v);
-
-                // 액션을 트리거하여 navigation_board_votelist로 이동
-                navController.navigate(R.id.action_navigation_satety_to_navigation_safety_calldisplay);
+                navController.navigate(R.id.action_navigation_safety_to_navigation_safety_contact);
             }
         });
 

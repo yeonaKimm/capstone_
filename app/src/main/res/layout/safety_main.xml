@@ -29,6 +29,7 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:paddingTop="16dp" >
+
         <!-- 안전귀가 -->
         <Button
             android:id="@+id/safety_bt"
@@ -42,6 +43,7 @@
             android:textStyle="bold"
             android:elevation="16dp"
             android:drawablePadding="-20dp" />
+
         <!-- 통화화면 -->
         <Button
             android:id="@+id/call_bt"
@@ -66,6 +68,7 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:paddingBottom="16dp">
+
         <!-- 음성지원 -->
         <Button
             android:id="@+id/voice_bt"
@@ -79,6 +82,7 @@
             android:textStyle="bold"
             android:elevation="16dp"
             android:drawablePadding="-20dp" />
+
         <!-- 비상연락처 -->
         <Button
             android:id="@+id/contact_bt"
