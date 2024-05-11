@@ -230,37 +230,37 @@
 
         <!-- 투표글 목록 화면에서 등록 폼으로 이동하는 액션 -->
         <action
-            android:id="@+id/action_navigation_board_votelist_to_navigation_board_regvote"
-            app:destination="@id/navigation_board_regvote"
+            android:id="@+id/action_navigation_board_votelist_to_navigation_board_votereg"
+            app:destination="@id/navigation_board_votereg"
             app:popUpTo="@id/navigation_board_votelist"
             app:popUpToInclusive="false" />
     </fragment>
 
     <!-- 투표 등록 폼 화면 -->
     <fragment
-        android:id="@+id/navigation_board_regvote"
-        android:name="com.example.myapplication.ui.board.RegVote_Board"
-        android:label="@string/title_board_regvote"
-        tools:layout="@layout/board_regvote" >
+        android:id="@+id/navigation_board_votereg"
+        android:name="com.example.myapplication.ui.board.VoteReg_Board"
+        android:label="@string/title_board_votereg"
+        tools:layout="@layout/board_votereg" >
 
         <!-- 투표등록 폼 화면에서 출력 폼으로 이동하는 액션 -->
         <action
-            android:id="@+id/action_navigation_board_regvote_to_navigation_board_printvote"
-            app:destination="@id/navigation_board_printvote"
+            android:id="@+id/action_navigation_board_votereg_to_navigation_board_voteprint"
+            app:destination="@id/navigation_board_voteprint"
             app:popUpTo="@id/navigation_board_votelist"
             app:popUpToInclusive="false"/>
     </fragment>
 
     <!-- 투표출력 폼 화면 -->
     <fragment
-        android:id="@+id/navigation_board_printvote"
-        android:name="com.example.myapplication.ui.board.PrintVote_Board"
-        android:label="@string/title_board_printvote"
-        tools:layout="@layout/board_printvote" >
+        android:id="@+id/navigation_board_voteprint"
+        android:name="com.example.myapplication.ui.board.VotePrint_Board"
+        android:label="@string/title_board_voteprint"
+        tools:layout="@layout/board_voteprint" >
 
         <!-- 투표 출력 폼 화면에서 투표글 목록으로 이동하는 액션 -->
         <action
-            android:id="@+id/action_navigation_board_printvote_to_navigation_board_votelist"
+            android:id="@+id/action_navigation_board_voteprint_to_navigation_board_votelist"
             app:destination="@id/navigation_board_votelist"
             app:popUpTo="@id/navigation_board_votelist"
             app:popUpToInclusive="false" />

@@ -56,7 +56,7 @@ public class VoteList_Board extends Fragment {
             @Override
             public void onClick(View v) {
                 // FAB를 클릭할 때 네비게이션 액션을 트리거하여 navigation_board_regform로 이동
-                Navigation.findNavController(v).navigate(R.id.action_navigation_board_votelist_to_navigation_board_regvote);
+                Navigation.findNavController(v).navigate(R.id.action_navigation_board_votelist_to_navigation_board_votereg);
             }
         });
     }

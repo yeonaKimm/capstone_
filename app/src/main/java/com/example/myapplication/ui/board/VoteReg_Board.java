@@ -12,20 +12,20 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.myapplication.R;
-import com.example.myapplication.databinding.BoardRegvoteBinding;
+import com.example.myapplication.databinding.BoardVoteregBinding;
 
-public class RegVote_Board extends Fragment {
+public class VoteReg_Board extends Fragment {
 
-    private BoardRegvoteBinding binding; // 바인딩변수 선언
+    private BoardVoteregBinding binding; // 바인딩변수 선언
 
-    public static RegVote_Board newInstance() {
-        return new RegVote_Board();
+    public static VoteReg_Board newInstance() {
+        return new VoteReg_Board();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = BoardRegvoteBinding.inflate(inflater, container, false); // 바인딩 초기화
+        binding = BoardVoteregBinding.inflate(inflater, container, false); // 바인딩 초기화
 
         // register 클릭 시에 이 액션을 트리거하도록 설정함
         binding.register.setOnClickListener(new View.OnClickListener() {
@@ -42,7 +42,7 @@ public class RegVote_Board extends Fragment {
                 NavController navController = Navigation.findNavController(v);
 
                 // 액션을 트리거하여 navigation_board_printform로 이동
-                navController.navigate(R.id.action_navigation_board_regvote_to_navigation_board_printvote);
+                navController.navigate(R.id.action_navigation_board_votereg_to_navigation_board_voteprint);
             }
         });
 

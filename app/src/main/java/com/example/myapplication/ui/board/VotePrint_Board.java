@@ -9,20 +9,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.myapplication.databinding.BoardPrintvoteBinding;
+import com.example.myapplication.databinding.BoardVoteprintBinding;
 
-public class PrintVote_Board extends Fragment {
+public class VotePrint_Board extends Fragment {
 
-    private BoardPrintvoteBinding binding; // 바인딩변수 선언
+    private BoardVoteprintBinding binding; // 바인딩변수 선언
 
-    public static PrintVote_Board newInstance() {
-        return new PrintVote_Board();
+    public static VotePrint_Board newInstance() {
+        return new VotePrint_Board();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = BoardPrintvoteBinding.inflate(inflater, container, false); // 바인딩 초기화
+        binding = BoardVoteprintBinding.inflate(inflater, container, false); // 바인딩 초기화
 
         return binding.getRoot();
     }
