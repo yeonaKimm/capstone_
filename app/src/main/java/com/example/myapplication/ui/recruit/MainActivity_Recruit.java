@@ -80,8 +80,8 @@ public class MainActivity_Recruit extends Fragment {
                 // NavController를 가져옴
                 NavController navController = Navigation.findNavController(v);
 
-                // 액션을 트리거하여 navigation_recruit_buylist로 이동
-                navController.navigate(R.id.action_navigation_recruit_to_navigation_recruit_buylist);
+                // 액션을 트리거하여 navigation_recruit_sharelist로 이동
+                navController.navigate(R.id.action_navigation_recruit_to_navigation_recruit_sharelist);
             }
         });
 

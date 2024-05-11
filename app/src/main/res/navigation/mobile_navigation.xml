@@ -16,6 +16,11 @@
             app:destination="@id/navigation_recruit_buylist"
             app:popUpTo="@id/navigation_recruit_buylist"
             app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_navigation_recruit_to_navigation_recruit_sharelist"
+            app:destination="@id/navigation_recruit_sharelist"
+            app:popUpTo="@id/navigation_recruit_sharelist"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <!-- 공동구매 모집글 목록 -->
@@ -73,6 +78,66 @@
             app:popUpTo="@id/navigation_recruit_buyprint"
             app:popUpToInclusive="false" />
     </fragment>
+
+    //
+
+    <!-- 무료나눔 모집글 목록 -->
+    <fragment
+        android:id="@+id/navigation_recruit_sharelist"
+        android:name="com.example.myapplication.ui.recruit.ShareList_Recruit"
+        android:label="@string/title_recruit_sharelist"
+        tools:layout="@layout/recruit_sharelist" >
+        <!-- 무료나눔 모집글 목록 화면에서 무료나눔 폼 등록 화면으로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_recruit_sharelist_to_navigation_recruit_sharereg"
+            app:destination="@id/navigation_recruit_sharereg"
+            app:popUpTo="@id/navigation_recruit_sharereg"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <!-- 무료나눔 모집글 등록 -->
+    <fragment
+        android:id="@+id/navigation_recruit_sharereg"
+        android:name="com.example.myapplication.ui.recruit.ShareReg_Recruit"
+        android:label="@string/title_recruit_sharereg"
+        tools:layout="@layout/recruit_sharereg" >
+        <!-- 무료나눔 폼 등록 화면에서 무료나눔 폼 출력 화면으로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_recruit_sharereg_to_navigation_recruit_shareprint"
+            app:destination="@id/navigation_recruit_shareprint"
+            app:popUpTo="@id/navigation_recruit_shareprint"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <!-- 무료나눔 모집글 -->
+    <fragment
+        android:id="@+id/navigation_recruit_shareprint"
+        android:name="com.example.myapplication.ui.recruit.SharePrint_Recruit"
+        android:label="@string/title_recruit_shareprint"
+        tools:layout="@layout/recruit_shareprint" >
+        <!-- 무료나눔 폼 출력 화면에서 무료나눔 모집글 나눔받기 화면으로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_recruit_shareprint_to_navigation_recruit_shareenter"
+            app:destination="@id/navigation_recruit_shareenter"
+            app:popUpTo="@id/navigation_recruit_shareenter"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <!-- 무료나눔 모집글 참여하기-->
+    <fragment
+        android:id="@+id/navigation_recruit_shareenter"
+        android:name="com.example.myapplication.ui.recruit.ShareEnter_Recruit"
+        android:label="@string/title_recruit_shareenter"
+        tools:layout="@layout/recruit_shareenter" >
+        <!-- 무료나눔 모집글 나눔받기 화면에서 무료나눔 모집글 화면으로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_recruit_shareenter_to_navigation_recruit_shareprint"
+            app:destination="@id/navigation_recruit_shareprint"
+            app:popUpTo="@id/navigation_recruit_shareprint"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+
 
 
     <!-- 게시판 화면 -->
