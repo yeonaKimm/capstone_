@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">My Application</string>
-    <string name="title_home">홈</string>
+    <string name="title_recruit">모집 홈</string>
+    <string name="title_recruit_buylist">모집글 목록</string>
+    <string name="title_recruit_buyreg">모집글 작성</string>
+    <string name="title_recruit_buyprint">모집글</string>
+    <string name="title_recruit_buyenter">모집참여</string>
 
     <string name="title_board">게시판</string>
     <string name="title_board_postlist">자유게시판</string>

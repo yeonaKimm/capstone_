@@ -3,15 +3,77 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_recruit">
 
-    <!-- 홈 화면 -->
+    <!-- 홈 화면(모집글) -->
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.myapplication.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" >
+        android:id="@+id/navigation_recruit"
+        android:name="com.example.myapplication.ui.recruit.MainActivity_Recruit"
+        android:label="@string/title_recruit"
+        tools:layout="@layout/recruit_main" >
+        <action
+            android:id="@+id/action_navigation_recruit_to_navigation_recruit_buylist"
+            app:destination="@id/navigation_recruit_buylist"
+            app:popUpTo="@id/navigation_recruit_buylist"
+            app:popUpToInclusive="false" />
     </fragment>
+
+    <!-- 공동구매 모집글 목록 -->
+    <fragment
+        android:id="@+id/navigation_recruit_buylist"
+        android:name="com.example.myapplication.ui.recruit.BuyList_Recruit"
+        android:label="@string/title_recruit_buylist"
+        tools:layout="@layout/recruit_buylist" >
+        <!-- 공동구매 모집글 목록 화면에서 공동구매 폼 등록 화면으로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_recruit_buylist_to_navigation_recruit_buyreg"
+            app:destination="@id/navigation_recruit_buyreg"
+            app:popUpTo="@id/navigation_recruit_buyreg"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <!-- 공동구매 모집글 등록 -->
+    <fragment
+        android:id="@+id/navigation_recruit_buyreg"
+        android:name="com.example.myapplication.ui.recruit.BuyReg_Recruit"
+        android:label="@string/title_recruit_buyreg"
+        tools:layout="@layout/recruit_buyreg" >
+        <!-- 공동구매 폼 등록 화면에서 공동구매 폼 출력 화면으로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_recruit_buyreg_to_navigation_recruit_buyprint"
+            app:destination="@id/navigation_recruit_buyprint"
+            app:popUpTo="@id/navigation_recruit_buyprint"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <!-- 공동구매 모집글 -->
+    <fragment
+        android:id="@+id/navigation_recruit_buyprint"
+        android:name="com.example.myapplication.ui.recruit.BuyPrint_Recruit"
+        android:label="@string/title_recruit_buyprint"
+        tools:layout="@layout/recruit_buyprint" >
+        <!-- 공동구매 폼 출력 화면에서 공동구매 모집글 참여하기 화면으로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_recruit_buyprint_to_navigation_recruit_buyenter"
+            app:destination="@id/navigation_recruit_buyenter"
+            app:popUpTo="@id/navigation_recruit_buyenter"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <!-- 공동구매 모집글 참여하기-->
+    <fragment
+        android:id="@+id/navigation_recruit_buyenter"
+        android:name="com.example.myapplication.ui.recruit.BuyEnter_Recruit"
+        android:label="@string/title_recruit_buyenter"
+        tools:layout="@layout/recruit_buyenter" >
+        <!-- 공동구매 모집글 참여하기 화면에서 공동구매 모집글 화면으로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_recruit_buyenter_to_navigation_recruit_buyprint"
+            app:destination="@id/navigation_recruit_buyprint"
+            app:popUpTo="@id/navigation_recruit_buyprint"
+            app:popUpToInclusive="false" />
+    </fragment>
+
 
     <!-- 게시판 화면 -->
     <fragment
@@ -29,9 +91,9 @@
 
         <!-- 게시판 화면에서 홈 화면으로 이동하는 액션 -->
         <action
-            android:id="@+id/action_navigation_board_to_navigation_home"
-            app:destination="@id/navigation_home"
-            app:popUpTo="@id/navigation_home"
+            android:id="@+id/action_navigation_board_to_navigation_recruit"
+            app:destination="@id/navigation_recruit"
+            app:popUpTo="@id/navigation_recruit"
             app:popUpToInclusive="true" />
 
         <!-- 게시판 화면에서 투표글 목록으로 이동하는 액션 -->
@@ -149,9 +211,9 @@
 
         <!-- 안전 화면에서 홈화면으로 이동하는 액션 -->
         <action
-            android:id="@+id/action_navigation_safety_to_navigation_home"
-            app:destination="@id/navigation_home"
-            app:popUpTo="@id/navigation_home"
+            android:id="@+id/action_navigation_safety_to_navigation_recruit"
+            app:destination="@id/navigation_recruit"
+            app:popUpTo="@id/navigation_recruit"
             app:popUpToInclusive="true" />
 
 
