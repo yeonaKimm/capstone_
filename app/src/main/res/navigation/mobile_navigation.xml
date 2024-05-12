@@ -21,6 +21,11 @@
             app:destination="@id/navigation_recruit_sharelist"
             app:popUpTo="@id/navigation_recruit_sharelist"
             app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_navigation_recruit_to_navigation_recruit_taxilist"
+            app:destination="@id/navigation_recruit_taxilist"
+            app:popUpTo="@id/navigation_recruit_taxilist"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <!-- 공동구매 모집글 목록 -->
@@ -137,7 +142,50 @@
             app:popUpToInclusive="false" />
     </fragment>
 
+    //
 
+    <!-- 함께택시 모집글 목록 -->
+    <fragment
+        android:id="@+id/navigation_recruit_taxilist"
+        android:name="com.example.myapplication.ui.recruit.TaxiList_Recruit"
+        android:label="@string/title_recruit_taxilist"
+        tools:layout="@layout/recruit_taxilist" >
+        <!-- 함께택시 모집글 목록 화면에서 함께택시 폼 등록 화면으로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_recruit_taxilist_to_navigation_recruit_taxireg"
+            app:destination="@id/navigation_recruit_taxireg"
+            app:popUpTo="@id/navigation_recruit_taxireg"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <!-- 함께택시 모집글 등록 -->
+    <fragment
+        android:id="@+id/navigation_recruit_taxireg"
+        android:name="com.example.myapplication.ui.recruit.TaxiReg_Recruit"
+        android:label="@string/title_recruit_taxireg"
+        tools:layout="@layout/recruit_taxireg" >
+        <!-- 함께택시 폼 등록 화면에서 함께택시 폼 출력 화면으로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_recruit_taxireg_to_navigation_recruit_taxiprint"
+            app:destination="@id/navigation_recruit_taxiprint"
+            app:popUpTo="@id/navigation_recruit_taxiprint"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <!-- 함께택시 모집글 -->
+    <fragment
+        android:id="@+id/navigation_recruit_taxiprint"
+        android:name="com.example.myapplication.ui.recruit.TaxiPrint_Recruit"
+        android:label="@string/title_recruit_taxiprint"
+        tools:layout="@layout/recruit_taxiprint" >
+        <action
+            android:id="@+id/action_navigation_recruit_taxiprint_to_navigation_recruit_taxilist"
+            app:destination="@id/navigation_recruit_taxilist"
+            app:popUpTo="@id/navigation_recruit_taxilist"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    //
 
 
     <!-- 게시판 화면 -->

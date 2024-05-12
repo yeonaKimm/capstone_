@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.recruit.TaxiReg_Recruit"
+    android:layout_margin="20dp">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp" >
+
+        <!-- 출발지 -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="출발지"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal" />
+
+        <!-- 도착지 -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="도착지"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp" >
+
+
+        <!-- 출발지 -->
+        <EditText
+            android:id="@+id/start"
+            android:layout_width="130dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/edittext_line"
+            android:padding="8dp"
+            android:textColor="#000000"
+            android:hint="출발지 설정"
+            android:inputType="text" />
+
+        <!-- 도착지 -->
+        <EditText
+            android:id="@+id/end"
+            android:layout_width="130dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/edittext_line"
+            android:padding="8dp"
+            android:textColor="#000000"
+            android:hint="도착지 설정"
+            android:inputType="text" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp" >
+
+
+        <!-- 탑승일 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="탑승일"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#676767" />
+
+        <!-- 탑승일 사용자 입력값 -->
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:text="20XX-XX-XX"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="#000000" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp" >
+
+        <!-- 탑승시간 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="탑승시간"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#676767"
+            android:layout_marginBottom="10dp"/>
+
+
+        <!-- 탑승시간 사용자 입력값 -->
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:text="00:00"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="#000000" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp" >
+
+
+        <!-- 모집인원 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="탑승인원"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#676767" />
+
+        <!-- 모집인원 사용자 입력값 -->
+        <TextView
+            android:id="@+id/people"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:text="N 명"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="#000000" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp" >
+
+        <!-- 탑승시간 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="남은시간"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#676767"
+            android:layout_marginBottom="10dp"/>
+
+
+        <!-- 남은시간 사용자 입력값 -->
+        <TextView
+            android:id="@+id/retime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:text="출발 15분 전"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="#FF0000" />
+
+    </LinearLayout>
+
+
+
+    <!-- 택시모집글 등록 버튼 -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp">
+        <Button
+            android:id="@+id/enter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="참여하기"
+            android:onClick="enter"/>
+    </LinearLayout>
+
+</LinearLayout>

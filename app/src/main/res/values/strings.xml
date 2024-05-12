@@ -11,6 +11,10 @@
     <string name="title_recruit_shareprint">나눔글</string>
     <string name="title_recruit_shareenter">무료나눔</string>
 
+    <string name="title_recruit_taxilist">함께택시 목록</string>
+    <string name="title_recruit_taxireg">택시모집글 작성</string>
+    <string name="title_recruit_taxiprint">함께택시</string>
+
     <string name="title_board">게시판</string>
     <string name="title_board_postlist">자유게시판</string>
     <string name="title_board_regform">자유글쓰기</string>
