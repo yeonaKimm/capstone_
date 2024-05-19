@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.androidApplication)
+    alias(libs.plugins.googleAndroidLibrariesMapsplatformSecretsGradlePlugin)
 }
 
 android {
@@ -41,10 +42,14 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
     implementation(libs.legacy.support.v4)
+    implementation(libs.activity)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation("com.kakao.sdk:v2-user:2.20.1")// 카카오 로그인
+    implementation("com.kakao.maps.open:android:2.9.5") //카카오지도 SDK에 대한 의존성 추가
+    implementation("com.google.android.gms:play-services-maps:18.2.0") //구글플레이서비스 라이브러리 추가
+    implementation("com.google.android.gms:play-services-location:21.2.0")
 
     // Glide 라이브러리 추가
     implementation("com.github.bumptech.glide:glide:4.12.0")
