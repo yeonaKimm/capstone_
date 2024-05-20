@@ -425,4 +425,30 @@
             app:popUpToInclusive="false" />
     </fragment>
 
+    <!-- 마이페이지 설정 버튼 클릭 시 앱 설정으로 이동 -->
+    <fragment
+        android:id="@+id/mypageFragment"
+        android:name="com.example.myapplication.ui.mypage.MypageFragment"
+        tools:layout="@layout/fragment_mypage">
+        <action
+            android:id="@+id/action_mypageFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.myapplication.ui.settings.app_settings"
+        tools:layout="@layout/activity_app_settings" >
+        <!-- 설정에서 관리 버튼 클릭시 내 정보 관리 페이지로 이동 -->
+        <action
+            android:id="@+id/action_settingsFragment_to_accountInfoFragment"
+            app:destination="@id/accountInfoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/accountInfoFragment"
+        android:name="com.example.myapplication.ui.settings.AccountInfoFragment"
+        tools:layout="@layout/fragment_account_info" />
+
+
 </navigation>
