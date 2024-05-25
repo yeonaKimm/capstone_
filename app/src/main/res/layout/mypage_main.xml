@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.mypage.MypageFragment">
+    tools:context=".ui.mypage.MainActivity_Mypage">
 
     <!-- Top Bar -->
     <androidx.constraintlayout.widget.ConstraintLayout

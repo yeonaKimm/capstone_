@@ -9,15 +9,25 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
 import com.example.myapplication.databinding.BoardMainBinding;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import com.example.myapplication.R;
 import androidx.navigation.fragment.NavHostFragment;
 
+import java.util.ArrayList; // ArrayList 추가
+import java.util.List;
+
 public class MainActivity_Board extends Fragment {
 
     private BoardMainBinding binding; // 바인딩 변수 선언
+    private ListView boardlistView;
+    private ArrayAdapter<String> adapter; // 하나의 어댑터로 변경
+    private BoardDBHelper boardDBHelper;
+    private VoteDBHelper voteDBHelper;
 
     public static MainActivity_Board newInstance() {
         return new MainActivity_Board();
@@ -75,6 +85,32 @@ public class MainActivity_Board extends Fragment {
         });
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // 전체 게시글 //
+        // UI 요소 초기화
+        boardlistView = view.findViewById(R.id.board_listView);
+
+        // 데이터베이스 헬퍼 초기화
+        boardDBHelper = new BoardDBHelper(requireContext());
+        voteDBHelper = new VoteDBHelper(requireContext()); // requireContext()를 사용하여 Fragment의 Context를 가져옵니다.
+
+        // 모든 게시글을 가져와서 리스트에 추가
+        List<String> postsList = boardDBHelper.getAllPosts();
+        List<String> votesList = voteDBHelper.getAllVotes();
+
+        // 두 리스트를 합치기 위해 하나의 리스트로 결합
+        List<String> combinedList = new ArrayList<>();
+        combinedList.addAll(postsList);
+        combinedList.addAll(votesList);
+
+        // 어댑터를 사용하여 리스트에 데이터 연결
+        adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, combinedList);
+        boardlistView.setAdapter(adapter);
     }
 
     @Override

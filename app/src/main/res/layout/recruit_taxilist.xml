@@ -6,6 +6,7 @@
     android:orientation="vertical"
     tools:context=".ui.recruit.TaxiList_Recruit">
 
+
     <!-- 공동구매 모집글 검색창 -->
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
@@ -36,6 +37,97 @@
             android:textColor="@android:color/black" />
     </LinearLayout>
 
+    <!-- Profile Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/ic_bokdak_round" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="출발 15분 전"
+                android:textStyle="bold"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1/2"
+                android:textColor="#94E87F"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:drawableLeft="@drawable/ic_people"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/recruit"
+                android:layout_width="61dp"
+                android:layout_height="40dp"
+                android:text="모집"
+                android:onClick="recruit"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" >
+
+        <!-- 출발지 -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="출발지"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:background="@color/ic_bokdak_background"/>
+
+        <!-- 도착지 -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="도착지"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:background="@color/ic_bokdak_background"/>
+
+    </LinearLayout>
+
     <!-- 모집글 -->
     <RelativeLayout
         android:layout_width="match_parent"
@@ -56,7 +148,7 @@
             android:layout_marginRight="50dp"
             android:layout_marginBottom="80dp"
             app:srcCompat="@android:drawable/ic_input_add"
-            android:backgroundTint="@color/purple_200"/>
+            android:backgroundTint="@color/ic_bokdak_background"/>
     </RelativeLayout>
 
 </LinearLayout>

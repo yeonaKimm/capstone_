@@ -5,87 +5,172 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.recruit.TaxiReg_Recruit"
-    android:layout_margin="20dp">
+    tools:context=".ui.recruit.TaxiReg_Recruit">
+
+
+    <!-- Profile Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:paddingBottom="16dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@mipmap/ic_bokdak_round" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingStart="16dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="복당이"
+                    android:textStyle="bold"
+                    android:textAppearance="?attr/textAppearanceHeadline6" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="여, 20대"
+                    android:textAppearance="?attr/textAppearanceBody2" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="조회 92 | 관심 5"
+                android:textAppearance="?attr/textAppearanceBody2" />
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/favoriteButton"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:padding="4dp"
+            android:src="@drawable/ic_star"
+            android:scaleType="fitCenter" />
+
+    </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp" >
+        android:layout_marginRight="30dp"
+        android:gravity="center_horizontal">
 
-        <!-- 출발지 -->
-        <TextView
-            android:layout_width="0dp"
+        <!-- 출발지와 출발지 설정 -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="출발지"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:layout_gravity="center"
-            android:gravity="center_horizontal" />
+            android:layout_marginBottom="20dp"
+            android:gravity="center_horizontal">
 
-        <!-- 도착지 -->
-        <TextView
-            android:layout_width="0dp"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="출발지"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/ic_bokdak_background"/>
+
+            <EditText
+                android:id="@+id/start"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_line"
+                android:padding="8dp"
+                android:textColor="#000000"
+                android:hint="밝은안과"
+                android:inputType="text"
+                android:gravity="center_horizontal" />
+        </LinearLayout>
+
+        <!-- 도착지와 도착지 설정 -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="도착지"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:layout_gravity="center"
-            android:gravity="center_horizontal" />
+            android:gravity="center_horizontal">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="도착지"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"
+                android:background="#EAC9FF"/>
+
+            <EditText
+                android:id="@+id/end"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_line"
+                android:padding="8dp"
+                android:textColor="#000000"
+                android:hint="아주아파트"
+                android:inputType="text"
+                android:gravity="center_horizontal" />
+        </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_map"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="지도로 위치 보기"
+            android:textSize="16sp"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp" >
-
-
-        <!-- 출발지 -->
-        <EditText
-            android:id="@+id/start"
-            android:layout_width="130dp"
-            android:layout_height="80dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/edittext_line"
-            android:padding="8dp"
-            android:textColor="#000000"
-            android:hint="출발지 설정"
-            android:inputType="text" />
-
-        <!-- 도착지 -->
-        <EditText
-            android:id="@+id/end"
-            android:layout_width="130dp"
-            android:layout_height="80dp"
-            android:layout_marginLeft="30dp"
-            android:background="@drawable/edittext_line"
-            android:padding="8dp"
-            android:textColor="#000000"
-            android:hint="도착지 설정"
-            android:inputType="text" />
-
-    </LinearLayout>
-
-
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp" >
 
@@ -105,8 +190,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
-            android:text="20XX-XX-XX"
-            android:textSize="30sp"
+            android:text="2024.05.06"
+            android:textSize="25sp"
             android:textStyle="bold"
             android:textColor="#000000" />
 
@@ -117,7 +202,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp" >
 
@@ -138,8 +222,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
-            android:text="00:00"
-            android:textSize="30sp"
+            android:text="07:10"
+            android:textSize="25sp"
             android:textStyle="bold"
             android:textColor="#000000" />
 
@@ -150,7 +234,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="16dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp" >
 
@@ -170,8 +253,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
-            android:text="N 명"
-            android:textSize="30sp"
+            android:text="2명"
+            android:textSize="25sp"
             android:textStyle="bold"
             android:textColor="#000000" />
 
@@ -204,9 +287,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:text="출발 15분 전"
-            android:textSize="30sp"
+            android:textSize="25sp"
             android:textStyle="bold"
-            android:textColor="#FF0000" />
+            android:textColor="#FD5585" />
 
     </LinearLayout>
 
@@ -218,7 +301,7 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp">
+        android:layout_margin="20dp">
         <Button
             android:id="@+id/enter"
             android:layout_width="wrap_content"

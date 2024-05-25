@@ -16,6 +16,7 @@ import com.example.myapplication.databinding.SafetyVoiceBinding;
 
 
 public class Voice_Safety extends Fragment {
+    
 
     private SafetyVoiceBinding binding; // 바인딩변수 선언
     private MediaPlayer mediaPlayer;

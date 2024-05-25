@@ -5,14 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.safety.HomeNext_Safety"
-    android:layout_margin="20dp">
+    tools:context=".ui.safety.HomeNext_Safety">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp" >
@@ -36,6 +34,34 @@
             android:textColor="#000000"
             android:layout_marginBottom="10dp"
             android:layout_gravity="center" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp" >
+
+        <!-- 출발지 지도 -->
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="136dp"
+            android:layout_height="125dp"
+            android:layout_weight="1"
+            android:layout_gravity="start"
+            android:src="@drawable/gps" />
+
+        <!-- 도착지 지도 -->
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="136dp"
+            android:layout_height="125dp"
+            android:layout_weight="1"
+            android:layout_gravity="end"
+            android:src="@drawable/gps" />
 
     </LinearLayout>
 
@@ -75,10 +101,13 @@
     </LinearLayout>
 
     <View
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:background="#CCCCCC"
-        android:layout_margin="10dp" /> <!-- 회색 밑줄 -->
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/> <!-- 회색 밑줄 -->
 
 
     <LinearLayout
@@ -86,7 +115,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp" >
 
@@ -96,27 +125,27 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="남은시간"
+            android:layout_marginLeft="20dp"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:layout_marginBottom="10dp"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="0in"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="8분"
-            android:textSize="18sp"
-            android:textColor="#000000"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginRight="20dp"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="#FD5585"/>
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp" >
 
@@ -126,10 +155,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="연장하기"
+            android:layout_marginLeft="20dp"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="#FF0000"
-            android:layout_marginBottom="10dp"/>
+            android:textColor="#000000"/>
 
         <!-- 귀가시간 연장을 선택할 수 있는 드롭다운 에디트텍스트 -->
         <Spinner
@@ -138,6 +167,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/edittext_line"
+            android:layout_marginRight="20dp"
             android:padding="8dp"
             android:textColor="#000000"
             android:spinnerMode="dropdown"/>
@@ -147,8 +177,8 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp" >
 
@@ -158,19 +188,18 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="비상연락처"
+            android:layout_marginLeft="20dp"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:layout_marginBottom="10dp"/>
+            android:textStyle="bold"/>
 
         <TextView
             android:layout_width="0in"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="엄마"
-            android:textSize="18sp"
-            android:textColor="#000000"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginRight="20dp"
+            android:textSize="20sp"
+            android:textColor="#000000" />
     </LinearLayout>
 
 

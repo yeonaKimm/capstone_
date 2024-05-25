@@ -26,6 +26,11 @@
             app:destination="@id/navigation_recruit_taxilist"
             app:popUpTo="@id/navigation_recruit_taxilist"
             app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_navigation_recruit_to_navigation_mypage"
+            app:destination="@id/navigation_mypage"
+            app:popUpTo="@id/navigation_mypage"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <!-- 공동구매 모집글 목록 -->
@@ -427,28 +432,27 @@
 
     <!-- 마이페이지 설정 버튼 클릭 시 앱 설정으로 이동 -->
     <fragment
-        android:id="@+id/mypageFragment"
-        android:name="com.example.myapplication.ui.mypage.MypageFragment"
-        tools:layout="@layout/fragment_mypage">
+        android:id="@+id/navigation_mypage"
+        android:name="com.example.myapplication.ui.mypage.MainActivity_Mypage"
+        tools:layout="@layout/mypage_main">
         <action
-            android:id="@+id/action_mypageFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
+            android:id="@+id/action_navigation_mypage_to_navigation_settings"
+            app:destination="@id/navigation_settings" />
     </fragment>
 
     <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.example.myapplication.ui.settings.app_settings"
-        tools:layout="@layout/activity_app_settings" >
+        android:id="@+id/navigation_settings"
+        android:name="com.example.myapplication.ui.mypage.AppSettings_Mypage"
+        tools:layout="@layout/mypage_appsettings" >
         <!-- 설정에서 관리 버튼 클릭시 내 정보 관리 페이지로 이동 -->
         <action
-            android:id="@+id/action_settingsFragment_to_accountInfoFragment"
-            app:destination="@id/accountInfoFragment" />
+            android:id="@+id/action_navigation_settings_to_navigation_accountInfo"
+            app:destination="@id/navigation_accountInfo" />
     </fragment>
 
     <fragment
-        android:id="@+id/accountInfoFragment"
-        android:name="com.example.myapplication.ui.settings.AccountInfoFragment"
-        tools:layout="@layout/fragment_account_info" />
-
+        android:id="@+id/navigation_accountInfo"
+        android:name="com.example.myapplication.ui.mypage.AccountInfo_Mypage"
+        tools:layout="@layout/mypage_accountinfo" />
 
 </navigation>

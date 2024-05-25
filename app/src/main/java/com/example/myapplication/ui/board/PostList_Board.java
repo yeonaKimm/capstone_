@@ -21,9 +21,9 @@ import java.util.List;
 public class PostList_Board extends Fragment {
 
     private BoardPostlistBinding binding; // 바인딩변수 선언
-    private ListView listView;
+    private ListView boardlistView;
     private ArrayAdapter<String> adapter;
-    private BoardDBHelper dbHelper;
+    private BoardDBHelper boardDBHelper;
 
     @Nullable
     @Override
@@ -38,17 +38,17 @@ public class PostList_Board extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // UI 요소 초기화
-        listView = view.findViewById(R.id.listView);
+        boardlistView = view.findViewById(R.id.board_listView);
 
         // 데이터베이스 헬퍼 초기화
-        dbHelper = new BoardDBHelper(requireContext()); // requireContext()를 사용하여 Fragment의 Context를 가져옵니다.
+        boardDBHelper = new BoardDBHelper(requireContext()); // requireContext()를 사용하여 Fragment의 Context를 가져옵니다.
 
         // 모든 게시글을 가져와서 리스트에 추가
-        List<String> postsList = dbHelper.getAllPosts();
+        List<String> postsList = boardDBHelper.getAllPosts();
 
         // 어댑터를 사용하여 리스트에 데이터 연결
         adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, postsList);
-        listView.setAdapter(adapter);
+        boardlistView.setAdapter(adapter);
 
         // fab 클릭 시에 이 액션을 트리거하도록 설정
         FloatingActionButton fab = view.findViewById(R.id.fab);

@@ -33,6 +33,7 @@
             android:padding="8dp"
             android:textColor="#000000"
             android:hint="제목을 입력하세요."
+            android:textColorHint="@color/ic_bokdak_background"
             android:inputType="text" />
 
         <!-- 내용 -->
@@ -54,6 +55,7 @@
             android:padding="8dp"
             android:textColor="#000000"
             android:hint="내용을 입력하세요."
+            android:textColorHint="@color/ic_bokdak_background"
             android:inputType="textMultiLine" />
 
     </LinearLayout>
@@ -80,7 +82,7 @@
                 android:id="@+id/tv_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#BDB1FF"
+                android:textColor="@color/ic_bokdak_background"
                 android:text="사진등록"
                 android:clickable="true"
                 android:onClick="selectPhoto"/>
@@ -94,27 +96,48 @@
 
     <!-- 익명처리 -->
     <LinearLayout
-        android:orientation="vertical"
-        android:gravity="right"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp">
+
+        <ImageView
+            android:id="@+id/favoriteButton"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_gallery"
+            android:scaleType="fitCenter"
+            android:layout_gravity="left|center_vertical" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
         <CheckBox
             android:id="@+id/unknown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="익명" />
+            android:textColor="#FF8A7B"
+            android:textStyle="bold"
+            android:text="익명"
+            android:gravity="right|center_vertical" />
+
     </LinearLayout>
+
 
     <!-- 게시글 등록 버튼 -->
     <LinearLayout
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp">
         <Button
             android:id="@+id/register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:text="완료"
             android:onClick="register"/>
     </LinearLayout>

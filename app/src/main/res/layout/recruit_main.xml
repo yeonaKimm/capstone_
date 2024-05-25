@@ -34,7 +34,7 @@
             android:layout_height="200dp"
             android:layout_weight="1"
             android:layout_margin="10dp"
-            android:drawableTop="@drawable/texi_"
+            android:drawableTop="@drawable/main_groupbuying_shadow"
             android:text="공동구매"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -47,7 +47,7 @@
             android:layout_height="200dp"
             android:layout_weight="1"
             android:layout_margin="10dp"
-            android:drawableTop="@drawable/texi_"
+            android:drawableTop="@drawable/main_taxi_shadow"
             android:text="함께택시"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -60,7 +60,7 @@
             android:layout_height="200dp"
             android:layout_weight="1"
             android:layout_margin="10dp"
-            android:drawableTop="@drawable/texi_"
+            android:drawableTop="@drawable/main_sharing_shadow"
             android:text="무료나눔"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -84,6 +84,7 @@
             android:text="최근 모집글"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:layout_marginLeft="10dp"
             android:textColor="@android:color/black" />
 
         <TextView
@@ -92,7 +93,7 @@
             android:layout_weight="4"
             android:text="전체보기"
             android:textSize="15sp"
-            android:textColor="@color/purple_500" />
+            android:textColor="@color/ic_bokdak_background" />
     </LinearLayout>
 
 

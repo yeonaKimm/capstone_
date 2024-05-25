@@ -34,9 +34,9 @@
             android:layout_height="200dp"
             android:layout_weight="1"
             android:layout_margin="10dp"
-            android:drawableTop="@drawable/delivery_"
+            android:drawableTop="@drawable/board_freeposting_shadow"
             android:text="자유게시판"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:elevation="16dp"
             android:drawablePadding="-20dp" />
@@ -47,9 +47,9 @@
             android:layout_height="200dp"
             android:layout_weight="1"
             android:layout_margin="10dp"
-            android:drawableTop="@drawable/texi_"
+            android:drawableTop="@drawable/board_vote_shadow"
             android:text="투표"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:elevation="16dp"
             android:drawablePadding="-20dp" />
@@ -62,16 +62,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="16dp">
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="인기게시글"
+            android:text="전체게시글"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="@android:color/black" />
+            android:layout_marginLeft="10dp"
+            android:textColor="@android:color/black"  />
 
         <TextView
             android:layout_width="match_parent"
@@ -79,9 +81,35 @@
             android:layout_weight="4"
             android:text="전체보기"
             android:textSize="15sp"
-            android:textColor="@color/purple_500" />
+            android:textColor="@color/ic_bokdak_background" />
     </LinearLayout>
 
+    <!-- 게시글 -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
+
+        <!-- board_listView -->
+        <ListView
+            android:id="@+id/board_listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"/>
+
+        <!-- vote_listView -->
+        <ListView
+            android:id="@+id/vote_listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/board_listView"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
 
 
 </LinearLayout>
