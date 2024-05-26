@@ -182,7 +182,9 @@
         android:layout_height="wrap_content"
         android:text="댓글"
         android:textStyle="bold"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="20dp"
         android:textAppearance="?attr/textAppearanceHeadline6"
         android:layout_marginBottom="8dp" />
 
@@ -234,7 +236,7 @@
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:padding="7dp"
-                    android:layout_marginLeft="200dp"
+                    android:layout_marginLeft="140dp"
                     android:src="@drawable/ic_heart"
                     android:scaleType="fitCenter" />
 

@@ -23,7 +23,7 @@ public class ShareList_Recruit extends Fragment {
     private RecruitSharelistBinding binding; // 바인딩변수 선언
     private ListView listView;
     private ArrayAdapter<String> adapter;
-    private ShareRecruitDBHelper dbHelper;
+    private ShareRecruitDBHelper sharedbHelper;
 
     @Nullable
     @Override
@@ -41,10 +41,10 @@ public class ShareList_Recruit extends Fragment {
         listView = view.findViewById(R.id.listView);
 
         // 데이터베이스 헬퍼 초기화
-        dbHelper = new ShareRecruitDBHelper(requireContext()); // requireContext()를 사용하여 Fragment의 Context를 가져옵니다.
+        sharedbHelper = new ShareRecruitDBHelper(requireContext()); // requireContext()를 사용하여 Fragment의 Context를 가져옵니다.
 
         // 모든 게시글을 가져와서 리스트에 추가
-        List<String> SharesList = dbHelper.getAllshares();
+        List<String> SharesList = sharedbHelper.getAllshares();
 
         // 어댑터를 사용하여 리스트에 데이터 연결
         adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, SharesList);

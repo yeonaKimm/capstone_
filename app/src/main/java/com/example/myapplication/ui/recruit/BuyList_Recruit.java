@@ -24,7 +24,7 @@ public class BuyList_Recruit extends Fragment {
     private RecruitBuylistBinding binding; // 바인딩변수 선언
     private ListView listView;
     private ArrayAdapter<String> adapter;
-    private BuyRecruitDBHelper dbHelper;
+    private BuyRecruitDBHelper buydbHelper;
 
     @Nullable
     @Override
@@ -42,10 +42,10 @@ public class BuyList_Recruit extends Fragment {
         listView = view.findViewById(R.id.listView);
 
         // 데이터베이스 헬퍼 초기화
-        dbHelper = new BuyRecruitDBHelper(requireContext()); // requireContext()를 사용하여 Fragment의 Context를 가져옵니다.
+        buydbHelper = new BuyRecruitDBHelper(requireContext()); // requireContext()를 사용하여 Fragment의 Context를 가져옵니다.
 
         // 모든 게시글을 가져와서 리스트에 추가
-        List<String> buysList = dbHelper.getAllBuys();
+        List<String> buysList = buydbHelper.getAllBuys();
 
         // 어댑터를 사용하여 리스트에 데이터 연결
         adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, buysList);

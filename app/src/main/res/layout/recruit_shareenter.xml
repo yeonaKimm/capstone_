@@ -7,47 +7,273 @@
     android:orientation="vertical"
     tools:context=".ui.recruit.ShareEnter_Recruit">
 
-    <!-- 모집 참여글 -->
+    <!-- 나눔받기 글 -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="460dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="10dp" >
 
+        <ImageView
+            android:id="@+id/postImageView"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:src="@drawable/strawberry"
+            android:scaleType="centerCrop" />
+
+        <!-- 게시글 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:gravity="center_vertical"
+            android:layout_margin="16dp">
+
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/ic_bokdak_round" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingStart="16dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="영웅팬"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:textAppearance="?attr/textAppearanceHeadline6" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="여, 40대"
+                        android:layout_marginLeft="10dp"
+                        android:textAppearance="?attr/textAppearanceBody2" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="귀족펭귄"
+                    android:textAppearance="?attr/textAppearanceBody2" />
+            </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/MenuButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:padding="4dp"
+                android:src="@drawable/ic_menu"
+                android:scaleType="fitCenter" />
+
+        </LinearLayout>
+
+        <!-- 회색 밑줄 -->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="#CCCCCC"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"/>
+
+
+        <TextView
+            android:id="@+id/postTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="딸기 나눔해요~"
+            android:textStyle="bold"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp" />
+
+
+        <TextView
+            android:id="@+id/postContentTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="이번에 딸기가 1+1이길래 사왔는데
+금방 상할 거 같아서 가까운 이웃 분께 나눔~^^"
+            android:textAppearance="?attr/textAppearanceBody1"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"/>
+
+    </LinearLayout>
+
+    <!-- 회색 밑줄 -->
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@color/black"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"/>
+
+    <!-- 게시글 댓글 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="참여자 댓글"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:layout_marginBottom="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/edittext_line"
+        android:padding="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/ic_bokdak_round"
+            android:layout_marginBottom="12dp"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingStart="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="새콤달콤"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:textAppearance="?attr/textAppearanceHeadline6" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3/31 19:51"
+                    android:layout_marginLeft="10dp"
+                    android:textAppearance="?attr/textAppearanceBody2" />
+
+                <ImageView
+                    android:id="@+id/MenuButton2"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_marginLeft="160dp"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_menu"
+                    android:scaleType="fitCenter" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="저 받을 수 있읃까요?"
+                android:textSize="18dp"
+                android:textAppearance="?attr/textAppearanceBody2" />
         </LinearLayout>
 
     </LinearLayout>
 
-    <!-- 참여자 댓글 -->
-    <TextView
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:text="참여자 댓글"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginLeft="20dp"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp" >
 
-    <!-- 참여 취소하기 버튼 -->
+        <!-- 참여자 댓글 -->
+
+        <ImageView
+            android:id="@+id/profile"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:src="@mipmap/ic_bokdak_round" />
+
+        <EditText
+            android:id="@+id/reply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@drawable/edittext_line"
+            android:padding="5dp"
+            android:textColor="#000000"
+            android:hint=" 참여 요청 글을 남겨보세요."
+            android:inputType="text"
+            android:focusable="false"
+            android:onClick="reply"/>
+
+        <ImageView
+            android:id="@+id/send"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_send" />
+
+    </LinearLayout>
+
+    <!-- 참여하기 버튼 -->
     <LinearLayout
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp">
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/favoriteButton"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:padding="3dp"
+            android:layout_marginLeft="16dp"
+            android:src="@drawable/ic_heart" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="|   미평아파트 앞"
+            android:textStyle="bold"
+            android:textAppearance="?attr/textAppearanceHeadline6" />
+
         <Button
             android:id="@+id/cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="25dp"
+            android:layout_weight="1"
             android:text="받기취소"
-            android:onClick="cancel" />
-    </LinearLayout>
+            android:onClick="enter" />
 
+    </LinearLayout>
 
 </LinearLayout>

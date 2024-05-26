@@ -141,9 +141,7 @@
             android:id="@+id/favoriteButton"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@drawable/ic_gallery"
-            android:scaleType="fitCenter"
-            android:layout_gravity="left|center_vertical" />
+            android:src="@drawable/ic_gallery" />
 
         <Space
             android:layout_width="0dp"
@@ -156,8 +154,7 @@
             android:layout_height="wrap_content"
             android:textColor="#FF8A7B"
             android:textStyle="bold"
-            android:text="익명"
-            android:gravity="right|center_vertical" />
+            android:text="익명"/>
 
     </LinearLayout>
 

@@ -84,28 +84,19 @@
             android:textColor="@color/ic_bokdak_background" />
     </LinearLayout>
 
-    <!-- 게시글 -->
+    <!-- 전체 게시글 -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp">
 
-        <!-- board_listView -->
+        <!-- all_listView -->
         <ListView
             android:id="@+id/board_listView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"/>
-
-        <!-- vote_listView -->
-        <ListView
-            android:id="@+id/vote_listView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/board_listView"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"/>
 

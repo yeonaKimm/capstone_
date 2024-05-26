@@ -14,8 +14,7 @@
         android:background="@drawable/edittext_line"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:padding="10dp"
-        >
+        android:padding="10dp" >
 
     <!-- 게시글 -->
     <LinearLayout
@@ -102,15 +101,17 @@
 서로 왜 니가 여기있냐고 그럼ㅋㅋ"
             android:textAppearance="?attr/textAppearanceBody1"
             android:layout_marginBottom="8dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"/>
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"/>
 
         <ImageView
             android:id="@+id/postImageView"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_marginBottom="16dp"
-            android:src="@drawable/ic_image"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/friend"
             android:scaleType="centerCrop" />
 
     </LinearLayout>
@@ -122,7 +123,9 @@
         android:layout_height="wrap_content"
         android:text="댓글"
         android:textStyle="bold"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="20dp"
         android:textAppearance="?attr/textAppearanceHeadline6"
         android:layout_marginBottom="8dp" />
 
@@ -174,7 +177,7 @@
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:padding="7dp"
-                    android:layout_marginLeft="200dp"
+                    android:layout_marginLeft="140dp"
                     android:src="@drawable/ic_heart"
                     android:scaleType="fitCenter" />
 

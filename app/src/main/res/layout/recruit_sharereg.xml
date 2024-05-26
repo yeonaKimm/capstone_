@@ -67,6 +67,7 @@
             android:padding="8dp"
             android:textColor="#000000"
             android:hint="제목을 입력하세요."
+            android:textColorHint="@color/ic_bokdak_background"
             android:inputType="text"
             android:layout_marginBottom="20dp"/>
 
@@ -93,6 +94,7 @@
             android:padding="8dp"
             android:textColor="#000000"
             android:hint="건물명"
+            android:textColorHint="@color/ic_bokdak_background"
             android:inputType="text"
             android:layout_marginBottom="20dp"/>
 
@@ -154,6 +156,7 @@
             android:padding="8dp"
             android:textColor="#000000"
             android:hint="자세한 설명을 작성해주세요."
+            android:textColorHint="@color/ic_bokdak_background"
             android:inputType="textMultiLine" />
 
     </LinearLayout>
