@@ -5,15 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.board.VotePrint_Board">
+    tools:context=".ui.board.VotePrint_Board"
+    android:layout_margin="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@drawable/edittext_line"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:padding="16dp" >
 
         <!-- 게시글 -->
@@ -182,8 +181,6 @@
         android:layout_height="wrap_content"
         android:text="댓글"
         android:textStyle="bold"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:layout_marginTop="20dp"
         android:textAppearance="?attr/textAppearanceHeadline6"
         android:layout_marginBottom="8dp" />
@@ -194,9 +191,7 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:background="@drawable/edittext_line"
-        android:padding="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp">
+        android:padding="16dp">
 
         <ImageView
             android:layout_width="20dp"
@@ -236,7 +231,7 @@
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:padding="7dp"
-                    android:layout_marginLeft="140dp"
+                    android:layout_marginLeft="120dp"
                     android:src="@drawable/ic_heart"
                     android:scaleType="fitCenter" />
 

@@ -5,15 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.safety.Home_Safety">
+    tools:context=".ui.safety.Home_Safety"
+    android:layout_margin="30dp">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp" >
+        android:layout_marginBottom="16dp">
 
         <!-- 소요시간 -->
         <TextView
@@ -42,9 +41,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp" >
+        android:layout_marginTop="16dp">
 
         <!-- 출발지 지도 -->
         <ImageView
@@ -71,9 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp" >
+        android:layout_marginBottom="16dp" >
 
         <!-- 출발위치 -->
         <TextView
@@ -105,8 +100,6 @@
         android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:background="#CCCCCC"
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"/> <!-- 회색 밑줄 -->
 
@@ -115,9 +108,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp" >
+        android:layout_marginBottom="16dp">
 
         <!-- 소요시간 -->
         <TextView
@@ -149,9 +140,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp" >
+        android:layout_marginBottom="16dp">
 
         <!-- 비상연락처 -->
         <TextView

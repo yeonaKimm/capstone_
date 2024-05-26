@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.recruit.SharePrint_Recruit">
+    tools:context=".ui.recruit.SharePrint_Recruit"
+    android:layout_margin="20dp">
 
     <!-- 나눔글 -->
     <LinearLayout
@@ -27,8 +28,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_margin="16dp">
-
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp">
 
             <ImageView
                 android:layout_width="30dp"
@@ -70,7 +71,6 @@
                     android:textAppearance="?attr/textAppearanceBody2" />
             </LinearLayout>
 
-
             <ImageView
                 android:id="@+id/MenuButton"
                 android:layout_width="32dp"
@@ -86,10 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:background="#CCCCCC"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
             android:layout_marginBottom="10dp"/>
-
 
         <TextView
             android:id="@+id/postTitleTextView"
@@ -98,10 +95,7 @@
             android:text="딸기 나눔해요~"
             android:textStyle="bold"
             android:textAppearance="?attr/textAppearanceHeadline6"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:layout_marginBottom="8dp" />
-
 
         <TextView
             android:id="@+id/postContentTextView"
@@ -110,8 +104,6 @@
             android:text="이번에 딸기가 1+1이길래 사왔는데
 금방 상할 거 같아서 가까운 이웃 분께 나눔~^^"
             android:textAppearance="?attr/textAppearanceBody1"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:layout_marginBottom="8dp"/>
 
     </LinearLayout>
@@ -131,7 +123,6 @@
             android:layout_height="32dp"
             android:layout_weight="1"
             android:padding="3dp"
-            android:layout_marginLeft="16dp"
             android:src="@drawable/ic_heart" />
 
         <TextView
@@ -147,8 +138,8 @@
             android:id="@+id/share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="25dp"
             android:layout_weight="1"
+            android:layout_marginRight="25dp"
             android:text="나눔받기"
             android:onClick="share" />
 

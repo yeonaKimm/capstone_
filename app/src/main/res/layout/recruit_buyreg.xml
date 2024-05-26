@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.recruit.BuyReg_Recruit"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp">
+    android:layout_margin="30dp">
 
     <!-- 사진 -->
     <LinearLayout

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.recruit.TaxiReg_Recruit">
+    tools:context=".ui.recruit.TaxiReg_Recruit"
+    android:layout_margin="30dp">
 
     <!-- Profile Section -->
     <LinearLayout
@@ -13,7 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:padding="16dp">
+        android:layout_marginLeft="100dp">
 
         <ImageView
             android:layout_width="50dp"
@@ -46,9 +47,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp" >
+        android:layout_marginTop="25dp">
 
         <!-- 출발지 -->
         <TextView
@@ -83,10 +82,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp" >
-
+        android:layout_marginBottom="30dp">
 
         <!-- 출발지 -->
         <EditText
@@ -114,22 +110,14 @@
 
     </LinearLayout>
 
-
-
-
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp" >
-
+        android:layout_marginBottom="10dp">
 
         <!-- 탑승일 -->
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -154,16 +142,13 @@
 
     </LinearLayout>
 
-
         <!-- 탑승시간 -->
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp" >
+            android:layout_marginBottom="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -190,16 +175,12 @@
 
         </LinearLayout>
 
-
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp" >
-
+                android:layout_marginBottom="16dp">
 
             <!-- 모집인원 -->
             <TextView
@@ -237,9 +218,7 @@
 
         </LinearLayout>
 
-
     </LinearLayout>
-
 
     <!-- 택시모집글 등록 버튼 -->
     <LinearLayout

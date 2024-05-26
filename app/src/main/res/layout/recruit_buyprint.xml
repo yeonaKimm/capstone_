@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.recruit.BuyPrint_Recruit">
+    tools:context=".ui.recruit.BuyPrint_Recruit"
+    android:layout_margin="20dp">
 
     <!-- 공구글 -->
     <LinearLayout
@@ -27,8 +28,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_margin="16dp">
-
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp">
 
             <ImageView
                 android:layout_width="30dp"
@@ -90,7 +91,6 @@
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="5dp"/>
 
-
         <TextView
             android:id="@+id/postTitleTextView"
             android:layout_width="wrap_content"
@@ -98,10 +98,7 @@
             android:text="생수 공구하실 분"
             android:textStyle="bold"
             android:textAppearance="?attr/textAppearanceHeadline6"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:layout_marginBottom="8dp" />
-
 
         <TextView
             android:id="@+id/postContentTextView"
@@ -110,8 +107,6 @@
             android:text="혼자 사기엔 너무 비싸고 양도 많아서 같이
 사실 분 구해요. 참여바람 ㅎㅎ"
             android:textAppearance="?attr/textAppearanceBody1"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:layout_marginBottom="8dp"/>
 
         <TextView
@@ -121,13 +116,9 @@
             android:text="구매처: https://www.coupang.com/"
             android:textColor="#3F51B5"
             android:textAppearance="?attr/textAppearanceBody1"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:layout_marginBottom="8dp"/>
 
-
     </LinearLayout>
-
 
     <!-- 참여하기 버튼 -->
     <LinearLayout
@@ -141,8 +132,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_weight="1"
-            android:padding="3dp"
-            android:layout_marginLeft="16dp"
+            android:padding="2dp"
             android:src="@drawable/ic_heart" />
 
         <TextView
@@ -158,8 +148,8 @@
             android:id="@+id/enter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="25dp"
             android:layout_weight="1"
+            android:layout_marginRight="25dp"
             android:text="참여하기"
             android:onClick="enter" />
 

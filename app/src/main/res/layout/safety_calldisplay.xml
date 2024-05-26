@@ -7,17 +7,10 @@
     tools:context=".ui.safety.CallDisplay_Safety">
 
     <!-- 통화화면 -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
             android:src="@drawable/call" />
-
-    </RelativeLayout>
 
 </LinearLayout>

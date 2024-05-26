@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.recruit.TaxiReg_Recruit">
+    tools:context=".ui.recruit.TaxiReg_Recruit"
+    android:layout_margin="30dp">
 
 
     <!-- Profile Section -->
@@ -14,8 +15,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:paddingBottom="16dp">
 
         <ImageView
@@ -72,8 +71,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
         android:gravity="center_horizontal">
 
         <!-- 출발지와 출발지 설정 -->
@@ -164,16 +161,11 @@
             android:layout_gravity="center_vertical" />
     </LinearLayout>
 
-
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp" >
-
+        android:layout_marginTop="20dp" >
 
         <!-- 탑승일 -->
         <TextView
@@ -201,9 +193,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp" >
+        android:layout_marginTop="16dp" >
 
         <!-- 탑승시간 -->
         <TextView
@@ -214,7 +204,6 @@
             android:textStyle="bold"
             android:textColor="#676767"
             android:layout_marginBottom="10dp"/>
-
 
         <!-- 탑승시간 사용자 입력값 -->
         <TextView
@@ -233,9 +222,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp" >
+        android:layout_marginTop="10dp" >
 
 
         <!-- 모집인원 -->
@@ -265,9 +252,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp" >
+        android:layout_marginBottom="16dp" >
 
         <!-- 탑승시간 -->
         <TextView
@@ -278,7 +263,6 @@
             android:textStyle="bold"
             android:textColor="#676767"
             android:layout_marginBottom="10dp"/>
-
 
         <!-- 남은시간 사용자 입력값 -->
         <TextView
