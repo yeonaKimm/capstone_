@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- 취소 아이콘 버튼 -->
+    <ImageView
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/close"
+        android:contentDescription="취소"
+        android:padding="16dp"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <!-- '닉네임' 제목 텍스트 -->
+    <TextView
+        android:id="@+id/nicknameTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cancelButton"
+        android:layout_marginTop="32dp"
+        android:text="닉네임"
+        android:textSize="24sp"
+        android:textColor="@android:color/black" />
+
+    <!-- 닉네임 입력 필드 -->
+    <EditText
+        android:id="@+id/nicknameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nicknameTitle"
+        android:layout_marginTop="16dp"
+        android:hint="닉네임을 입력하세요."
+        android:inputType="textPersonName"
+        android:textSize="18sp" />
+
+    <!-- '다음' 버튼 -->
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:text="다음"
+        android:enabled="false"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white" />
+</RelativeLayout>
