@@ -6,18 +6,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapplication.ui.Login.DatabaseHelper;
 import com.example.myapplication.MainActivity;
-import com.example.myapplication.R;
-import com.example.myapplication.databinding.ActivitySetNicknameBinding;
 import com.kakao.sdk.auth.model.OAuthToken;
 import com.kakao.sdk.common.model.ClientError;
 import com.kakao.sdk.user.UserApiClient;
 import com.kakao.sdk.common.util.Utility;
 import com.kakao.sdk.user.model.User;
+import com.example.myapplication.R;
+import com.example.myapplication.MainActivity;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function2;
 
@@ -46,14 +46,20 @@ public class Login extends AppCompatActivity {
             public Unit invoke(OAuthToken oAuthToken, Throwable throwable) {
                 if (oAuthToken != null) {
                     // 로그인 성공 시 로직
-                    getUserInfoAndSaveToDB();
-                } else if (throwable instanceof ClientError && "Cancelled".equals(((ClientError) throwable).getReason())) {
-                    Log.e(TAG, "Login cancelled by user.");
-                    // 사용자가 로그인을 취소한 경우 처리 로직
-                    // 예: 메인 화면으로 돌아가기, 사용자에게 로그인 취소 알림 등
+                    Log.d(TAG, "카카오 로그인 성공");
+                    getUserInfoAndNavigate();
                 } else {
-                    Log.e(TAG, "Login failed", throwable);
-                    // 다른 오류 처리 로직
+                    if (throwable instanceof ClientError && "Cancelled".equals(((ClientError) throwable).getReason())) {
+                        Log.e(TAG, "Login cancelled by user.");
+                    } else {
+                        Log.e(TAG, "Login failed", throwable);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(Login.this, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
                 }
                 return null;
             }
@@ -72,40 +78,49 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    private void getUserInfoAndSaveToDB() {
-        UserApiClient.getInstance().me((user, throwable) -> {
-            if (user != null) {
-                String userId = String.valueOf(user.getId());
-                String email = user.getKakaoAccount().getEmail();
-                String name = user.getKakaoAccount().getProfile().getNickname();
-                String gender = user.getKakaoAccount().getGender() != null ? user.getKakaoAccount().getGender().name() : "Not Provided";
-                String ageRange = user.getKakaoAccount().getAgeRange() != null ? user.getKakaoAccount().getAgeRange().name() : "Not Provided";
-                String birthyear = user.getKakaoAccount().getBirthyear();
-                String nickname = user.getKakaoAccount().getProfile().getNickname();
-                String profilePicture = user.getKakaoAccount().getProfile().getThumbnailImageUrl();
-                String rankId = "1"; // 기본 회원 등급 코드 설정 (예: "1" = Basic)
+    private void getUserInfoAndNavigate() {
+        UserApiClient.getInstance().me(new Function2<User, Throwable, Unit>() {
+            @Override
+            public Unit invoke(User user, Throwable throwable) {
+                if (user != null) {
+                    String userId = String.valueOf(user.getId());
+                    boolean userExists = databaseHelper.isUserExists(userId);
 
-                // 사용자 정보를 데이터베이스에 저장
-                saveUserToDatabase(userId, email, name, gender, ageRange, birthyear, nickname, profilePicture, rankId);
+                    if (userExists) {
+                        // 이미 가입한 사용자 -> MainActivity로 이동
+                        Intent intent = new Intent(Login.this, MainActivity.class);
+                        startActivity(intent);
+                        finish(); // Login 액티비티 종료
+                    } else {
+                        // 신규 사용자 -> 데이터베이스에 사용자 정보 저장 후 SetNicknameActivity로 이동
+                        String email = user.getKakaoAccount().getEmail();
+                        String name = user.getKakaoAccount().getProfile().getNickname();
+                        String gender = user.getKakaoAccount().getGender() != null ? user.getKakaoAccount().getGender().name() : "Not Provided";
+                        String ageRange = user.getKakaoAccount().getAgeRange() != null ? user.getKakaoAccount().getAgeRange().name() : "Not Provided";
+                        String birthyear = user.getKakaoAccount().getBirthyear();
+                        String nickname = user.getKakaoAccount().getProfile().getNickname();
+                        String profilePicture = user.getKakaoAccount().getProfile().getThumbnailImageUrl() != null ? user.getKakaoAccount().getProfile().getThumbnailImageUrl() : "default_profile_picture_url"; // 기본 값 설정
+                        String rankId = "1"; // 기본 회원 등급 코드 설정 (예: "1" = Basic)
 
-                // 닉네임 설정 페이지로 이동
-                Intent intent = new Intent(Login.this, ActivitySetNicknameBinding.class);
-                intent.putExtra("USER_ID", userId);
-                startActivity(intent);
-                finish();
-            } else {
-                Log.e(TAG, "Failed to get user info", throwable);
+                        // 사용자 정보를 데이터베이스에 저장
+                        boolean isInserted = databaseHelper.insertUser(userId, email, name, gender, ageRange, birthyear, nickname, profilePicture, rankId);
+
+                        if (isInserted) {
+                            Log.d(TAG, "사용자 정보가 데이터베이스에 저장되었습니다.");
+                            // 닉네임 설정 페이지로 이동
+                            Intent intent = new Intent(Login.this, SetNicknameActivity.class);
+                            intent.putExtra("USER_ID", userId);
+                            startActivity(intent);
+                            finish(); // Login 액티비티 종료
+                        } else {
+                            Log.e(TAG, "Failed to insert user data into database.");
+                        }
+                    }
+                } else {
+                    Log.e(TAG, "Failed to get user info", throwable);
+                }
+                return null;
             }
-            return null;
         });
-    }
-
-    private void saveUserToDatabase(String userId, String email, String name, String gender, String ageRange, String birthyear, String nickname, String profilePicture, String rankId) {
-        boolean isInserted = databaseHelper.insertUser(userId, email, name, gender, ageRange, birthyear, nickname, profilePicture, rankId);
-        if (isInserted) {
-            Log.d("Database", "User information saved successfully");
-        } else {
-            Log.d("Database", "Failed to save user information");
-        }
     }
 }

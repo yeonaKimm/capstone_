@@ -10,9 +10,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
+import com.example.myapplication.ui.map.join_map;
 
 public class SetNicknameActivity extends AppCompatActivity {
 
@@ -60,7 +59,8 @@ public class SetNicknameActivity extends AppCompatActivity {
             String newNickname = nicknameEditText.getText().toString();
             databaseHelper.updateUserNickname(userId, newNickname);
             // 다음 액티비티로 이동
-            Intent intent = new Intent(SetNicknameActivity.this, MainActivity.class);
+            Intent intent = new Intent(SetNicknameActivity.this, join_map.class);
+            intent.putExtra("USER_ID", userId);
             startActivity(intent);
             finish();
         });

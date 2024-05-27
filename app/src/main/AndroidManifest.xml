@@ -18,51 +18,39 @@
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
+        <!-- 시작 액티비티(로그인화면) -->
         <activity
-            android:name=".ui.Login.SetNicknameActivity"
+            android:name=".ui.Login.Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.map.join_map" />
+
+        <activity android:name=".ui.Login.SetNicknameActivity" />
+
         <activity
             android:name=".ui.mypage.AccountInfo_Mypage"
             android:exported="false" />
         <activity
             android:name=".ui.mypage.AppSettings_Mypage"
             android:exported="false" />
+
+        <activity android:name=".MainActivity" />
+
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA8OrQ6D5TlE7lgxBn42cr3VOWi4H0YoI4" /> <!-- 구글맵 API -->
         <meta-data
             android:name="com.kakao.sdk.AppKey"
-            android:value="@string/kakao_app_key" /> <!-- 카카오 로그인 -->
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:label="@string/app_name">   <!-- 첫화면 -->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:value="2ebe3d860e1ba4cf162c32dda83084d6" /> <!-- 카카오 로그인 -->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <!--
- 구글맵
-         <activity
-            android:name=".ui.map.join_map"
-            android:exported="true"
-            android:label="@string/app_name"
-            tools:ignore="DuplicateActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        -->
         <!-- 카카오 로그인, 인가코드를 받기 위한 액티비티 -->
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
