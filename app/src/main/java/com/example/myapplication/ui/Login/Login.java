@@ -2,6 +2,7 @@ package com.example.myapplication.ui.Login;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,8 +10,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.myapplication.MainActivity;
 import com.kakao.sdk.auth.model.OAuthToken;
 import com.kakao.sdk.common.model.ClientError;
 import com.kakao.sdk.user.UserApiClient;
@@ -32,6 +31,11 @@ public class Login extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
+        // 회원가입 상태 초기화
+        if (isFirstRun()) {
+            initializeRegistrationState();
+        }
 
         loginButton = findViewById(R.id.login);
         databaseHelper = new DatabaseHelper(this);
@@ -78,6 +82,19 @@ public class Login extends AppCompatActivity {
         });
     }
 
+    private boolean isFirstRun() {
+        SharedPreferences preferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+        return preferences.getBoolean("isFirstRun", true);
+    }
+
+    private void initializeRegistrationState() {
+        SharedPreferences preferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("isFirstRun", false);
+        editor.remove("isRegistered");
+        editor.apply();
+    }
+
     private void getUserInfoAndNavigate() {
         UserApiClient.getInstance().me(new Function2<User, Throwable, Unit>() {
             @Override
@@ -88,7 +105,17 @@ public class Login extends AppCompatActivity {
 
                     if (userExists) {
                         // 이미 가입한 사용자 -> MainActivity로 이동
-                        Intent intent = new Intent(Login.this, MainActivity.class);
+                        SharedPreferences preferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+                        boolean isRegistered = preferences.getBoolean("isRegistered", false);
+
+                        Intent intent;
+                        if (isRegistered) {
+                            intent = new Intent(Login.this, MainActivity.class);
+                        } else {
+                            intent = new Intent(Login.this, SetNicknameActivity.class);
+                            intent.putExtra("USER_ID", userId);
+                        }
+
                         startActivity(intent);
                         finish(); // Login 액티비티 종료
                     } else {
@@ -99,7 +126,7 @@ public class Login extends AppCompatActivity {
                         String ageRange = user.getKakaoAccount().getAgeRange() != null ? user.getKakaoAccount().getAgeRange().name() : "Not Provided";
                         String birthyear = user.getKakaoAccount().getBirthyear();
                         String nickname = user.getKakaoAccount().getProfile().getNickname();
-                        String profilePicture = user.getKakaoAccount().getProfile().getThumbnailImageUrl() != null ? user.getKakaoAccount().getProfile().getThumbnailImageUrl() : "default_profile_picture_url"; // 기본 값 설정
+                        String profilePicture = user.getKakaoAccount().getProfile().getThumbnailImageUrl() != null ? user.getKakaoAccount().getProfile().getThumbnailImageUrl() : "default_profile_picture_url";
                         String rankId = "1"; // 기본 회원 등급 코드 설정 (예: "1" = Basic)
 
                         // 사용자 정보를 데이터베이스에 저장

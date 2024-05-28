@@ -2,6 +2,7 @@ package com.example.myapplication.ui.Login;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -58,6 +59,13 @@ public class SetNicknameActivity extends AppCompatActivity {
         nextButton.setOnClickListener(view -> {
             String newNickname = nicknameEditText.getText().toString();
             databaseHelper.updateUserNickname(userId, newNickname);
+
+            // 회원가입 완료 상태 저장
+            SharedPreferences preferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("isRegistered", true);
+            editor.apply();
+
             // 다음 액티비티로 이동
             Intent intent = new Intent(SetNicknameActivity.this, join_map.class);
             intent.putExtra("USER_ID", userId);
