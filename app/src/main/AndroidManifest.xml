@@ -23,7 +23,7 @@
 
         <!-- 시작 액티비티(로그인화면) -->
         <activity
-            android:name=".ui.Login.Login"
+            android:name=".ui.map.join_map"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,7 +31,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.map.join_map" />
+        <!--<activity android:name=".ui.map.join_map" />-->
 
         <activity android:name=".ui.Login.SetNicknameActivity" />
 

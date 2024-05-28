@@ -98,6 +98,9 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback {
                     .strokeWidth(0f)
                     .fillColor(0x550000FF));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
+        } else {
+            // 현재 위치를 가져오지 못한 경우
+            Log.e("join_map", "현재 위치를 가져오지 못했습니다.");
         }
     }
 
