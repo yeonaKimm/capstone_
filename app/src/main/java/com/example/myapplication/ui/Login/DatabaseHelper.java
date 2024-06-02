@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+
     private static final String DATABASE_NAME = "user.db";
     private static final String TABLE_NAME = "user_table";
     private static final String COL_1 = "ID";
@@ -20,52 +21,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_9 = "RANK_ID";
     private static final String COL_10 = "LATITUDE";
     private static final String COL_11 = "LONGITUDE";
-
-    private static final String RANK_TABLE_NAME = "rank_table";
-    private static final String RANK_COL_1 = "RANK_ID";
-    private static final String RANK_COL_2 = "RANK_NAME";
+    private static final String COL_12 = "RADIUS";
+    private static final String COL_13 = "MAX_DISTANCE";
+    private static final int DATABASE_VERSION = 3; // 데이터베이스 버전을 올립니다.
 
     public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, 1);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // 유저 테이블 생성
         db.execSQL("CREATE TABLE " + TABLE_NAME + " (" +
-                "ID TEXT PRIMARY KEY, " +
-                "EMAIL TEXT NOT NULL, " +
-                "NAME TEXT NOT NULL, " +
-                "GENDER TEXT NOT NULL, " +
-                "AGE_RANGE TEXT NOT NULL, " +
-                "BIRTHYEAR TEXT NOT NULL, " +
-                "NICKNAME TEXT NOT NULL, " +
-                "PROFILE_PICTURE TEXT NOT NULL, " +
-                "RANK_ID TEXT NOT NULL, " +
-                "LATITUDE REAL, " +
-                "LONGITUDE REAL, " +
-                "FOREIGN KEY (RANK_ID) REFERENCES " + RANK_TABLE_NAME + "(" + RANK_COL_1 + "))");
-
-        // 회원 등급 테이블 생성 (예시)
-        db.execSQL("CREATE TABLE " + RANK_TABLE_NAME + " (" +
-                "RANK_ID TEXT PRIMARY KEY, " +
-                "RANK_NAME TEXT NOT NULL)");
-
-        // 예시 데이터 삽입
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(RANK_COL_1, "1");
-        contentValues.put(RANK_COL_2, "Basic");
-        db.insert(RANK_TABLE_NAME, null, contentValues);
-        contentValues.put(RANK_COL_1, "2");
-        contentValues.put(RANK_COL_2, "Premium");
-        db.insert(RANK_TABLE_NAME, null, contentValues);
+                COL_1 + " INTEGER PRIMARY KEY, " +
+                COL_2 + " TEXT, " +
+                COL_3 + " TEXT, " +
+                COL_4 + " TEXT, " +
+                COL_5 + " TEXT, " +
+                COL_6 + " TEXT, " +
+                COL_7 + " TEXT, " +
+                COL_8 + " TEXT, " +
+                COL_9 + " TEXT, " +
+                COL_10 + " REAL, " +
+                COL_11 + " REAL, " +
+                COL_12 + " INTEGER, " +
+                COL_13 + " REAL)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + RANK_TABLE_NAME);
-        onCreate(db);
+        if (oldVersion < 2) {
+            db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_10 + " REAL");
+            db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_11 + " REAL");
+        }
+        if (oldVersion < 3) {
+            db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_12 + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_13 + " REAL");
+        }
     }
 
     public boolean insertUser(String id, String email, String name, String gender, String ageRange, String birthyear, String nickname, String profilePicture, String rankId) {
@@ -84,43 +75,57 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
+    public boolean updateUserNickname(String id, String nickname) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_7, nickname);
+        int result = db.update(TABLE_NAME, contentValues, "ID = ?", new String[]{id});
+        return result > 0;
+    }
+
+    public boolean updateUserLocation(String id, double latitude, double longitude) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_10, latitude);
+        contentValues.put(COL_11, longitude);
+        int result = db.update(TABLE_NAME, contentValues, "ID = ?", new String[]{id});
+        return result > 0;
+    }
+
+    public boolean updateUserRadius(String id, int radius, double maxDistance) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_12, radius);
+        contentValues.put(COL_13, maxDistance);
+        int result = db.update(TABLE_NAME, contentValues, "ID = ?", new String[]{id});
+        return result > 0;
+    }
+
     public String getUserNickname(String userId) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("SELECT NICKNAME FROM " + TABLE_NAME + " WHERE ID = ?", new String[]{userId});
         if (res != null && res.moveToFirst()) {
             int colIndex = res.getColumnIndex(COL_7);
-            if (colIndex != -1) {
+            if (colIndex >= 0) {
                 String nickname = res.getString(colIndex);
                 res.close();
                 return nickname;
             }
-        }
-        if (res != null) {
             res.close();
         }
         return null;
     }
 
-    public boolean updateUserNickname(String userId, String nickname) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_7, nickname);
-        int result = db.update(TABLE_NAME, contentValues, "ID = ?", new String[]{userId});
-        return result > 0;
+    public boolean isUserExists(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE ID = ?", new String[]{id});
+        boolean exists = res.getCount() > 0;
+        res.close();
+        return exists;
     }
 
-    public boolean deleteUser(String userId) {
+    public void deleteUser(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        int result = db.delete(TABLE_NAME, "ID = ?", new String[]{userId});
-        return result > 0;
-    }
-
-    public boolean updateUserLocation(String userId, double latitude, double longitude) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_10, latitude);
-        contentValues.put(COL_11, longitude);
-        int result = db.update(TABLE_NAME, contentValues, "ID = ?", new String[]{userId});
-        return result > 0;
+        db.delete(TABLE_NAME, "ID = ?", new String[]{id});
     }
 }
