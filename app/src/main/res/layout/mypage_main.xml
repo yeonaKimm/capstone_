@@ -23,7 +23,6 @@
             android:text="마이페이지"
             android:textColor="@color/black"
             android:textSize="25sp"
-
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +74,9 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:src="@drawable/app_icon"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:scaleType="centerCrop"
+                android:background="@drawable/rounded_image" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -102,14 +103,14 @@
                         android:id="@+id/textViewGenderAge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="♀ 여 · "
+                        android:text=""
                         android:textSize="18sp"/>
 
                     <TextView
                         android:id="@+id/textViewAge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="20대"
+                        android:text=""
                         android:textSize="18sp"/>
                 </LinearLayout>
             </LinearLayout>
@@ -155,33 +156,32 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
-            android:paddingTop="15dp" >
-"
+            android:paddingTop="15dp">
 
             <!-- Star Ratings -->
             <ImageView
                 android:id="@+id/star1"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/star_filled"/>
+                android:src="@drawable/star_outline"/>
 
             <ImageView
                 android:id="@+id/star2"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/star_filled"/>
+                android:src="@drawable/star_outline"/>
 
             <ImageView
                 android:id="@+id/star3"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/star_filled"/>
+                android:src="@drawable/star_outline"/>
 
             <ImageView
                 android:id="@+id/star4"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/star_filled"/>
+                android:src="@drawable/star_outline"/>
 
             <ImageView
                 android:id="@+id/star5"
@@ -193,7 +193,7 @@
                 android:id="@+id/textViewAverageRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="평균 4점"
+                android:text="평균 0점"
                 android:paddingStart="8dp"/>
         </LinearLayout>
     </LinearLayout>
@@ -233,18 +233,19 @@
             android:background="@drawable/rounded_border"
             android:gravity="center"
             android:padding="16dp"
-            android:text="말투가 친절하고 약속도 잘 지켜서 좋았어요."
+            android:text="아직 받은 평가 내역이 없습니다."
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/textViewReviewDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="평가받은 날짜 : 2024-04-25"
+            android:text=""
             android:paddingTop="4dp"
             android:textSize="12sp"
             android:textColor="@android:color/darker_gray"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:visibility="gone"/>
     </LinearLayout>
 
     <View
