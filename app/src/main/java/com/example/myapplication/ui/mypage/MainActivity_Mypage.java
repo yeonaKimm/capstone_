@@ -1,25 +1,24 @@
 package com.example.myapplication.ui.mypage;
 
-import androidx.lifecycle.ViewModelProvider;
-
-import android.os.Bundle;
-
+import android.os.AsyncTask;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import androidx.navigation.Navigation;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.Login.DatabaseHelper;
 
 public class MainActivity_Mypage extends Fragment {
 
     private DatabaseHelper databaseHelper;
+    private String userId;
 
     public static MainActivity_Mypage newInstance() {
         return new MainActivity_Mypage();
@@ -30,68 +29,82 @@ public class MainActivity_Mypage extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.mypage_main, container, false);
 
-        view.findViewById(R.id.imageViewSettings).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_navigation_recruit_to_navigation_mypage);
-            }
-        });
-
         // Initialize DatabaseHelper
         databaseHelper = new DatabaseHelper(requireContext());
 
-        // Load user data
-        loadUserData(view);
+        // Get the user ID from the arguments
+        if (getArguments() != null) {
+            userId = getArguments().getString("USER_ID", "1");
+        } else {
+            userId = "1";
+        }
+
+        // Load user data asynchronously
+        new LoadUserDataTask(view).execute(userId);
 
         return view;
     }
 
-    private void loadUserData(View view) {
-        // Replace with the actual user ID
-        String userId = "1";
+    private class LoadUserDataTask extends AsyncTask<String, Void, UserData> {
+        private View view;
 
-        // Load nickname
-        String nickname = databaseHelper.getUserNickname(userId);
-        TextView textViewNickname = view.findViewById(R.id.textViewNickname);
-        textViewNickname.setText(nickname != null ? nickname : "닉네임");
-
-        // Load gender and age range
-        // Replace with actual methods to get these values from the database
-        String gender = "여"; // example value
-        String ageRange = "20"; // example value
-
-        TextView textViewGenderAge = view.findViewById(R.id.textViewGenderAge);
-        if (gender != null) {
-            textViewGenderAge.setText(gender.equals("여") ? "♀ 여 · " : "♂ 남 · ");
+        public LoadUserDataTask(View view) {
+            this.view = view;
         }
 
-        TextView textViewAge = view.findViewById(R.id.textViewAge);
-        if (ageRange != null) {
-            textViewAge.setText(ageRange + "대");
+        @Override
+        protected UserData doInBackground(String... strings) {
+            String userId = strings[0];
+            String nickname = databaseHelper.getUserNickname(userId);
+            String gender = "여";
+            String ageRange = "20";
+            String profilePicture = "https://example.com/profile.jpg";
+
+            return new UserData(nickname, gender, ageRange, profilePicture);
         }
 
-        // Load star ratings and average rating
-        // Replace with actual methods to get these values from the database
-        int starRating = 4; // example value
-        setStarRating(view, starRating);
+        @Override
+        protected void onPostExecute(UserData userData) {
+            if (userData != null) {
+                TextView textViewNickname = view.findViewById(R.id.textViewNickname);
+                textViewNickname.setText(userData.nickname != null ? userData.nickname : "닉네임");
 
-        TextView textViewAverageRating = view.findViewById(R.id.textViewAverageRating);
-        textViewAverageRating.setText("평균 " + (starRating > 0 ? starRating : 0) + "점");
+                TextView textViewGenderAge = view.findViewById(R.id.textViewGenderAge);
+                if (userData.gender != null) {
+                    textViewGenderAge.setText(userData.gender.equals("여") ? "♀ 여 · " : "♂ 남 · ");
+                }
 
-        // Load recent review
-        // Replace with actual methods to get these values from the database
-        String recentReview = "말투가 친절하고 약속도 잘 지켜서 좋았어요."; // example value
-        String reviewDate = "2024-04-25"; // example value
+                TextView textViewAge = view.findViewById(R.id.textViewAge);
+                if (userData.ageRange != null) {
+                    textViewAge.setText(userData.ageRange + "대");
+                }
 
-        TextView textViewRecentReview = view.findViewById(R.id.textViewRecentReview);
-        textViewRecentReview.setText(recentReview != null ? recentReview : "아직 받은 평가 내역이 없습니다.");
+                ImageView imageViewProfile = view.findViewById(R.id.imageViewProfile);
+                Glide.with(MainActivity_Mypage.this)
+                        .load(userData.profilePicture)
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(imageViewProfile);
 
-        TextView textViewReviewDate = view.findViewById(R.id.textViewReviewDate);
-        if (reviewDate != null) {
-            textViewReviewDate.setText("평가받은 날짜 : " + reviewDate);
-            textViewReviewDate.setVisibility(View.VISIBLE);
-        } else {
-            textViewReviewDate.setVisibility(View.GONE);
+                int starRating = 4;
+                setStarRating(view, starRating);
+
+                TextView textViewAverageRating = view.findViewById(R.id.textViewAverageRating);
+                textViewAverageRating.setText("평균 " + (starRating > 0 ? starRating : 0) + "점");
+
+                String recentReview = "말투가 친절하고 약속도 잘 지켜서 좋았어요.";
+                String reviewDate = "2024-04-25";
+
+                TextView textViewRecentReview = view.findViewById(R.id.textViewRecentReview);
+                textViewRecentReview.setText(recentReview != null ? recentReview : "아직 받은 평가 내역이 없습니다.");
+
+                TextView textViewReviewDate = view.findViewById(R.id.textViewReviewDate);
+                if (reviewDate != null) {
+                    textViewReviewDate.setText("평가받은 날짜 : " + reviewDate);
+                    textViewReviewDate.setVisibility(View.VISIBLE);
+                } else {
+                    textViewReviewDate.setVisibility(View.GONE);
+                }
+            }
         }
     }
 
@@ -107,5 +120,19 @@ public class MainActivity_Mypage extends Fragment {
         star3.setImageResource(starRating >= 3 ? R.drawable.star_filled : R.drawable.star_outline);
         star4.setImageResource(starRating >= 4 ? R.drawable.star_filled : R.drawable.star_outline);
         star5.setImageResource(starRating >= 5 ? R.drawable.star_filled : R.drawable.star_outline);
+    }
+
+    private static class UserData {
+        String nickname;
+        String gender;
+        String ageRange;
+        String profilePicture;
+
+        public UserData(String nickname, String gender, String ageRange, String profilePicture) {
+            this.nickname = nickname;
+            this.gender = gender;
+            this.ageRange = ageRange;
+            this.profilePicture = profilePicture;
+        }
     }
 }

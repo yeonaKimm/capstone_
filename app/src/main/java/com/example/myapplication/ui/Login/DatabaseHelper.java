@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -50,12 +51,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (oldVersion < 2) {
-            db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_10 + " REAL");
-            db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_11 + " REAL");
+            addColumnIfNotExists(db, TABLE_NAME, COL_10, "REAL");
+            addColumnIfNotExists(db, TABLE_NAME, COL_11, "REAL");
         }
         if (oldVersion < 3) {
-            db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_12 + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + COL_13 + " REAL");
+            addColumnIfNotExists(db, TABLE_NAME, COL_12, "INTEGER");
+            addColumnIfNotExists(db, TABLE_NAME, COL_13, "REAL");
+        }
+    }
+
+    private void addColumnIfNotExists(SQLiteDatabase db, String tableName, String columnName, String columnType) {
+        try {
+            db.execSQL("ALTER TABLE " + tableName + " ADD COLUMN " + columnName + " " + columnType);
+        } catch (Exception e) {
+            Log.e("DatabaseHelper", "Error adding column " + columnName, e);
         }
     }
 
