@@ -7,12 +7,12 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
-
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.Login.DatabaseHelper;
 import com.example.myapplication.MainActivity;
@@ -35,6 +35,7 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback {
     private LatLng currentLocation;
     private int selectedRadius = 0;
     private Button confirmButton;
+    private Button button1km, button5km, button8km;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,10 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback {
         databaseHelper = new DatabaseHelper(this);
 
         confirmButton = findViewById(R.id.confirmButton);
+        button1km = findViewById(R.id.button1km);
+        button5km = findViewById(R.id.button5km);
+        button8km = findViewById(R.id.button8km);
+
         confirmButton.setEnabled(false); // 초기에는 비활성화
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -53,17 +58,17 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback {
             mapFragment.getMapAsync(this);
         }
 
-        findViewById(R.id.button1km).setOnClickListener(view -> {
+        button1km.setOnClickListener(view -> {
             selectedRadius = 1000;
             drawCircle(selectedRadius);
             confirmButton.setEnabled(true); // 반경이 선택되면 활성화
         });
-        findViewById(R.id.button5km).setOnClickListener(view -> {
+        button5km.setOnClickListener(view -> {
             selectedRadius = 5000;
             drawCircle(selectedRadius);
             confirmButton.setEnabled(true); // 반경이 선택되면 활성화
         });
-        findViewById(R.id.button8km).setOnClickListener(view -> {
+        button8km.setOnClickListener(view -> {
             selectedRadius = 8000;
             drawCircle(selectedRadius);
             confirmButton.setEnabled(true); // 반경이 선택되면 활성화
