@@ -178,7 +178,7 @@
 
         <!-- 탑승일 사용자 입력값 -->
         <TextView
-            android:id="@+id/date"
+            android:id="@+id/item_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
@@ -207,7 +207,7 @@
 
         <!-- 탑승시간 사용자 입력값 -->
         <TextView
-            android:id="@+id/time"
+            android:id="@+id/item_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
@@ -236,7 +236,7 @@
 
         <!-- 모집인원 사용자 입력값 -->
         <TextView
-            android:id="@+id/people"
+            android:id="@+id/item_people"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"

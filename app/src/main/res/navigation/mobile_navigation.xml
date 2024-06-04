@@ -161,7 +161,13 @@
             app:destination="@id/navigation_recruit_taxireg"
             app:popUpTo="@id/navigation_recruit_taxireg"
             app:popUpToInclusive="false" />
+        <!-- 함께택시 모집글 목록 화면에서 함께택시 상세 화면으로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_recruit_taxilist_to_navigation_recruit_taxiprint"
+            app:destination="@id/navigation_recruit_taxiprint" />
+
     </fragment>
+
 
     <!-- 함께택시 모집글 등록 -->
     <fragment
@@ -169,15 +175,15 @@
         android:name="com.example.myapplication.ui.recruit.TaxiReg_Recruit"
         android:label="@string/title_recruit_taxireg"
         tools:layout="@layout/recruit_taxireg" >
-        <!-- 함께택시 폼 등록 화면에서 함께택시 폼 출력 화면으로 이동하는 액션 -->
+        <!-- 함께택시 폼 등록 화면에서 함께택시 목록 화면으로 이동하는 액션 -->
         <action
-            android:id="@+id/action_navigation_recruit_taxireg_to_navigation_recruit_taxiprint"
-            app:destination="@id/navigation_recruit_taxiprint"
-            app:popUpTo="@id/navigation_recruit_taxiprint"
+            android:id="@+id/action_navigation_recruit_taxireg_to_navigation_recruit_taxilist"
+            app:destination="@id/navigation_recruit_taxilist"
+            app:popUpTo="@id/navigation_recruit_taxilist"
             app:popUpToInclusive="false" />
     </fragment>
 
-    <!-- 함께택시 모집글 -->
+    <!-- 함께택시 모집 상세글 -->
     <fragment
         android:id="@+id/navigation_recruit_taxiprint"
         android:name="com.example.myapplication.ui.recruit.TaxiPrint_Recruit"
@@ -188,6 +194,9 @@
             app:destination="@id/navigation_recruit_taxilist"
             app:popUpTo="@id/navigation_recruit_taxilist"
             app:popUpToInclusive="false" />
+        <argument
+            android:name="ITEM_ID"
+            app:argType="integer" />
     </fragment>
 
     //

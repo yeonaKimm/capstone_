@@ -33,9 +33,9 @@ public class TaxiPrint_Recruit extends Fragment {
         String people = getPeopleFromDatabase(); // 탑승인원
 
         // 각 TextView에 데이터베이스에서 가져온 값 설정
-        binding.date.setText(date);
-        binding.time.setText(time);
-        binding.people.setText(people);
+        //binding.date.setText(date);
+        //binding.time.setText(time);
+        //binding.people.setText(people);
 
         // enter 클릭 시에 이 액션을 트리거하도록 설정함
         binding.enter.setOnClickListener(new View.OnClickListener() {

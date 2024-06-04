@@ -4,14 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.RecruitTaxilistBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -20,43 +18,46 @@ import java.util.List;
 
 public class TaxiList_Recruit extends Fragment {
 
-    private RecruitTaxilistBinding binding; // 바인딩변수 선언
-    private ListView listView;
-    private ArrayAdapter<String> adapter;
+    private RecruitTaxilistBinding binding;
     private TaxiRecruitDBHelper taxidbHelper;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = RecruitTaxilistBinding.inflate(inflater, container, false); // 바인딩 초기화
-        return binding.getRoot();
+        binding = RecruitTaxilistBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // UI 요소 초기화
-        listView = view.findViewById(R.id.listView);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
 
-        // 데이터베이스 헬퍼 초기화
-        taxidbHelper = new TaxiRecruitDBHelper(requireContext()); // requireContext()를 사용하여 Fragment의 Context를 가져옵니다.
+        taxidbHelper = new TaxiRecruitDBHelper(requireContext());
 
-        // 모든 게시글을 가져와서 리스트에 추가
-        List<String> taxisList = taxidbHelper.getAllTaxis();
+        List<TaxiList_Item_Recruit> taxisList = taxidbHelper.getAllTaxis();
 
-        // 어댑터를 사용하여 리스트에 데이터 연결
-        adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, taxisList);
+        // 변경된 부분: 어댑터 생성 시에 리스트와 OnItemClickListener를 전달
+        TaxiAdapter adapter = new TaxiAdapter(requireContext(), taxisList, new TaxiAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(TaxiList_Item_Recruit item) {
+                // 클릭 이벤트 처리
+            }
+        });
 
-        listView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);
 
-        // fab 클릭 시에 이 액션을 트리거하도록 설정
         FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // FAB를 클릭할 때 네비게이션 액션을 트리거하여 navigation_recruit_taxireg로 이동
                 Navigation.findNavController(v).navigate(R.id.action_navigation_recruit_taxilist_to_navigation_recruit_taxireg);
             }
         });

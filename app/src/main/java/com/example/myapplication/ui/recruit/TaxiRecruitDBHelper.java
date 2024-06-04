@@ -28,7 +28,6 @@ public class TaxiRecruitDBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    // 새로운 게시글을 추가하는 메서드 외부에서 호출할 수 있도록 public으로 지정합니다.
     public void insertTaxi(String date, String time, int people) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -39,9 +38,8 @@ public class TaxiRecruitDBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    // 모든 게시글을 조회하여 리스트로 반환하는 메서드입니다. 외부에서 호출할 수 있도록 public으로 지정합니다.
-    public List<String> getAllTaxis() {
-        List<String> taxisList = new ArrayList<>();
+    public List<TaxiList_Item_Recruit> getAllTaxis() {
+        List<TaxiList_Item_Recruit> taxisList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM taxis", null);
 
@@ -49,12 +47,12 @@ public class TaxiRecruitDBHelper extends SQLiteOpenHelper {
         int timeIndex = cursor.getColumnIndex("time");
         int peopleIndex = cursor.getColumnIndex("people");
 
-        if (dateIndex != -1 && timeIndex != -1 && peopleIndex != -1  && cursor.moveToFirst()) {
+        if (dateIndex != -1 && timeIndex != -1 && peopleIndex != -1 && cursor.moveToFirst()) {
             do {
                 String date = cursor.getString(dateIndex);
                 String time = cursor.getString(timeIndex);
                 int people = cursor.getInt(peopleIndex);
-                taxisList.add("\n" + "탑승날짜: " + date  + "\n탑승시간: " + time  + "\n탑승인원: " + people  + "\n");
+                taxisList.add(new TaxiList_Item_Recruit(date, time, people));
             } while (cursor.moveToNext());
         }
 

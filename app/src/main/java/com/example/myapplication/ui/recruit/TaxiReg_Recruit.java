@@ -93,7 +93,7 @@ public class TaxiReg_Recruit extends Fragment {
 
                 // NavController를 가져와서 이동
                 NavController navController = Navigation.findNavController(v);
-                navController.navigate(R.id.action_navigation_recruit_taxireg_to_navigation_recruit_taxiprint);
+                navController.navigate(R.id.action_navigation_recruit_taxireg_to_navigation_recruit_taxilist);
             }
         });
 
