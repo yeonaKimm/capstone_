@@ -39,6 +39,7 @@ public class Login extends AppCompatActivity {
         String keyHash = Utility.INSTANCE.getKeyHash(this);
         Log.d("Kakao Key Hash", keyHash);
 
+
         // 카카오톡 로그인 콜백
         Function2<OAuthToken, Throwable, Unit> callback = new Function2<OAuthToken, Throwable, Unit>() {
             @Override

@@ -430,11 +430,12 @@
             app:popUpToInclusive="false" />
     </fragment>
 
-    <!-- 마이페이지 설정 버튼 클릭 시 앱 설정으로 이동 -->
+
     <fragment
         android:id="@+id/navigation_mypage"
         android:name="com.example.myapplication.ui.mypage.MainActivity_Mypage"
         tools:layout="@layout/mypage_main">
+        <!-- 마이페이지 설정 버튼 클릭 시 앱 설정으로 이동 -->
         <action
             android:id="@+id/action_navigation_mypage_to_navigation_settings"
             app:destination="@id/navigation_settings" />
@@ -450,9 +451,13 @@
             app:destination="@id/navigation_accountInfo" />
     </fragment>
 
+    <!-- 내 정보 관리 화면 -->
     <fragment
         android:id="@+id/navigation_accountInfo"
         android:name="com.example.myapplication.ui.mypage.AccountInfo_Mypage"
-        tools:layout="@layout/mypage_accountinfo" />
+        tools:layout="@layout/mypage_accountinfo">
+    </fragment>
+
+
 
 </navigation>

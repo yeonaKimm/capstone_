@@ -1,6 +1,5 @@
 package com.example.myapplication.ui.Login;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.map.join_map;
@@ -74,27 +72,9 @@ public class SetNicknameActivity extends AppCompatActivity {
         });
 
         cancelButton.setOnClickListener(view -> {
-            showCancelDialog();
+            finish();
         });
 
         nextButton.setEnabled(nicknameEditText.getText().length() > 0);
-    }
-
-    private void showCancelDialog() {
-        new AlertDialog.Builder(this)
-                .setMessage("회원가입을 취소하시겠습니까?")
-                .setPositiveButton("예", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        deleteUserAndFinish();
-                    }
-                })
-                .setNegativeButton("아니오", null)
-                .show();
-    }
-
-    private void deleteUserAndFinish() {
-        databaseHelper.deleteUser(userId);
-        finish();
     }
 }

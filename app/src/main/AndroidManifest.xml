@@ -37,11 +37,15 @@
             android:name=".ui.mypage.AppSettings_Mypage"
             android:exported="false" />
 
+        <activity android:name=".ui.mypage.MainActivity_Mypage"/>
+
         <activity android:name=".MainActivity"/>
 
         <activity android:name=".ui.map.join_map"/>
 
+        <activity android:name=".ui.Login.DatabaseHelper"/>
 
+        <activity android:name=".ui.Login.SetNicknameActivity"/>
 
 
 
