@@ -28,7 +28,7 @@
         android:orientation="horizontal"
         android:padding="16dp" >
 
-        <!-- 공동구매 모집글 -->
+        <!-- 함께구매 모집글 -->
         <Button
             android:id="@+id/buy_bt"
             android:layout_width="0dp"
@@ -36,7 +36,7 @@
             android:layout_weight="1"
             android:layout_margin="10dp"
             android:drawableTop="@drawable/main_groupbuying_shadow"
-            android:text="공동구매"
+            android:text="함께구매"
             android:textSize="15sp"
             android:textStyle="bold"
             android:elevation="16dp"
@@ -54,7 +54,7 @@
             android:textStyle="bold"
             android:elevation="16dp"
             android:drawablePadding="-20dp" />
-        <!-- 무료나눔 모집글 -->
+        <!-- 서로나눔 모집글 -->
         <Button
             android:id="@+id/share_bt"
             android:layout_width="0dp"
@@ -62,7 +62,7 @@
             android:layout_weight="1"
             android:layout_margin="10dp"
             android:drawableTop="@drawable/main_sharing_shadow"
-            android:text="무료나눔"
+            android:text="서로나눔"
             android:textSize="15sp"
             android:textStyle="bold"
             android:elevation="16dp"

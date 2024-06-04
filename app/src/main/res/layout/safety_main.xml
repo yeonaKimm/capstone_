@@ -54,7 +54,7 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:drawableTop="@drawable/safety_callscreen_shadow"
-                android:text="통화화면"
+                android:text="사이렌"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:elevation="16dp"

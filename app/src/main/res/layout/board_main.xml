@@ -48,7 +48,7 @@
             android:layout_weight="1"
             android:layout_margin="10dp"
             android:drawableTop="@drawable/board_vote_shadow"
-            android:text="투표"
+            android:text="투표게시판"
             android:textSize="20sp"
             android:textStyle="bold"
             android:elevation="16dp"

@@ -1,21 +1,21 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="title_recruit">모집 홈</string>
-    <string name="title_recruit_buylist">공동구매 목록</string>
-    <string name="title_recruit_buyreg">공동구매글 작성</string>
-    <string name="title_recruit_buyprint">공동구매글 상세화면</string>
-    <string name="title_recruit_buyenter">공동구매</string>
+    <string name="title_recruit_buylist">함께구매 목록</string>
+    <string name="title_recruit_buyreg">함께구매글 작성</string>
+    <string name="title_recruit_buyprint">함께구매글 상세화면</string>
+    <string name="title_recruit_buyenter">함께구매</string>
 
-    <string name="title_recruit_sharelist">무료나눔 목록</string>
-    <string name="title_recruit_sharereg">나눔글 작성</string>
-    <string name="title_recruit_shareprint">나눔글 상세화면</string>
-    <string name="title_recruit_shareenter">무료나눔</string>
+    <string name="title_recruit_sharelist">서로나눔 목록</string>
+    <string name="title_recruit_sharereg">서로나눔글 작성</string>
+    <string name="title_recruit_shareprint">서로나눔글 상세화면</string>
+    <string name="title_recruit_shareenter">서로나눔</string>
 
     <string name="title_recruit_taxilist">함께택시 목록</string>
-    <string name="title_recruit_taxireg">택시모집글 작성</string>
+    <string name="title_recruit_taxireg">함께택시글 작성</string>
     <string name="title_recruit_taxiprint">함께택시 상세화면</string>
 
-    <string name="title_board">게시판</string>
+    <string name="title_board">도란도란</string>
     <string name="title_board_postlist">자유게시판</string>
     <string name="title_board_regform">자유글쓰기</string>
     <string name="title_board_printform">자유게시글 상세화면</string>
@@ -27,7 +27,7 @@
     <string name="title_safety">안전기능</string>
     <string name="title_safety_home">안전귀가</string>
     <string name="title_safety_calldisplay">통화화면</string>
-    <string name="title_safety_voice">음성지원</string>
+    <string name="title_safety_voice">보이스가드</string>
     <string name="title_safety_contact">비상연락망</string>
     <string name="title_safety_regform">새로운 연락처</string>
 
