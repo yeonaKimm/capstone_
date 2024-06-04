@@ -13,11 +13,10 @@ import androidx.navigation.Navigation;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.RecruitBuyprintBinding;
-import com.example.myapplication.ui.recruit.BuyRecruitDBHelper;
 
 public class BuyPrint_Recruit extends Fragment {
 
-    private RecruitBuyprintBinding binding; // 바인딩변수 선언
+    private RecruitBuyprintBinding binding;
 
     public static BuyPrint_Recruit newInstance() {
         return new BuyPrint_Recruit();
@@ -25,8 +24,21 @@ public class BuyPrint_Recruit extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        binding = RecruitBuyprintBinding.inflate(inflater, container, false); // 바인딩 초기화
+                             @Nullable Bundle savedInstanceState
+    ) {
+        binding = RecruitBuyprintBinding.inflate(inflater, container, false);
+
+        // 번들에서 전달된 데이터 가져오기
+        if (getArguments() != null) {
+            BuyList_Item_Recruit selectedItem = getArguments().getParcelable("selectedItem");
+            if (selectedItem != null) {
+                // UI 요소에 데이터 설정
+                binding.itemTopic.setText(selectedItem.getTopic());
+                //binding.itemContent.setText(selectedItem.getContent());
+                binding.itemPrice.setText(String.valueOf(selectedItem.getPrice()));
+                binding.itemPeople.setText(String.valueOf(selectedItem.getPeople()));
+            }
+        }
 
         // enter 클릭 시에 이 액션을 트리거하도록 설정함
         binding.enter.setOnClickListener(new View.OnClickListener() {

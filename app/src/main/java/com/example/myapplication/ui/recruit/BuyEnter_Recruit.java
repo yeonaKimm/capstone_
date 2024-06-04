@@ -27,6 +27,18 @@ public class BuyEnter_Recruit extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = RecruitBuyenterBinding.inflate(inflater, container, false); // 바인딩 초기화
 
+        // 번들에서 전달된 데이터 가져오기
+        if (getArguments() != null) {
+            BuyList_Item_Recruit selectedItem = getArguments().getParcelable("selectedItem");
+            if (selectedItem != null) {
+                // UI 요소에 데이터 설정
+                binding.itemTopic.setText(selectedItem.getTopic());
+                //binding.itemContent.setText(selectedItem.getContent());
+                binding.itemPrice.setText(String.valueOf(selectedItem.getPrice()));
+                binding.itemPeople.setText(String.valueOf(selectedItem.getPeople()));
+            }
+        }
+
         // enter 클릭 시에 이 액션을 트리거하도록 설정함
         binding.cancel.setOnClickListener(new View.OnClickListener() {
             @Override

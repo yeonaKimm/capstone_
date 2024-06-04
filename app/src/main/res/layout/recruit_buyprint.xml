@@ -16,7 +16,7 @@
         android:padding="10dp" >
 
         <ImageView
-            android:id="@+id/postImageView"
+            android:id="@+id/item_image"
             android:layout_width="match_parent"
             android:layout_height="340dp"
             android:src="@drawable/water"
@@ -92,7 +92,7 @@
             android:layout_marginBottom="5dp"/>
 
         <TextView
-            android:id="@+id/postTitleTextView"
+            android:id="@+id/item_topic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="생수 공구하실 분"
@@ -101,7 +101,7 @@
             android:layout_marginBottom="8dp" />
 
         <TextView
-            android:id="@+id/postContentTextView"
+            android:id="@+id/item_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="혼자 사기엔 너무 비싸고 양도 많아서 같이
@@ -110,7 +110,7 @@
             android:layout_marginBottom="8dp"/>
 
         <TextView
-            android:id="@+id/postContentTextView2"
+            android:id="@+id/item_people"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="구매처: https://www.coupang.com/"
@@ -136,7 +136,7 @@
             android:src="@drawable/ic_heart" />
 
         <TextView
-            android:id="@+id/price"
+            android:id="@+id/item_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"

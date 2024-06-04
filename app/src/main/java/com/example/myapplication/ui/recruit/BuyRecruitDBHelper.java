@@ -28,7 +28,6 @@ public class BuyRecruitDBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    // 새로운 게시글을 추가하는 메서드 외부에서 호출할 수 있도록 public으로 지정합니다.
     public void insertBuy(String topic, int price, int people, String content) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -41,8 +40,8 @@ public class BuyRecruitDBHelper extends SQLiteOpenHelper {
     }
 
     // 모든 게시글을 조회하여 리스트로 반환하는 메서드입니다. 외부에서 호출할 수 있도록 public으로 지정합니다.
-    public List<String> getAllBuys() {
-        List<String> buysList = new ArrayList<>();
+    public List<BuyList_Item_Recruit> getAllBuys() {
+        List<BuyList_Item_Recruit> buysList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM buys", null);
 
@@ -54,10 +53,10 @@ public class BuyRecruitDBHelper extends SQLiteOpenHelper {
         if (topicIndex != -1 && priceIndex != -1 && peopleIndex != -1 && contentIndex != -1 && cursor.moveToFirst()) {
             do {
                 String topic = cursor.getString(topicIndex);
+                String content = cursor.getString(contentIndex);
                 int price = cursor.getInt(priceIndex);
                 int people = cursor.getInt(peopleIndex);
-                String content = cursor.getString(contentIndex);
-                buysList.add("\n" + "제목: " + topic  + "\n가격: " + price  + "\n인원: " + people + "\n설명: " + content + "\n");
+                buysList.add(new BuyList_Item_Recruit(topic, price, people));
             } while (cursor.moveToNext());
         }
 
