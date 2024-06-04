@@ -3,15 +3,17 @@ package com.example.myapplication.ui.map;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
-
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.Login.DatabaseHelper;
@@ -24,17 +26,22 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import java.io.IOException;
+import java.util.List;
 
 public class join_map extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private FusedLocationProviderClient fusedLocationClient;
     private DatabaseHelper databaseHelper;
+    private Geocoder geocoder;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-    private LatLng currentLocation;
+    private LatLng selectedLocation;
     private int selectedRadius = 0;
     private Button confirmButton;
-    private Button button1km, button5km, button8km;
+    private Button button400m, button700m, button1km;
+    private EditText searchAddress;
+    private Button searchButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +50,14 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         databaseHelper = new DatabaseHelper(this);
+        geocoder = new Geocoder(this);
 
         confirmButton = findViewById(R.id.confirmButton);
+        button400m = findViewById(R.id.button400m);
+        button700m = findViewById(R.id.button700m);
         button1km = findViewById(R.id.button1km);
-        button5km = findViewById(R.id.button5km);
-        button8km = findViewById(R.id.button8km);
+        searchAddress = findViewById(R.id.searchAddress);
+        searchButton = findViewById(R.id.searchButton);
 
         confirmButton.setEnabled(false); // 초기에는 비활성화
 
@@ -57,27 +67,36 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback {
             mapFragment.getMapAsync(this);
         }
 
+        button400m.setOnClickListener(view -> {
+            selectedRadius = 400;
+            drawCircle(selectedRadius);
+            confirmButton.setEnabled(true); // 반경이 선택되면 활성화
+        });
+        button700m.setOnClickListener(view -> {
+            selectedRadius = 700;
+            drawCircle(selectedRadius);
+            confirmButton.setEnabled(true); // 반경이 선택되면 활성화
+        });
         button1km.setOnClickListener(view -> {
             selectedRadius = 1000;
             drawCircle(selectedRadius);
             confirmButton.setEnabled(true); // 반경이 선택되면 활성화
         });
-        button5km.setOnClickListener(view -> {
-            selectedRadius = 5000;
-            drawCircle(selectedRadius);
-            confirmButton.setEnabled(true); // 반경이 선택되면 활성화
-        });
-        button8km.setOnClickListener(view -> {
-            selectedRadius = 8000;
-            drawCircle(selectedRadius);
-            confirmButton.setEnabled(true); // 반경이 선택되면 활성화
-        });
 
         confirmButton.setOnClickListener(view -> {
-            if (currentLocation != null && selectedRadius > 0) {
+            if (selectedLocation != null && selectedRadius > 0) {
                 saveRadiusAndCompleteRegistration(selectedRadius);
             } else {
                 Log.e("join_map", "현재 위치나 반경이 설정되지 않았습니다.");
+            }
+        });
+
+        searchButton.setOnClickListener(view -> {
+            String address = searchAddress.getText().toString();
+            if (!address.isEmpty()) {
+                searchLocation(address);
+            } else {
+                Toast.makeText(join_map.this, "주소를 입력하세요.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -89,7 +108,6 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
-            getCurrentLocation();
         } else {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
@@ -97,40 +115,36 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback {
         }
     }
 
-    private void getCurrentLocation() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            try {
-                fusedLocationClient.getLastLocation()
-                        .addOnSuccessListener(this, location -> {
-                            if (location != null) {
-                                currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                                mMap.addMarker(new MarkerOptions().position(currentLocation).title("Current Location"));
-                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
-                                saveUserLocation(location.getLatitude(), location.getLongitude());
-                            }
-                        });
-            } catch (SecurityException e) {
-                e.printStackTrace();
+    private void searchLocation(String address) {
+        List<Address> addressList = null;
+        try {
+            addressList = geocoder.getFromLocationName(address, 10);
+            if (addressList != null && !addressList.isEmpty()) {
+                Address addressLocation = addressList.get(0);
+                selectedLocation = new LatLng(addressLocation.getLatitude(), addressLocation.getLongitude());
+                mMap.clear();
+                mMap.addMarker(new MarkerOptions().position(selectedLocation).title("Selected Location"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedLocation, 15));
+                saveUserLocation(addressLocation.getLatitude(), addressLocation.getLongitude());
+            } else {
+                Toast.makeText(this, "주소를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "주소 검색 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void saveUserLocation(double latitude, double longitude) {
-        String userId = getIntent().getStringExtra("USER_ID");
-        databaseHelper.updateUserLocation(userId, latitude, longitude);
-    }
-
     private void drawCircle(int radius) {
-        if (currentLocation != null) {
+        if (selectedLocation != null) {
             mMap.clear();
-            mMap.addMarker(new MarkerOptions().position(currentLocation).title("Current Location"));
+            mMap.addMarker(new MarkerOptions().position(selectedLocation).title("Selected Location"));
             mMap.addCircle(new CircleOptions()
-                    .center(currentLocation)
+                    .center(selectedLocation)
                     .radius(radius)
                     .strokeWidth(0f)
                     .fillColor(0x550000FF));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, getZoomLevel(radius)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedLocation, getZoomLevel(radius)));
         } else {
             Log.e("join_map", "현재 위치를 가져오지 못했습니다.");
         }
@@ -148,6 +162,11 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback {
         return zoomLevel;
     }
 
+    private void saveUserLocation(double latitude, double longitude) {
+        String userId = getIntent().getStringExtra("USER_ID");
+        databaseHelper.updateUserLocation(userId, latitude, longitude);
+    }
+
     private void saveRadiusAndCompleteRegistration(int radius) {
         String userId = getIntent().getStringExtra("USER_ID");
         // 반경과 가장 먼 거리값을 저장하는 로직
@@ -162,8 +181,11 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback {
             finish();
         } else {
             Log.e("join_map", "반경 정보를 저장하지 못했습니다.");
+            Toast.makeText(this, "반경 정보를 저장하지 못했습니다.", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -173,7 +195,6 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback {
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                         == PackageManager.PERMISSION_GRANTED) {
                     mMap.setMyLocationEnabled(true);
-                    getCurrentLocation();
                 }
             }
         }

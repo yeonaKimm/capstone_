@@ -3,8 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
     <!-- 로그인 버튼 -->
     <ImageView
         android:id="@+id/login"
@@ -16,8 +14,15 @@
         android:layout_marginBottom="30dp"
         />
 
-
-
-
+    <!-- 사용자 정보 삭제 버튼 -->
+    <Button
+        android:id="@+id/deleteUserButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="사용자 정보 삭제"
+        />
 
 </RelativeLayout>
