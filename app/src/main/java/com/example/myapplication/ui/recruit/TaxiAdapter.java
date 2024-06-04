@@ -1,12 +1,15 @@
 package com.example.myapplication.ui.recruit;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import java.util.List;
@@ -40,10 +43,21 @@ public class TaxiAdapter extends RecyclerView.Adapter<TaxiAdapter.TaxiViewHolder
         holder.itemDate.setText(item.getDate());
         holder.itemTime.setText(item.getTime());
         holder.itemPeople.setText(String.valueOf(item.getPeople()));
+
+        // 모집 버튼 클릭 이벤트 처리
         holder.recruitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClick(item);
+                // 클릭한 아이템 가져오기
+                TaxiList_Item_Recruit selectedItem = taxiList.get(holder.getAdapterPosition());
+
+                // 로그를 추가하여 데이터 확인
+                Log.d("TaxiAdapter", "Selected Item: Date=" + selectedItem.getDate() + ", Time=" + selectedItem.getTime() + ", People=" + selectedItem.getPeople());
+
+                // 상세 화면으로 이동하고 데이터 전달
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("selectedItem", selectedItem); // 선택한 항목 데이터를 번들에 담음
+                Navigation.findNavController(v).navigate(R.id.action_navigation_recruit_taxilist_to_navigation_recruit_taxiprint, bundle);
             }
         });
     }

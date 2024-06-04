@@ -45,6 +45,10 @@
             app:destination="@id/navigation_recruit_buyreg"
             app:popUpTo="@id/navigation_recruit_buyreg"
             app:popUpToInclusive="false" />
+        <!-- 함께택시 모집글 목록 화면에서 함께택시 상세 화면으로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_recruit_buylist_to_navigation_recruit_buyprint"
+            app:destination="@id/navigation_recruit_buyprint" />
     </fragment>
 
     <!-- 공동구매 모집글 등록 -->
@@ -73,6 +77,9 @@
             app:destination="@id/navigation_recruit_buyenter"
             app:popUpTo="@id/navigation_recruit_buyenter"
             app:popUpToInclusive="false" />
+        <argument
+            android:name="selectedItem"
+            app:argType="com.example.myapplication.ui.recruit.BuyList_Item_Recruit" />
     </fragment>
 
     <!-- 공동구매 모집글 참여하기-->
@@ -165,7 +172,6 @@
         <action
             android:id="@+id/action_navigation_recruit_taxilist_to_navigation_recruit_taxiprint"
             app:destination="@id/navigation_recruit_taxiprint" />
-
     </fragment>
 
 
@@ -195,8 +201,8 @@
             app:popUpTo="@id/navigation_recruit_taxilist"
             app:popUpToInclusive="false" />
         <argument
-            android:name="ITEM_ID"
-            app:argType="integer" />
+            android:name="selectedItem"
+            app:argType="com.example.myapplication.ui.recruit.TaxiList_Item_Recruit" />
     </fragment>
 
     //
