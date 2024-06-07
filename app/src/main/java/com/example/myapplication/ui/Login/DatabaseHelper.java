@@ -9,11 +9,9 @@ import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    // Database details
     private static final String DATABASE_NAME = "User.db";
     private static final String TABLE_NAME = "user_table";
 
-    // Table columns
     private static final String COL_1 = "ID";
     private static final String COL_2 = "EMAIL";
     private static final String COL_3 = "NAME";
@@ -27,6 +25,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_11 = "LONGITUDE";
     private static final String COL_12 = "RADIUS";
     private static final String COL_13 = "MAX_DISTANCE";
+    private static final String COL_14 = "RATING"; // New column for rating
+    private static final String COL_15 = "RECENT_REVIEW"; // New column for recent review
+    private static final String COL_16 = "REVIEW_DATE"; // New column for review date
 
     private static final String TAG = "DatabaseHelper";
 
@@ -37,7 +38,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         try {
-            db.execSQL("CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY, EMAIL TEXT, NAME TEXT, GENDER TEXT, AGE_RANGE TEXT, BIRTHYEAR TEXT, NICKNAME TEXT, PROFILE_PICTURE TEXT, RANK_ID INTEGER, LATITUDE REAL, LONGITUDE REAL, RADIUS INTEGER, MAX_DISTANCE REAL)");
+            db.execSQL("CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY, EMAIL TEXT, NAME TEXT, GENDER TEXT, AGE_RANGE TEXT, BIRTHYEAR TEXT, NICKNAME TEXT, PROFILE_PICTURE TEXT, RANK_ID INTEGER, LATITUDE REAL, LONGITUDE REAL, RADIUS INTEGER, MAX_DISTANCE REAL, RATING INTEGER, RECENT_REVIEW TEXT, REVIEW_DATE TEXT)");
         } catch (Exception e) {
             Log.e(TAG, "Error creating database", e);
         }
@@ -53,7 +54,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    // Insert user data
     public boolean insertUser(String id, String email, String name, String gender, String ageRange, String birthyear, String nickname, String profilePicture, String rankId) {
         SQLiteDatabase db = this.getWritableDatabase();
         try {
@@ -65,12 +65,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             contentValues.put(COL_5, ageRange);
             contentValues.put(COL_6, birthyear);
             contentValues.put(COL_7, nickname);
-            contentValues.put(COL_8, profilePicture != null ? profilePicture : "default_picture_url"); // 기본값 설정
+            contentValues.put(COL_8, profilePicture != null ? profilePicture : "default_picture_url");
             contentValues.put(COL_9, rankId);
-            contentValues.put(COL_10, 0); // Default value for latitude
-            contentValues.put(COL_11, 0); // Default value for longitude
-            contentValues.put(COL_12, 0); // Default value for radius
-            contentValues.put(COL_13, 0); // Default value for max_distance
+            contentValues.put(COL_10, 0);
+            contentValues.put(COL_11, 0);
+            contentValues.put(COL_12, 0);
+            contentValues.put(COL_13, 0);
+            contentValues.put(COL_14, 0); // Default value for rating
+            contentValues.put(COL_15, ""); // Default value for recent review
+            contentValues.put(COL_16, ""); // Default value for review date
 
             long result = db.insert(TABLE_NAME, null, contentValues);
             return result != -1;
@@ -78,11 +81,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Log.e(TAG, "Error inserting user", e);
             return false;
         } finally {
-            db.close(); // 데이터베이스 연결 닫기
+            db.close();
         }
     }
 
-    // Check if user exists
     public boolean isUserExists(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = null;
@@ -94,13 +96,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return false;
         } finally {
             if (res != null) {
-                res.close(); // 커서 닫기
+                res.close();
             }
-            db.close(); // 데이터베이스 연결 닫기
+            db.close();
         }
     }
 
-    // Update user location
     public boolean updateUserLocation(String id, double latitude, double longitude) {
         SQLiteDatabase db = this.getWritableDatabase();
         try {
@@ -113,11 +114,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Log.e(TAG, "Error updating user location", e);
             return false;
         } finally {
-            db.close(); // 데이터베이스 연결 닫기
+            db.close();
         }
     }
 
-    // Get user nickname
     public String getUserNickname(String userId) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = null;
@@ -132,13 +132,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return null;
         } finally {
             if (res != null) {
-                res.close(); // 커서 닫기
+                res.close();
             }
-            db.close(); // 데이터베이스 연결 닫기
+            db.close();
         }
     }
 
-    // Get user gender
     public String getUserGender(String userId) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = null;
@@ -153,13 +152,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return null;
         } finally {
             if (res != null) {
-                res.close(); // 커서 닫기
+                res.close();
             }
-            db.close(); // 데이터베이스 연결 닫기
+            db.close();
         }
     }
 
-    // Get user age range
     public String getUserAgeRange(String userId) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = null;
@@ -174,13 +172,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return null;
         } finally {
             if (res != null) {
-                res.close(); // 커서 닫기
+                res.close();
             }
-            db.close(); // 데이터베이스 연결 닫기
+            db.close();
         }
     }
 
-    // Update user nickname
     public boolean updateUserNickname(String id, String nickname) {
         SQLiteDatabase db = this.getWritableDatabase();
         try {
@@ -192,11 +189,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Log.e(TAG, "Error updating user nickname", e);
             return false;
         } finally {
-            db.close(); // 데이터베이스 연결 닫기
+            db.close();
         }
     }
 
-    // Update user radius and max distance
     public boolean updateUserRadius(String id, int radius, double maxDistance) {
         SQLiteDatabase db = this.getWritableDatabase();
         try {
@@ -204,16 +200,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             contentValues.put(COL_12, radius);
             contentValues.put(COL_13, maxDistance);
             int result = db.update(TABLE_NAME, contentValues, "ID = ?", new String[]{id});
+            Log.d(TAG, "Update Result: " + result);
             return result > 0;
         } catch (Exception e) {
             Log.e(TAG, "Error updating user radius", e);
             return false;
         } finally {
-            db.close(); // 데이터베이스 연결 닫기
+            db.close();
         }
     }
 
-    // Delete all users
     public void deleteAllUsers() {
         SQLiteDatabase db = this.getWritableDatabase();
         try {
@@ -221,9 +217,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } catch (Exception e) {
             Log.e(TAG, "Error deleting all users", e);
         } finally {
-            db.close(); // 데이터베이스 연결 닫기
+            db.close();
         }
     }
+
+    public Cursor getUserData(String userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE ID = ?", new String[]{userId});
+    }
 }
-
-

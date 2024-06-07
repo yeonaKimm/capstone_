@@ -169,7 +169,6 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback {
 
     private void saveRadiusAndCompleteRegistration(int radius) {
         String userId = getIntent().getStringExtra("USER_ID");
-        // 반경과 가장 먼 거리값을 저장하는 로직
         double maxDistance = radius;
         boolean isUpdated = databaseHelper.updateUserRadius(userId, radius, maxDistance);
         if (isUpdated) {
@@ -184,8 +183,6 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback {
             Toast.makeText(this, "반경 정보를 저장하지 못했습니다.", Toast.LENGTH_SHORT).show();
         }
     }
-
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
