@@ -170,6 +170,7 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback {
     private void saveRadiusAndCompleteRegistration(int radius) {
         String userId = getIntent().getStringExtra("USER_ID");
         double maxDistance = radius;
+        Log.d("join_map", "Saving radius for user: " + userId + ", radius: " + radius + ", maxDistance: " + maxDistance);
         boolean isUpdated = databaseHelper.updateUserRadius(userId, radius, maxDistance);
         if (isUpdated) {
             Log.d("join_map", "반경 정보가 저장되었습니다.");

@@ -47,20 +47,48 @@ public class Login extends AppCompatActivity {
             @Override
             public Unit invoke(OAuthToken oAuthToken, Throwable throwable) {
                 if (oAuthToken != null) {
-                    // 로그인 성공 시 로직
-                    if (isFirstLogin()) {
-                        Intent intent = new Intent(Login.this, SetNicknameActivity.class);
-                        startActivity(intent);
-                    } else {
-                        Intent intent = new Intent(Login.this, MainActivity.class);
-                        startActivity(intent);
-                    }
-                    finish();
+                    // 로그인 성공 시 사용자 정보 가져오기
+                    UserApiClient.getInstance().me((user, meError) -> {
+                        if (meError != null) {
+                            Log.e(TAG, "Failed to get user info", meError);
+                            runOnUiThread(() -> Toast.makeText(Login.this, "사용자 정보를 가져오는데 실패했습니다.", Toast.LENGTH_SHORT).show());
+                        } else if (user != null) {
+                            String userId = String.valueOf(user.getId());
+                            String email = user.getKakaoAccount().getEmail();
+                            String nickname = user.getKakaoAccount().getProfile().getNickname();
+                            String gender = user.getKakaoAccount().getGender() != null ? user.getKakaoAccount().getGender().toString() : "N/A";
+                            String ageRange = user.getKakaoAccount().getAgeRange() != null ? user.getKakaoAccount().getAgeRange().toString() : "N/A";
+                            String birthyear = user.getKakaoAccount().getBirthyear();
+                            String profileImageUrl = user.getKakaoAccount().getProfile().getProfileImageUrl();
+
+                            Log.d(TAG, "User ID: " + userId + ", Nickname: " + nickname + ", Gender: " + gender + ", Age Range: " + ageRange);
+
+                            // 사용자 정보 데이터베이스에 저장
+                            boolean isInserted = databaseHelper.insertUser(userId, email, nickname, gender, ageRange, birthyear, nickname, profileImageUrl, "1");
+
+                            if (isInserted) {
+                                Log.d(TAG, "User information inserted successfully");
+                            } else {
+                                Log.e(TAG, "Failed to insert user information");
+                            }
+
+                            // 다음 액티비티로 이동
+                            Intent intent;
+                            if (isFirstLogin()) {
+                                intent = new Intent(Login.this, SetNicknameActivity.class);
+                            } else {
+                                intent = new Intent(Login.this, MainActivity.class);
+                            }
+                            intent.putExtra("USER_ID", userId);
+                            startActivity(intent);
+                            finish();
+                        }
+                        return null;
+                    });
                 } else if (throwable instanceof ClientError && "Cancelled".equals(((ClientError) throwable).getReason())) {
                     Log.e(TAG, "Login cancelled by user.");
                 } else {
                     Log.e(TAG, "Login failed", throwable);
-                    // 로그인 실패 시 토스트 메시지 출력
                     runOnUiThread(() -> Toast.makeText(Login.this, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show());
                 }
                 return null;

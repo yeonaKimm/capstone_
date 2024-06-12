@@ -25,14 +25,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_11 = "LONGITUDE";
     private static final String COL_12 = "RADIUS";
     private static final String COL_13 = "MAX_DISTANCE";
-    private static final String COL_14 = "RATING"; // New column for rating
-    private static final String COL_15 = "RECENT_REVIEW"; // New column for recent review
-    private static final String COL_16 = "REVIEW_DATE"; // New column for review date
+    private static final String COL_14 = "RATING";
+    private static final String COL_15 = "RECENT_REVIEW";
+    private static final String COL_16 = "REVIEW_DATE";
 
     private static final String TAG = "DatabaseHelper";
 
     public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, 1);
+        super(context, DATABASE_NAME, null, 2); // 버전을 2로 올립니다.
     }
 
     @Override
@@ -47,8 +47,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         try {
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-            onCreate(db);
+            if (oldVersion < 2) {
+                db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN RATING INTEGER DEFAULT 0");
+                db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN RECENT_REVIEW TEXT DEFAULT ''");
+                db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN REVIEW_DATE TEXT DEFAULT ''");
+            }
         } catch (Exception e) {
             Log.e(TAG, "Error upgrading database", e);
         }
@@ -76,6 +79,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             contentValues.put(COL_16, ""); // Default value for review date
 
             long result = db.insert(TABLE_NAME, null, contentValues);
+            Log.d(TAG, "Insert User Result: " + result);
             return result != -1;
         } catch (Exception e) {
             Log.e(TAG, "Error inserting user", e);
@@ -199,6 +203,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             ContentValues contentValues = new ContentValues();
             contentValues.put(COL_12, radius);
             contentValues.put(COL_13, maxDistance);
+            Log.d(TAG, "Updating radius for ID: " + id + ", radius: " + radius + ", maxDistance: " + maxDistance);
             int result = db.update(TABLE_NAME, contentValues, "ID = ?", new String[]{id});
             Log.d(TAG, "Update Result: " + result);
             return result > 0;
@@ -214,6 +219,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         try {
             db.delete(TABLE_NAME, null, null);
+            Log.d(TAG, "All user data deleted");
         } catch (Exception e) {
             Log.e(TAG, "Error deleting all users", e);
         } finally {

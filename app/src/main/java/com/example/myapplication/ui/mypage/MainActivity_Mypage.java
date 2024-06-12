@@ -7,12 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.Login.DatabaseHelper;
@@ -32,6 +31,11 @@ public class MainActivity_Mypage extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.mypage_main, container, false);
 
+        // 툴바 숨기기
+        if (getActivity() != null && getActivity() instanceof AppCompatActivity) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        }
+
         databaseHelper = new DatabaseHelper(getContext());
 
         textViewNickname = view.findViewById(R.id.textViewNickname);
@@ -47,7 +51,10 @@ public class MainActivity_Mypage extends Fragment {
         star4 = view.findViewById(R.id.star4);
         star5 = view.findViewById(R.id.star5);
 
-        loadData();
+        String userId = getActivity().getIntent().getStringExtra("USER_ID");
+        if (userId != null) {
+            loadData(userId);
+        }
 
         view.findViewById(R.id.imageViewSettings).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,8 +66,16 @@ public class MainActivity_Mypage extends Fragment {
         return view;
     }
 
-    private void loadData() {
-        String userId = "1"; // 가정: 로그인된 사용자의 ID가 1이라고 가정
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // 툴바 보이기
+        if (getActivity() != null && getActivity() instanceof AppCompatActivity) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        }
+    }
+
+    private void loadData(String userId) {
         Cursor cursor = databaseHelper.getUserData(userId);
 
         if (cursor != null && cursor.moveToFirst()) {
@@ -73,13 +88,17 @@ public class MainActivity_Mypage extends Fragment {
             String profilePicture = getColumnString(cursor, "PROFILE_PICTURE");
 
             textViewNickname.setText(nickname);
-            textViewGenderAge.setText(gender.equals("여자") ? "♀ 여 · " : "♂ 남 · ");
+            textViewGenderAge.setText(gender.equals("FEMALE") ? "♀ 여 · " : "♂ 남 · ");
 
-            int age = Integer.parseInt(ageRange.split("~")[0]);
-            if (age >= 20 && age < 30) {
-                textViewAge.setText("20대");
-            } else if (age >= 30 && age < 40) {
-                textViewAge.setText("30대");
+            try {
+                int age = Integer.parseInt(ageRange.split("~")[0]);
+                if (age >= 20 && age < 30) {
+                    textViewAge.setText("20대");
+                } else if (age >= 30 && age < 40) {
+                    textViewAge.setText("30대");
+                }
+            } catch (NumberFormatException e) {
+                textViewAge.setText("연령대 정보 없음");
             }
 
             textViewAverageRating.setText("평균 " + rating + "점");
