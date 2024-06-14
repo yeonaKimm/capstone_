@@ -33,32 +33,64 @@
             android:paddingTop="16dp" >
 
             <!-- 안전귀가 -->
-            <Button
-                android:id="@+id/safety_bt"
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="170dp"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:drawableTop="@drawable/safety_returnhome_shadow"
-                android:text="안전귀가"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:elevation="16dp"
-                android:drawablePadding="-20dp" />
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical"
+                android:background="@drawable/custom_button_background"
+                android:elevation="10dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/safety_bt_icon"
+                    android:layout_width="120dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/safety_returnhome_shadow"
+                    android:layout_gravity="center"
+                    android:contentDescription="안전귀가"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="안전귀가"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
+            </LinearLayout>
 
             <!-- 통화화면 -->
-            <Button
-                android:id="@+id/call_bt"
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="170dp"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:drawableTop="@drawable/safety_callscreen_shadow"
-                android:text="사이렌"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:elevation="16dp"
-                android:drawablePadding="-20dp" />
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical"
+                android:background="@drawable/custom_button_background"
+                android:elevation="10dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/call_bt_icon"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/safety_callscreen_shadow"
+                    android:layout_gravity="center"
+                    android:contentDescription="사이렌"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="사이렌"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -72,32 +104,64 @@
             android:paddingBottom="16dp">
 
             <!-- 음성지원 -->
-            <Button
-                android:id="@+id/voice_bt"
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="170dp"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/safety_voice_shadow"
-                android:drawablePadding="-20dp"
-                android:elevation="16dp"
-                android:text="음성지원"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical"
+                android:background="@drawable/custom_button_background"
+                android:elevation="10dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/voice_bt_icon"
+                    android:layout_width="120dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/safety_voice_shadow"
+                    android:layout_gravity="center"
+                    android:contentDescription="음성지원"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="보이스가드"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
+            </LinearLayout>
 
             <!-- 비상연락처 -->
-            <Button
-                android:id="@+id/contact_bt"
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="170dp"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/safety_contact_shadow"
-                android:drawablePadding="-20dp"
-                android:elevation="16dp"
-                android:text="비상연락처"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical"
+                android:background="@drawable/custom_button_background"
+                android:elevation="10dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/contact_bt_icon"
+                    android:layout_width="115dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/safety_contact_shadow"
+                    android:layout_gravity="center"
+                    android:contentDescription="비상연락처"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="비상연락처"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -183,8 +247,7 @@
                     android:id="@+id/imageView2"
                     android:layout_width="136dp"
                     android:layout_height="125dp"
-                    android:layout_gravity="center_vertical
-"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginEnd="16dp"
                     android:src="@drawable/phone" />
 
@@ -199,7 +262,7 @@
                         android:id="@+id/titleTextView2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="통화화면"
+                        android:text="사이렌"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:layout_marginBottom="3dp"
@@ -210,7 +273,7 @@
                         android:id="@+id/contentTextView2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="사용자가 상대방과 통화하는듯한 화면을 지원합니다. 실제로 통화 기능이 구현되진 않습니다."
+                        android:text="활성화 버튼을 눌러 사이렌 소리를 재생할 수 있습니다. 잦은 소음으로 인한 문제는 책임질 수 없으니 위급 상황에서 사용하세요."
                         android:textColor="@color/material_dynamic_neutral20"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -264,7 +327,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="20dp">
 
                 <ImageView
                     android:id="@+id/imageView4"

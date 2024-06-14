@@ -26,36 +26,71 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="16dp" >
+        android:padding="16dp"
+        android:layout_marginBottom="20dp">
+
         <!-- 자유게시판 -->
-        <Button
-            android:id="@+id/free_bt"
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:drawableTop="@drawable/board_freeposting_shadow"
-            android:text="자유게시판"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:elevation="16dp"
-            android:drawablePadding="-20dp" />
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical"
+            android:backgroundTint="@color/light_gray"
+            android:background="@drawable/custom_button_background"
+            android:elevation="10dp"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/free_bt_icon"
+                android:layout_width="130dp"
+                android:layout_height="100dp"
+                android:src="@drawable/board_freeposting_shadow"
+                android:layout_gravity="center"
+                android:contentDescription="자유게시판"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="자유게시판"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:gravity="center" />
+        </LinearLayout>
+
         <!-- 투표게시판 -->
-        <Button
-            android:id="@+id/vote_bt"
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:drawableTop="@drawable/board_vote_shadow"
-            android:text="투표게시판"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical"
+            android:backgroundTint="@color/light_gray"
+            android:background="@drawable/custom_button_background"
             android:elevation="16dp"
-            android:drawablePadding="-20dp" />
+            android:gravity="center">
 
+            <ImageView
+                android:id="@+id/vote_bt_icon"
+                android:layout_width="130dp"
+                android:layout_height="100dp"
+                android:src="@drawable/board_vote_shadow"
+                android:layout_gravity="center"
+                android:contentDescription="투표게시판"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="투표게시판"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:gravity="center" />
+        </LinearLayout>
     </LinearLayout>
-
 
     <!-- 인기게시글 -->
     <LinearLayout
@@ -73,7 +108,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginLeft="10dp"
-            android:textColor="@android:color/black"  />
+            android:textColor="@android:color/black" />
 
         <TextView
             android:layout_width="match_parent"
@@ -99,8 +134,5 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"/>
-
     </RelativeLayout>
-
-
 </LinearLayout>
