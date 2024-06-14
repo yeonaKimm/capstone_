@@ -55,7 +55,8 @@
                 android:text="함께구매"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:gravity="center" />
+                android:gravity="center"
+                android:fontFamily="@font/nanumSquareRoundEB"/>
         </LinearLayout>
 
         <!-- 함께택시 모집글 -->
@@ -85,19 +86,20 @@
                 android:text="함께택시"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:gravity="center" />
+                android:gravity="center"
+                android:fontFamily="@font/nanumSquareRoundEB"/>
         </LinearLayout>
 
         <!-- 서로나눔 모집글 -->
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="143dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="1dp"
             android:layout_weight="1"
             android:background="@drawable/custom_button_background"
-
             android:backgroundTint="@color/light_gray"
-            android:elevation="3dp"
+            android:elevation="5dp"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="15dp">
@@ -106,8 +108,8 @@
                 android:id="@+id/share_bt_icon"
                 android:layout_width="90dp"
                 android:layout_height="78dp"
-                android:layout_marginTop="8dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="5dp"
                 android:contentDescription="서로나눔"
                 android:src="@drawable/main_sharing_shadow" />
 
@@ -116,9 +118,10 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="서로나눔"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="9dp"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:fontFamily="@font/nanumSquareRoundEB"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -133,11 +136,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="최근 모집글"
+            android:text="같이할래요?"
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginLeft="10dp"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:fontFamily="@font/nanumSquareRoundEB"/>
 
         <TextView
             android:layout_width="match_parent"

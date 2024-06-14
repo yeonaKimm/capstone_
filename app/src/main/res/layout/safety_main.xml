@@ -59,7 +59,9 @@
                     android:text="안전귀가"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/nanumSquareRoundEB"/>
             </LinearLayout>
 
             <!-- 통화화면 -->
@@ -89,7 +91,9 @@
                     android:text="사이렌"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/nanumSquareRoundEB"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -118,7 +122,7 @@
 
                 <ImageView
                     android:id="@+id/voice_bt_icon"
-                    android:layout_width="120dp"
+                    android:layout_width="110dp"
                     android:layout_height="100dp"
                     android:src="@drawable/safety_voice_shadow"
                     android:layout_gravity="center"
@@ -127,10 +131,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanumSquareRoundEB"
+                    android:gravity="center"
                     android:text="보이스가드"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:gravity="center" />
+                    android:layout_marginTop="5dp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <!-- 비상연락처 -->
@@ -160,7 +166,9 @@
                     android:text="비상연락처"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/nanumSquareRoundEB"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -178,7 +186,8 @@
                 android:text="안전기능이란?"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"
+                android:fontFamily="@font/nanumSquareRoundEB"/>
 
             <ImageView
                 android:layout_width="0dp"
