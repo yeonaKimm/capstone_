@@ -10,10 +10,14 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
+
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.Login.DatabaseHelper;
@@ -26,7 +30,15 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 public class join_map extends FragmentActivity implements OnMapReadyCallback {
@@ -42,11 +54,40 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback {
     private Button button400m, button700m, button1km;
     private EditText searchAddress;
     private Button searchButton;
+    private static final String TAG = "join_map";
+
+    private final ActivityResultLauncher<Intent> startAutocomplete = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    Intent intent = result.getData();
+                    if (intent != null) {
+                        Place place = Autocomplete.getPlaceFromIntent(intent);
+                        Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+                        selectedLocation = place.getLatLng();
+                        if (selectedLocation != null) {
+                            mMap.clear();
+                            mMap.addMarker(new MarkerOptions().position(selectedLocation).title(place.getName()));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedLocation, 15));
+                        }
+                    }
+                } else if (result.getResultCode() == AutocompleteActivity.RESULT_ERROR) {
+                    Log.i(TAG, "An error occurred");
+                } else if (result.getResultCode() == RESULT_CANCELED) {
+                    Log.i(TAG, "User canceled autocomplete");
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.join_map);
+
+        // Initialize the Places API with an API key
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
+        }
+        PlacesClient placesClient = Places.createClient(this);
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         databaseHelper = new DatabaseHelper(this);
@@ -87,18 +128,18 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback {
             if (selectedLocation != null && selectedRadius > 0) {
                 saveRadiusAndCompleteRegistration(selectedRadius);
             } else {
-                Log.e("join_map", "현재 위치나 반경이 설정되지 않았습니다.");
+                Log.e(TAG, "현재 위치나 반경이 설정되지 않았습니다.");
             }
         });
 
-        searchButton.setOnClickListener(view -> {
-            String address = searchAddress.getText().toString();
-            if (!address.isEmpty()) {
-                searchLocation(address);
-            } else {
-                Toast.makeText(join_map.this, "주소를 입력하세요.", Toast.LENGTH_SHORT).show();
-            }
-        });
+        searchButton.setOnClickListener(view -> openAutocompleteActivity());
+    }
+
+    private void openAutocompleteActivity() {
+        List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG);
+        Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields)
+                .build(this);
+        startAutocomplete.launch(intent);
     }
 
     @Override
@@ -115,26 +156,6 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback {
         }
     }
 
-    private void searchLocation(String address) {
-        List<Address> addressList = null;
-        try {
-            addressList = geocoder.getFromLocationName(address, 10);
-            if (addressList != null && !addressList.isEmpty()) {
-                Address addressLocation = addressList.get(0);
-                selectedLocation = new LatLng(addressLocation.getLatitude(), addressLocation.getLongitude());
-                mMap.clear();
-                mMap.addMarker(new MarkerOptions().position(selectedLocation).title("Selected Location"));
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedLocation, 15));
-                saveUserLocation(addressLocation.getLatitude(), addressLocation.getLongitude());
-            } else {
-                Toast.makeText(this, "주소를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "주소 검색 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     private void drawCircle(int radius) {
         if (selectedLocation != null) {
             mMap.clear();
@@ -146,7 +167,7 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback {
                     .fillColor(0x550000FF));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedLocation, getZoomLevel(radius)));
         } else {
-            Log.e("join_map", "현재 위치를 가져오지 못했습니다.");
+            Log.e(TAG, "현재 위치를 가져오지 못했습니다.");
         }
     }
 
@@ -170,17 +191,17 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback {
     private void saveRadiusAndCompleteRegistration(int radius) {
         String userId = getIntent().getStringExtra("USER_ID");
         double maxDistance = radius;
-        Log.d("join_map", "Saving radius for user: " + userId + ", radius: " + radius + ", maxDistance: " + maxDistance);
+        Log.d(TAG, "Saving radius for user: " + userId + ", radius: " + radius + ", maxDistance: " + maxDistance);
         boolean isUpdated = databaseHelper.updateUserRadius(userId, radius, maxDistance);
         if (isUpdated) {
-            Log.d("join_map", "반경 정보가 저장되었습니다.");
+            Log.d(TAG, "반경 정보가 저장되었습니다.");
             // 회원가입 완료 후 MainActivity로 이동
             Intent intent = new Intent(join_map.this, MainActivity.class);
             intent.putExtra("USER_ID", userId);
             startActivity(intent);
             finish();
         } else {
-            Log.e("join_map", "반경 정보를 저장하지 못했습니다.");
+            Log.e(TAG, "반경 정보를 저장하지 못했습니다.");
             Toast.makeText(this, "반경 정보를 저장하지 못했습니다.", Toast.LENGTH_SHORT).show();
         }
     }

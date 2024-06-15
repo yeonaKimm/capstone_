@@ -6,6 +6,7 @@
     android:orientation="vertical"
     tools:context=".ui.map.join_map">
 
+    <!-- 검색창 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,7 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Enter the Address" />
+            android:hint="원하는 장소를 검색하세요" />
 
         <Button
             android:id="@+id/searchButton"
