@@ -10,13 +10,20 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.RecruitBuyenterBinding;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BuyEnter_Recruit extends Fragment {
 
-    private RecruitBuyenterBinding binding; // 바인딩변수 선언
+    private RecruitBuyenterBinding binding;
+    private List<BuyCommentList_Item_Recruit> commentList;
+    private BuyCommentAdapter buycommentAdapter;
+    private BuyList_Item_Recruit selectedItem; // 추가: 선택된 아이템을 멤버 변수로 선언
 
     public static BuyEnter_Recruit newInstance() {
         return new BuyEnter_Recruit();
@@ -25,34 +32,51 @@ public class BuyEnter_Recruit extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = RecruitBuyenterBinding.inflate(inflater, container, false); // 바인딩 초기화
+        binding = RecruitBuyenterBinding.inflate(inflater, container, false);
 
         // 번들에서 전달된 데이터 가져오기
         if (getArguments() != null) {
-            BuyList_Item_Recruit selectedItem = getArguments().getParcelable("selectedItem");
+            selectedItem = getArguments().getParcelable("selectedItem");
             if (selectedItem != null) {
-                // UI 요소에 데이터 설정
                 binding.itemTopic.setText(selectedItem.getTopic());
-                //binding.itemContent.setText(selectedItem.getContent());
                 binding.itemPrice.setText(String.valueOf(selectedItem.getPrice()));
                 binding.itemPeople.setText(String.valueOf(selectedItem.getPeople()));
+                binding.itemContent.setText(selectedItem.getContent());
             }
         }
 
-        // enter 클릭 시에 이 액션을 트리거하도록 설정함
+        commentList = new ArrayList<>();
+        buycommentAdapter = new BuyCommentAdapter(commentList);
+        binding.commentRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.commentRecyclerView.setAdapter(buycommentAdapter);
+
+        binding.sendBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendComment();
+            }
+        });
+
         binding.cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // NavController를 가져옴
                 NavController navController = Navigation.findNavController(v);
-
-                // 액션을 트리거하여 navigation_recruit_buyprint로 이동
                 navController.navigate(R.id.action_navigation_recruit_buyenter_to_navigation_recruit_buyprint);
             }
         });
 
         return binding.getRoot();
+    }
+
+    private void sendComment() {
+        String commentContent = binding.commentET.getText().toString().trim();
+        if (!commentContent.isEmpty()) {
+            // 새로운 댓글을 생성하고 어댑터에 추가
+            BuyCommentList_Item_Recruit newComment = new BuyCommentList_Item_Recruit(commentContent);
+            commentList.add(newComment);
+            buycommentAdapter.notifyDataSetChanged();
+            binding.commentET.setText("");
+        }
     }
 
     @Override

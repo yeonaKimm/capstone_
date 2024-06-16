@@ -1,0 +1,67 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".ui.recruit.BuyCommentList_Item_Recruit"
+    android:layout_margin="10dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/edittext_line"
+        android:padding="16dp" >
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/ic_bokdak_round"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="12dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="새콤달콤"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:textAppearance="?attr/textAppearanceHeadline6" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3/31 19:51"
+                    android:layout_marginLeft="10dp"
+                    android:textAppearance="?attr/textAppearanceBody2" />
+
+                <ImageView
+                    android:id="@+id/MenuButton2"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_marginLeft="170dp"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_menu"
+                    android:scaleType="fitCenter" />
+
+            </LinearLayout>
+
+        <TextView
+            android:id="@+id/commentTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="저 같이 구매하고 싶어요"
+            android:textSize="18dp"
+            android:textAppearance="?attr/textAppearanceBody2" />
+
+
+    </LinearLayout>
+
+</LinearLayout>
