@@ -24,8 +24,7 @@ public class BuyPrint_Recruit extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState
-    ) {
+                             @Nullable Bundle savedInstanceState) {
         binding = RecruitBuyprintBinding.inflate(inflater, container, false);
 
         // 번들에서 전달된 데이터 가져오기
@@ -34,7 +33,7 @@ public class BuyPrint_Recruit extends Fragment {
             if (selectedItem != null) {
                 // UI 요소에 데이터 설정
                 binding.itemTopic.setText(selectedItem.getTopic());
-                //binding.itemContent.setText(selectedItem.getContent());
+                binding.itemContent.setText(selectedItem.getContent());
                 binding.itemPrice.setText(String.valueOf(selectedItem.getPrice()));
                 binding.itemPeople.setText(String.valueOf(selectedItem.getPeople()));
             }

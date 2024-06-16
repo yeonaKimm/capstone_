@@ -56,7 +56,7 @@ public class BuyRecruitDBHelper extends SQLiteOpenHelper {
                 String content = cursor.getString(contentIndex);
                 int price = cursor.getInt(priceIndex);
                 int people = cursor.getInt(peopleIndex);
-                buysList.add(new BuyList_Item_Recruit(topic, price, people));
+                buysList.add(new BuyList_Item_Recruit(topic, content, price, people));
             } while (cursor.moveToNext());
         }
 

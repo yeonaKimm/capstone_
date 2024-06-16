@@ -23,6 +23,7 @@ public class BuyEnter_Recruit extends Fragment {
     private RecruitBuyenterBinding binding;
     private List<BuyCommentList_Item_Recruit> commentList;
     private BuyCommentAdapter buycommentAdapter;
+    private BuyList_Item_Recruit selectedItem; // 추가: 선택된 아이템을 멤버 변수로 선언
 
     public static BuyEnter_Recruit newInstance() {
         return new BuyEnter_Recruit();
@@ -33,12 +34,14 @@ public class BuyEnter_Recruit extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = RecruitBuyenterBinding.inflate(inflater, container, false);
 
+        // 번들에서 전달된 데이터 가져오기
         if (getArguments() != null) {
-            BuyList_Item_Recruit selectedItem = getArguments().getParcelable("selectedItem");
+            selectedItem = getArguments().getParcelable("selectedItem");
             if (selectedItem != null) {
                 binding.itemTopic.setText(selectedItem.getTopic());
                 binding.itemPrice.setText(String.valueOf(selectedItem.getPrice()));
                 binding.itemPeople.setText(String.valueOf(selectedItem.getPeople()));
+                binding.itemContent.setText(selectedItem.getContent());
             }
         }
 
@@ -68,6 +71,7 @@ public class BuyEnter_Recruit extends Fragment {
     private void sendComment() {
         String commentContent = binding.commentET.getText().toString().trim();
         if (!commentContent.isEmpty()) {
+            // 새로운 댓글을 생성하고 어댑터에 추가
             BuyCommentList_Item_Recruit newComment = new BuyCommentList_Item_Recruit(commentContent);
             commentList.add(newComment);
             buycommentAdapter.notifyDataSetChanged();

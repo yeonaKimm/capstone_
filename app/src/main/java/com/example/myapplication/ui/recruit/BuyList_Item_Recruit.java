@@ -5,20 +5,20 @@ import android.os.Parcelable;
 
 public class BuyList_Item_Recruit implements Parcelable {
     private String topic;
-    //private String content;
+    private String content;
     private int price;
     private int people;
 
-    public BuyList_Item_Recruit(String topic, int price, int people) {
+    public BuyList_Item_Recruit(String topic, String content, int price, int people) {
         this.topic = topic;
-        //this.content = content;
+        this.content = content;
         this.price = price;
         this.people = people;
     }
 
     protected BuyList_Item_Recruit(Parcel in) {
         topic = in.readString();
-        //content = in.readString();
+        content = in.readString();
         price = in.readInt();
         people = in.readInt();
     }
@@ -39,9 +39,9 @@ public class BuyList_Item_Recruit implements Parcelable {
         return topic;
     }
 
-    //public String getContent() {
-      //  return content;
-    //}
+    public String getContent() {
+        return content;
+    }
 
     public int getPrice() {
         return price;
@@ -59,7 +59,7 @@ public class BuyList_Item_Recruit implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(topic);
-        //dest.writeString(content);
+        dest.writeString(content);
         dest.writeInt(price);
         dest.writeInt(people);
     }

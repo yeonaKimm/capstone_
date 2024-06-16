@@ -70,12 +70,13 @@ public class BuyAdapter extends RecyclerView.Adapter<BuyAdapter.BuyViewHolder> {
         //private TextView itemContent;
         private TextView itemPrice;
         private TextView itemPeople;
+        private TextView itemContent;
         private Button recruitButton;
 
         public BuyViewHolder(@NonNull View itemView) {
             super(itemView);
             itemTopic = itemView.findViewById(R.id.item_topic);
-            //itemContent = itemView.findViewById(R.id.item_content);
+            itemContent = itemView.findViewById(R.id.item_content);
             itemPrice = itemView.findViewById(R.id.item_price);
             itemPeople = itemView.findViewById(R.id.item_people);
             recruitButton = itemView.findViewById(R.id.recruit);
