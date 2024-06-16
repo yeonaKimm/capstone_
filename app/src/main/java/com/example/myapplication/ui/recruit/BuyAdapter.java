@@ -52,9 +52,6 @@ public class BuyAdapter extends RecyclerView.Adapter<BuyAdapter.BuyViewHolder> {
                 // 클릭한 아이템 가져오기
                 BuyList_Item_Recruit selectedItem = buyList.get(holder.getAdapterPosition());
 
-                // 로그를 추가하여 데이터 확인
-                //Log.d("BuyAdapter", "Selected Item: Topic=" + selectedItem.getTopic() + ", Content=\" + selectedItem.getContent() + \",price=" + selectedItem.getPrice() + ", People=" + selectedItem.getPeople());
-
                 // 상세 화면으로 이동하고 데이터 전달
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("selectedItem", selectedItem); // 선택한 항목 데이터를 번들에 담음
