@@ -67,7 +67,6 @@ public class BuyAdapter extends RecyclerView.Adapter<BuyAdapter.BuyViewHolder> {
 
     public static class BuyViewHolder extends RecyclerView.ViewHolder {
         private TextView itemTopic;
-        //private TextView itemContent;
         private TextView itemPrice;
         private TextView itemPeople;
         private TextView itemContent;

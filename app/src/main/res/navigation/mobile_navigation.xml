@@ -59,9 +59,9 @@
         tools:layout="@layout/recruit_buyreg" >
         <!-- 공동구매 폼 등록 화면에서 공동구매 폼 출력 화면으로 이동하는 액션 -->
         <action
-            android:id="@+id/action_navigation_recruit_buyreg_to_navigation_recruit_buyprint"
-            app:destination="@id/navigation_recruit_buyprint"
-            app:popUpTo="@id/navigation_recruit_buyprint"
+            android:id="@+id/action_navigation_recruit_buyreg_to_navigation_recruit_buylist"
+            app:destination="@id/navigation_recruit_buylist"
+            app:popUpTo="@id/navigation_recruit_buylist"
             app:popUpToInclusive="false" />
     </fragment>
 
