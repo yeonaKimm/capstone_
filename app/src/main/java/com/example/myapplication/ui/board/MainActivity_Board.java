@@ -101,12 +101,12 @@ public class MainActivity_Board extends Fragment {
 
         // 모든 게시글을 가져와서 리스트에 추가
         List<String> postsList = boardDBHelper.getAllPosts();
-        List<String> votesList = voteDBHelper.getAllVotes();
+        //List<String> votesList = voteDBHelper.getAllVotes();
 
         // 두 리스트를 합치기 위해 하나의 리스트로 결합
         List<String> combinedList = new ArrayList<>();
         combinedList.addAll(postsList);
-        combinedList.addAll(votesList);
+        //combinedList.addAll(votesList);
 
         // 어댑터를 사용하여 리스트에 데이터 연결
         adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, combinedList);

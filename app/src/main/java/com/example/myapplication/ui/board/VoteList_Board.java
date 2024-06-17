@@ -4,13 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.BoardVotelistBinding;
@@ -21,8 +21,6 @@ import java.util.List;
 public class VoteList_Board extends Fragment {
 
     private BoardVotelistBinding binding; // 바인딩변수 선언
-    private ListView votelistView;
-    private ArrayAdapter<String> adapter;
     private VoteDBHelper voteDBHelper;
 
     @Nullable
@@ -30,25 +28,32 @@ public class VoteList_Board extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = BoardVotelistBinding.inflate(inflater, container, false); // 바인딩 초기화
-        return binding.getRoot();
+        View view = binding.getRoot();
+
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // UI 요소 초기화
-        votelistView = view.findViewById(R.id.vote_listView);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
 
-        // 데이터베이스 헬퍼 초기화
         voteDBHelper = new VoteDBHelper(requireContext()); // requireContext()를 사용하여 Fragment의 Context를 가져옵니다.
 
-        // 모든 게시글을 가져와서 리스트에 추가
-        List<String> votesList = voteDBHelper.getAllVotes();
+        List<VoteList_Item_Board> votesList = voteDBHelper.getAllVotes();
 
-        // 어댑터를 사용하여 리스트에 데이터 연결
-        adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, votesList);
-        votelistView.setAdapter(adapter);
+        VoteAdapter adapter = new VoteAdapter(requireContext(), votesList, new VoteAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(VoteList_Item_Board item) {
+                // 클릭 이벤트 처리
+            }
+        });
+
+        recyclerView.setAdapter(adapter);
 
         // fab 클릭 시에 이 액션을 트리거하도록 설정
         FloatingActionButton fab = view.findViewById(R.id.fab);

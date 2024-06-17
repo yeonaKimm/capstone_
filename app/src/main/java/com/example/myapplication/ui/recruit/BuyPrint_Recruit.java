@@ -13,6 +13,8 @@ import androidx.navigation.Navigation;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.RecruitBuyprintBinding;
+import com.bumptech.glide.Glide;
+import com.example.myapplication.R;
 
 public class BuyPrint_Recruit extends Fragment {
 
@@ -36,6 +38,13 @@ public class BuyPrint_Recruit extends Fragment {
                 binding.itemContent.setText(selectedItem.getContent());
                 binding.itemPrice.setText(String.valueOf(selectedItem.getPrice()));
                 binding.itemPeople.setText(String.valueOf(selectedItem.getPeople()));
+
+                // Glide를 사용하여 이미지 로드
+                Glide.with(requireContext())
+                        .load(selectedItem.getImageUri())
+                        .placeholder(R.drawable.ic_image) // 로딩 중 이미지
+                        .error(R.drawable.ic_error) // 오류 시 이미지
+                        .into(binding.itemImage);
             }
         }
 
