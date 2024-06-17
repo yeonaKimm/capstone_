@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.googleAndroidLibrariesMapsplatformSecretsGradlePlugin)
+
 }
 
 android {
@@ -52,6 +53,7 @@ dependencies {
     implementation("com.google.android.gms:play-services-location:21.2.0")
     implementation("com.google.android.libraries.places:places:2.5.0")
     implementation("com.android.support:multidex:1.0.3" )
+    implementation("com.google.android.material:material:1.4.0")
 
 
     // Glide 라이브러리 추가

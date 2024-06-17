@@ -73,11 +73,12 @@
                 android:id="@+id/imageViewProfile"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@mipmap/ic_bokdak_round"
+                android:src="@drawable/grade_babe"
                 android:layout_gravity="center_vertical"
                 android:scaleType="centerCrop"
                 android:background="@drawable/circle_shape"
                 android:clipToOutline="true"/>
+
 
             <LinearLayout
                 android:layout_width="0dp"

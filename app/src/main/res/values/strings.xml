@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">My Application</string>
-    <string name="title_recruit">모집 홈</string>
+    <string name="app_name">복닥복닥</string>
+    <string name="title_recruit">복닥복닥 홈</string>
     <string name="title_recruit_buylist">함께구매 목록</string>
     <string name="title_recruit_buyreg">함께구매글 작성</string>
     <string name="title_recruit_buyprint">함께구매글 상세화면</string>
@@ -38,5 +38,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="kakao_app_key">2ebe3d860e1ba4cf162c32dda83084d6</string>
+    <string name="google_maps_key" translatable="false">AIzaSyDQXQ2WJtKgfrat_vjszwT5MzDxN5XwEa0</string>
     <string name="title_activity_join_map">join_map</string>
 </resources>
