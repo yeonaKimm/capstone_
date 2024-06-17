@@ -1,15 +1,9 @@
 package com.example.myapplication.ui.map;
 
 import android.content.Context;
-import android.graphics.Typeface;
-import android.text.style.CharacterStyle;
-import android.text.style.StyleSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,53 +15,33 @@ import com.google.android.libraries.places.api.model.AutocompletePrediction;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlaceAutocompleteAdapter extends RecyclerView.Adapter<PlaceAutocompleteAdapter.PlaceViewHolder> implements Filterable {
+public class PlaceAutocompleteAdapter extends RecyclerView.Adapter<PlaceAutocompleteAdapter.PlaceViewHolder> {
+
     public interface PlaceAutoCompleteInterface {
         void onPlaceClick(ArrayList<PlaceAutocomplete> resultList, int position);
     }
 
+    private List<AutocompletePrediction> resultList = new ArrayList<>();
     private Context context;
+    private int layout;
     private PlaceAutoCompleteInterface listener;
-    private static final CharacterStyle STYLE_BOLD = new StyleSpan(Typeface.BOLD);
-    private ArrayList<PlaceAutocomplete> resultList;
-    private LayoutInflater layoutInflater;
 
-    public PlaceAutocompleteAdapter(Context context, int resource, PlaceAutoCompleteInterface listener) {
+    public PlaceAutocompleteAdapter(Context context, int layout, PlaceAutoCompleteInterface listener) {
         this.context = context;
+        this.layout = layout;
         this.listener = listener;
-        this.resultList = new ArrayList<>();
-        this.layoutInflater = LayoutInflater.from(context);
-    }
-
-    public void setResults(List<AutocompletePrediction> predictions) {
-        resultList.clear();
-        for (AutocompletePrediction prediction : predictions) {
-            resultList.add(new PlaceAutocomplete(prediction.getPlaceId(), prediction.getFullText(null).toString()));
-        }
-        notifyDataSetChanged();
-    }
-
-    public void clearList() {
-        resultList.clear();
-        notifyDataSetChanged();
-    }
-
-    @Override
-    public Filter getFilter() {
-        // Autocomplete filter implementation
-        return null;
     }
 
     @Override
     public PlaceViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View convertView = layoutInflater.inflate(R.layout.item_search, parent, false);
+        View convertView = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
         return new PlaceViewHolder(convertView);
     }
 
     @Override
     public void onBindViewHolder(PlaceViewHolder holder, final int position) {
-        holder.address.setText(resultList.get(position).description);
-        holder.parentLayout.setOnClickListener(v -> listener.onPlaceClick(resultList, position));
+        holder.address.setText(resultList.get(position).getFullText(null));
+        holder.predictedRow.setOnClickListener(v -> listener.onPlaceClick(getPlaceAutocompleteList(), position));
     }
 
     @Override
@@ -75,18 +49,27 @@ public class PlaceAutocompleteAdapter extends RecyclerView.Adapter<PlaceAutocomp
         return resultList.size();
     }
 
-    public PlaceAutocomplete getItem(int position) {
-        return resultList.get(position);
+    public void setPredictionList(List<AutocompletePrediction> predictionList) {
+        this.resultList = predictionList;
+        notifyDataSetChanged();
     }
 
-    public static class PlaceViewHolder extends RecyclerView.ViewHolder {
-        public RelativeLayout parentLayout;
+    private ArrayList<PlaceAutocomplete> getPlaceAutocompleteList() {
+        ArrayList<PlaceAutocomplete> placeAutocompletes = new ArrayList<>();
+        for (AutocompletePrediction prediction : resultList) {
+            placeAutocompletes.add(new PlaceAutocomplete(prediction.getPlaceId(), prediction.getFullText(null)));
+        }
+        return placeAutocompletes;
+    }
+
+    public class PlaceViewHolder extends RecyclerView.ViewHolder {
         public TextView address;
+        public RelativeLayout predictedRow;
 
         public PlaceViewHolder(View itemView) {
             super(itemView);
-            parentLayout = itemView.findViewById(R.id.predictedRow);
             address = itemView.findViewById(R.id.tv_address);
+            predictedRow = itemView.findViewById(R.id.predicteRow);
         }
     }
 

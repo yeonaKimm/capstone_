@@ -48,7 +48,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyA8OrQ6D5TlE7lgxBn42cr3VOWi4H0YoI4" /> <!-- 구글맵 API -->
+            android:value="AIzaSyDQXQ2WJtKgfrat_vjszwT5MzDxN5XwEa0" /> <!-- 구글맵 API -->
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="2ebe3d860e1ba4cf162c32dda83084d6" /> <!-- 카카오 로그인 -->
