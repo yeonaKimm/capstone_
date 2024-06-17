@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
+import com.example.myapplication.ui.Login.DatabaseHelper;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -57,6 +58,11 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback, Pl
     private Marker currentMarker;
     private Circle currentCircle;
     private boolean radiusSet = false;
+    private Button confirmButton;
+    private LatLng selectedLocation;
+    private int selectedRadius;
+    private DatabaseHelper databaseHelper;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +75,7 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback, Pl
         searchAddress = findViewById(R.id.searchAddress);
         recyclerView = findViewById(R.id.recycler_view);
         clearButton = findViewById(R.id.clearButton);
+        confirmButton = findViewById(R.id.confirmButton);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         adapter = new PlaceAutocompleteAdapter(this, R.layout.item_search, this);
@@ -114,22 +121,32 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback, Pl
                 currentCircle = null;
             }
             radiusSet = false;
-            findViewById(R.id.confirmButton).setEnabled(false);
+            confirmButton.setEnabled(false);
         });
 
         findViewById(R.id.button400m).setOnClickListener(v -> setRadius(400));
         findViewById(R.id.button700m).setOnClickListener(v -> setRadius(700));
         findViewById(R.id.button1km).setOnClickListener(v -> setRadius(1000));
 
-        findViewById(R.id.confirmButton).setOnClickListener(v -> {
+        confirmButton.setOnClickListener(v -> {
             if (radiusSet) {
-                Intent intent = new Intent(join_map.this, MainActivity.class);
-                startActivity(intent);
-                finish(); // Optionally finish this activity if you don't want the user to return to it.
+                double maxDistance = selectedRadius;
+                if (databaseHelper.updateUserLocationAndRadius(userId, selectedLocation.latitude, selectedLocation.longitude, selectedRadius, maxDistance)) {
+                    Toast.makeText(this, "반경이 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(join_map.this, MainActivity.class);
+                    intent.putExtra("USER_ID", userId);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(this, "반경 저장에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                }
             } else {
                 Toast.makeText(this, "Please select a radius first.", Toast.LENGTH_SHORT).show();
             }
         });
+
+        databaseHelper = new DatabaseHelper(this);
+        userId = getIntent().getStringExtra("USER_ID");
     }
 
     @Override
@@ -160,7 +177,7 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback, Pl
     }
 
     @Override
-    public void onPlaceClick(ArrayList<PlaceAutocompleteAdapter.PlaceAutocomplete> resultList, int position) {
+    public void onPlaceClick(ArrayList<AutocompletePrediction> resultList, int position) {
         if (position >= resultList.size()) {
             Log.e(TAG, "Invalid place selected: " + position);
             Toast.makeText(this, "Invalid place selected", Toast.LENGTH_SHORT).show();
@@ -168,9 +185,8 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback, Pl
             return;
         }
 
-        PlaceAutocompleteAdapter.PlaceAutocomplete item = resultList.get(position);
-        String placeId = item.placeId.toString();
-        Log.d(TAG, "Selected Place ID: " + placeId);  // 로그 추가
+        AutocompletePrediction item = resultList.get(position);
+        String placeId = item.getPlaceId();
 
         FetchPlaceRequest request = FetchPlaceRequest.builder(placeId, Arrays.asList(Place.Field.LAT_LNG, Place.Field.NAME)).build();
         placesClient.fetchPlace(request).addOnSuccessListener(response -> {
@@ -190,6 +206,10 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback, Pl
 
                     currentMarker = mMap.addMarker(new MarkerOptions().position(latLng).title(place.getName()));
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+
+                    selectedLocation = latLng;
+                    radiusSet = false;
+                    confirmButton.setEnabled(false);
                 }
             } else {
                 Log.e(TAG, "Place details not found.");
@@ -213,10 +233,23 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback, Pl
                     .radius(radius)
                     .strokeColor(Color.RED)
                     .fillColor(Color.argb(50, 255, 0, 0)));
+            selectedRadius = radius;
             radiusSet = true;
-            findViewById(R.id.confirmButton).setEnabled(true);
+            confirmButton.setEnabled(true);
         } else {
             Toast.makeText(this, "Please select a place first.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    mMap.setMyLocationEnabled(true);
+                }
+            }
         }
     }
 }

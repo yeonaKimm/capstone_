@@ -31,6 +31,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TAG = "DatabaseHelper";
 
+    private static final String POSTS_TABLE_NAME = "posts_table";
+    private static final String POSTS_COL_LATITUDE = "LATITUDE";
+    private static final String POSTS_COL_LONGITUDE = "LONGITUDE";
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 2); // 버전을 2로 올립니다.
     }
@@ -39,6 +43,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         try {
             db.execSQL("CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY, EMAIL TEXT, NAME TEXT, GENDER TEXT, AGE_RANGE TEXT, BIRTHYEAR TEXT, NICKNAME TEXT, PROFILE_PICTURE TEXT, RANK_ID INTEGER, LATITUDE REAL, LONGITUDE REAL, RADIUS INTEGER, MAX_DISTANCE REAL, RATING INTEGER, RECENT_REVIEW TEXT, REVIEW_DATE TEXT)");
+            // Posts table creation if necessary
+            db.execSQL("CREATE TABLE " + POSTS_TABLE_NAME + " (ID INTEGER PRIMARY KEY, LATITUDE REAL, LONGITUDE REAL, TITLE TEXT, CONTENT TEXT)");
         } catch (Exception e) {
             Log.e(TAG, "Error creating database", e);
         }
@@ -116,6 +122,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return result > 0;
         } catch (Exception e) {
             Log.e(TAG, "Error updating user location", e);
+            return false;
+        } finally {
+            db.close();
+        }
+    }
+
+    public boolean updateUserLocationAndRadius(String id, double latitude, double longitude, int radius, double maxDistance) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        try {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(COL_10, latitude);
+            contentValues.put(COL_11, longitude);
+            contentValues.put(COL_12, radius);
+            contentValues.put(COL_13, maxDistance);
+            int result = db.update(TABLE_NAME, contentValues, "ID = ?", new String[]{id});
+            return result > 0;
+        } catch (Exception e) {
+            Log.e(TAG, "Error updating user location and radius", e);
             return false;
         } finally {
             db.close();
@@ -230,5 +254,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getUserData(String userId) {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE ID = ?", new String[]{userId});
+    }
+
+    // Method to get posts within a certain distance from a location
+    public Cursor getPostsInRange(double latitude, double longitude, double radius) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        double latMin = latitude - Math.toDegrees(radius / 6371.0); // 6371 is the radius of the Earth in kilometers
+        double latMax = latitude + Math.toDegrees(radius / 6371.0);
+        double lonMin = longitude - Math.toDegrees(radius / (6371.0 * Math.cos(Math.toRadians(latitude))));
+        double lonMax = longitude + Math.toDegrees(radius / (6371.0 * Math.cos(Math.toRadians(latitude))));
+
+        String query = "SELECT * FROM " + POSTS_TABLE_NAME + " WHERE " +
+                POSTS_COL_LATITUDE + " BETWEEN ? AND ? AND " +
+                POSTS_COL_LONGITUDE + " BETWEEN ? AND ?";
+        String[] args = {String.valueOf(latMin), String.valueOf(latMax), String.valueOf(lonMin), String.valueOf(lonMax)};
+
+        return db.rawQuery(query, args);
     }
 }

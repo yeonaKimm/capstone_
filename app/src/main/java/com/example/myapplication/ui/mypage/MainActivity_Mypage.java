@@ -13,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.Login.DatabaseHelper;
 
@@ -51,7 +54,7 @@ public class MainActivity_Mypage extends Fragment {
         star4 = view.findViewById(R.id.star4);
         star5 = view.findViewById(R.id.star5);
 
-        String userId = getActivity().getIntent().getStringExtra("USER_ID");
+        String userId = ((MainActivity) getActivity()).getUserId();
         if (userId != null) {
             loadData(userId);
         }
@@ -65,7 +68,6 @@ public class MainActivity_Mypage extends Fragment {
 
         return view;
     }
-
 
     @Override
     public void onDestroyView() {
@@ -87,21 +89,11 @@ public class MainActivity_Mypage extends Fragment {
             String recentReview = getColumnString(cursor, "RECENT_REVIEW");
             String reviewDate = getColumnString(cursor, "REVIEW_DATE");
             String profilePicture = getColumnString(cursor, "PROFILE_PICTURE");
+            int rankId = getColumnInt(cursor, "RANK_ID");
 
             textViewNickname.setText(nickname);
             textViewGenderAge.setText(gender.equals("FEMALE") ? "♀ 여 · " : "♂ 남 · ");
-
-            try {
-                int age = Integer.parseInt(ageRange.split("~")[0]);
-                if (age >= 20 && age < 30) {
-                    textViewAge.setText("20대");
-                } else if (age >= 30 && age < 40) {
-                    textViewAge.setText("30대");
-                }
-            } catch (NumberFormatException e) {
-                textViewAge.setText("연령대 정보 없음");
-            }
-
+            textViewAge.setText(getAgeRangeDisplayText(ageRange));
             textViewAverageRating.setText("평균 " + rating + "점");
 
             if (recentReview != null && !recentReview.isEmpty()) {
@@ -117,17 +109,65 @@ public class MainActivity_Mypage extends Fragment {
             }
 
             setStarRating(rating);
-
-            if (profilePicture != null && !profilePicture.isEmpty()) {
-                Glide.with(this).load(profilePicture).into(imageViewProfile);
-            } else {
-                imageViewProfile.setImageResource(R.drawable.grade_babe);
-            }
+            setProfileImage(profilePicture, rankId);
         }
 
         if (cursor != null) {
             cursor.close();
         }
+    }
+
+    private String getAgeRangeDisplayText(String ageRange) {
+        switch (ageRange) {
+            case "AGE_10_19":
+                return "10대";
+            case "AGE_20_29":
+                return "20대";
+            case "AGE_30_39":
+                return "30대";
+            case "AGE_40_49":
+                return "40대";
+            case "AGE_50_59":
+                return "50대";
+            case "AGE_60_69":
+                return "60대";
+            case "AGE_70_79":
+                return "70대";
+            case "AGE_80_89":
+                return "80대";
+            case "AGE_90_99":
+                return "90대";
+            default:
+                return "연령대 정보 없음";
+        }
+    }
+
+    private void setProfileImage(String profilePicture, int rankId) {
+        int defaultImageResId;
+        switch (rankId) {
+            case 2:
+                defaultImageResId = R.drawable.grade_black;
+                break;
+            case 3:
+                defaultImageResId = R.drawable.grade_nobility;
+                break;
+            case 4:
+                defaultImageResId = R.drawable.grade_king;
+                break;
+            case 1:
+            default:
+                defaultImageResId = R.drawable.grade_babe;
+                break;
+        }
+
+        RequestOptions requestOptions = new RequestOptions()
+                .error(defaultImageResId)
+                .fallback(defaultImageResId);
+
+        Glide.with(this)
+                .load(profilePicture)
+                .apply(requestOptions)
+                .into(imageViewProfile);
     }
 
     private String getColumnString(Cursor cursor, String columnName) {
