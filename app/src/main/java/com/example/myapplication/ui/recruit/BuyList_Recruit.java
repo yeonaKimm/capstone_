@@ -47,7 +47,6 @@ public class BuyList_Recruit extends Fragment {
 
         List<BuyList_Item_Recruit> buysList = buydbHelper.getAllBuys();
 
-        // 변경된 부분: 어댑터 생성 시에 리스트와 OnItemClickListener를 전달
         BuyAdapter adapter = new BuyAdapter(requireContext(), buysList, new BuyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BuyList_Item_Recruit item) {

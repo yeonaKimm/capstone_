@@ -302,6 +302,12 @@
             app:destination="@id/navigation_board_votereg"
             app:popUpTo="@id/navigation_board_votelist"
             app:popUpToInclusive="false" />
+        <!-- 투표글 목록 화면에서 상세화면으로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_board_votelist_to_navigation_board_voteprint"
+            app:destination="@id/navigation_board_voteprint"
+            app:popUpTo="@id/navigation_board_votelist"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <!-- 투표 등록 폼 화면 -->
@@ -311,10 +317,10 @@
         android:label="@string/title_board_votereg"
         tools:layout="@layout/board_votereg" >
 
-        <!-- 투표등록 폼 화면에서 출력 폼으로 이동하는 액션 -->
+        <!-- 투표등록 폼 화면에서 리스트로 이동하는 액션 -->
         <action
-            android:id="@+id/action_navigation_board_votereg_to_navigation_board_voteprint"
-            app:destination="@id/navigation_board_voteprint"
+            android:id="@+id/action_navigation_board_votereg_to_navigation_board_votelist"
+            app:destination="@id/navigation_board_votelist"
             app:popUpTo="@id/navigation_board_votelist"
             app:popUpToInclusive="false"/>
     </fragment>

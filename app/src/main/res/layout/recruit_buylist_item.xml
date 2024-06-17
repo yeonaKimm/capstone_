@@ -100,8 +100,7 @@
                 android:id="@+id/recruit"
                 android:layout_width="61dp"
                 android:layout_height="40dp"
-                android:text="모집"
-                android:onClick="recruit"/>
+                android:text="모집"/>
         </LinearLayout>
     </LinearLayout>
     </LinearLayout>

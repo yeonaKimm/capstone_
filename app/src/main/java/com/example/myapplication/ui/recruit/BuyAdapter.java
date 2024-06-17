@@ -18,14 +18,15 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.myapplication.R;
 
 import java.util.List;
+import android.util.Log; // Log 클래스를 가져옵니다.
 
 public class BuyAdapter extends RecyclerView.Adapter<BuyAdapter.BuyViewHolder> {
 
+    private static final String TAG = "BuyAdapter"; // 로그 태그 설정
     private List<BuyList_Item_Recruit> buyList;
     private Context context;
-    private OnItemClickListener mListener; // OnItemClickListener를 멤버 변수로 추가
+    private OnItemClickListener mListener;
 
-    // BuyAdapter 생성자에서 OnItemClickListener를 전달받도록 수정
     public BuyAdapter(Context context, List<BuyList_Item_Recruit> buyList, OnItemClickListener mlistener) {
         this.context = context;
         this.buyList = buyList;
@@ -43,32 +44,30 @@ public class BuyAdapter extends RecyclerView.Adapter<BuyAdapter.BuyViewHolder> {
     public void onBindViewHolder(@NonNull BuyViewHolder holder, int position) {
         BuyList_Item_Recruit item = buyList.get(position);
         holder.itemTopic.setText(item.getTopic());
-        //holder.itemContent.setText(item.getContent());
         holder.itemPrice.setText(String.valueOf(item.getPrice()));
         holder.itemPeople.setText(String.valueOf(item.getPeople()));
 
-        // Glide를 사용하여 이미지 로드
         if (item.getImageUri() != null && !item.getImageUri().isEmpty()) {
             Glide.with(context)
                     .load(item.getImageUri())
-                    .placeholder(R.drawable.ic_image) // 로딩 중 이미지
-                    .error(R.drawable.ic_rice) // 오류 시 이미지
-                    .diskCacheStrategy(DiskCacheStrategy.ALL) // 디스크 캐시 전략
+                    .placeholder(R.drawable.ic_image)
+                    .error(R.drawable.ic_rice)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(holder.itemImage);
         } else {
-            holder.itemImage.setImageResource(R.drawable.water); // 기본 이미지 설정
+            holder.itemImage.setImageDrawable(null);
         }
 
-        // 아이템 클릭 리스너 설정
         holder.recruitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 클릭한 아이템 가져오기
                 BuyList_Item_Recruit selectedItem = buyList.get(holder.getAdapterPosition());
 
-                // 상세 화면으로 이동하고 데이터 전달
+                // 로그로 선택한 아이템의 데이터를 출력합니다.
+                Log.d(TAG, "Item clicked: " + selectedItem.getTopic() + ", " + selectedItem.getContent() + ", " + selectedItem.getImageUri());
+
                 Bundle bundle = new Bundle();
-                bundle.putParcelable("selectedItem", selectedItem); // 선택한 항목 데이터를 번들에 담음
+                bundle.putParcelable("selectedItem", selectedItem);
                 Navigation.findNavController(v).navigate(R.id.action_navigation_recruit_buylist_to_navigation_recruit_buyprint, bundle);
             }
         });
@@ -98,7 +97,6 @@ public class BuyAdapter extends RecyclerView.Adapter<BuyAdapter.BuyViewHolder> {
         }
     }
 
-    // 외부에서 이 인터페이스를 구현하여 클릭 이벤트를 처리할 수 있도록 설정
     public interface OnItemClickListener {
         void onItemClick(BuyList_Item_Recruit item);
     }
