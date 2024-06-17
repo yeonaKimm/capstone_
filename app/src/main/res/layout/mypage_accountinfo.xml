@@ -102,7 +102,7 @@
                 android:id="@+id/textViewNickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="가나다라마바사"
+                android:text="새콤달콤"
                 android:textSize="14sp"/>
         </LinearLayout>
 
@@ -123,7 +123,7 @@
                 android:id="@+id/textViewName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="홍길동"
+                android:text="김연아"
                 android:textSize="14sp"/>
         </LinearLayout>
 
@@ -144,7 +144,7 @@
                 android:id="@+id/textViewEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="abcd1234@gmail.com"
+                android:text="yeonam7@gmail.com"
                 android:textSize="14sp"/>
         </LinearLayout>
 
@@ -165,7 +165,7 @@
                 android:id="@+id/textViewPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="010-1234-5678"
+                android:text="010-5877-6183"
                 android:textSize="14sp"/>
         </LinearLayout>
 
@@ -186,7 +186,7 @@
                 android:id="@+id/textViewBirthday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2002-03-21"
+                android:text="2002-02-22"
                 android:textSize="14sp"/>
         </LinearLayout>
 

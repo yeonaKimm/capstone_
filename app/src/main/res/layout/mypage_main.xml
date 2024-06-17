@@ -73,7 +73,7 @@
                 android:id="@+id/imageViewProfile"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/grade_babe"
+                android:src="@mipmap/ic_bokdak_round"
                 android:layout_gravity="center_vertical"
                 android:scaleType="centerCrop"
                 android:background="@drawable/circle_shape"
@@ -117,7 +117,7 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/imageViewArrow"
+                android:id="@+id/settings"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/outline_arrow_forward_ios_24"/>

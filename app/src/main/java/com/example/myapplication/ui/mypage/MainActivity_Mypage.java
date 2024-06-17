@@ -56,15 +56,16 @@ public class MainActivity_Mypage extends Fragment {
             loadData(userId);
         }
 
-        view.findViewById(R.id.imageViewSettings).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.settings).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_navigation_recruit_to_navigation_mypage);
+                Navigation.findNavController(v).navigate(R.id.action_navigation_mypage_to_navigation_settings);
             }
         });
 
         return view;
     }
+
 
     @Override
     public void onDestroyView() {

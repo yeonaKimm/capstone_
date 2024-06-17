@@ -62,7 +62,7 @@
                 android:id="@+id/textViewNickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="닉네임"
+                android:text="김연아"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
 
@@ -70,7 +70,7 @@
                 android:id="@+id/textViewEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="abcd1234@gmail.com"
+                android:text="yeonam7@gmail.com"
                 android:textSize="14sp"/>
         </LinearLayout>
 
