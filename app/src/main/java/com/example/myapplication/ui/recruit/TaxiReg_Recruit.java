@@ -16,6 +16,7 @@ import android.widget.TimePicker;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.myapplication.R;
@@ -40,8 +41,9 @@ public class TaxiReg_Recruit extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = RecruitTaxiregBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
 
-        Spinner spinnerPeople = binding.getRoot().findViewById(R.id.spinner_people);
+        Spinner spinnerPeople = view.findViewById(R.id.spinner_people);
         ArrayAdapter<CharSequence> peopleAdapter = new ArrayAdapter<CharSequence>(requireContext(), android.R.layout.simple_spinner_item, peopleOptions) {
             @Override
             public boolean isEnabled(int position) {
@@ -63,31 +65,32 @@ public class TaxiReg_Recruit extends Fragment {
         peopleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPeople.setAdapter(peopleAdapter);
 
-        binding.date.setOnClickListener(v -> showDatePickerDialog());
-        binding.time.setOnClickListener(v -> showTimePickerDialog());
+        view.findViewById(R.id.date).setOnClickListener(v -> showDatePickerDialog());
+        view.findViewById(R.id.time).setOnClickListener(v -> showTimePickerDialog());
 
-        binding.currentLocation.setOnClickListener(v -> {
+        view.findViewById(R.id.currentLocation).setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), texi_route.class);
             startActivityForResult(intent, REQUEST_CODE_START);
         });
 
-        binding.destination.setOnClickListener(v -> {
+        view.findViewById(R.id.destination).setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), texi_route.class);
             startActivityForResult(intent, REQUEST_CODE_END);
         });
 
-        binding.registerButton.setOnClickListener(v -> {
-            String date = binding.date.getText().toString();
-            String time = binding.time.getText().toString();
+        view.findViewById(R.id.registerButton).setOnClickListener(v -> {
+            String date = ((TextView) view.findViewById(R.id.date)).getText().toString();
+            String time = ((TextView) view.findViewById(R.id.time)).getText().toString();
             int people = Integer.parseInt(peopleOptions[spinnerPeople.getSelectedItemPosition()]);
 
             TaxiRecruitDBHelper dbHelper = new TaxiRecruitDBHelper(getContext());
             dbHelper.insertTaxi(date, time, people);
 
-            Navigation.findNavController(v).navigate(R.id.action_navigation_recruit_taxireg_to_navigation_recruit_taxilist);
+            NavController navController = Navigation.findNavController(v);
+            navController.navigate(R.id.action_navigation_recruit_taxireg_to_navigation_recruit_taxilist);
         });
 
-        return binding.getRoot();
+        return view;
     }
 
     private void showDatePickerDialog() {
@@ -117,9 +120,9 @@ public class TaxiReg_Recruit extends Fragment {
         if (resultCode == getActivity().RESULT_OK && data != null) {
             String selectedLocation = data.getStringExtra("selectedLocation");
             if (requestCode == REQUEST_CODE_START) {
-                binding.currentLocation.setText(selectedLocation);
+                ((TextView) getView().findViewById(R.id.currentLocation)).setText(selectedLocation);
             } else if (requestCode == REQUEST_CODE_END) {
-                binding.destination.setText(selectedLocation);
+                ((TextView) getView().findViewById(R.id.destination)).setText(selectedLocation);
             }
         }
     }
