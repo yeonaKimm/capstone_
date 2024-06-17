@@ -2,30 +2,33 @@ package com.example.myapplication.ui.recruit;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.DatePicker;
 import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.RecruitTaxiregBinding;
+import com.example.myapplication.ui.recruit.texi_route;
 
 import java.util.Calendar;
 
 public class TaxiReg_Recruit extends Fragment {
 
-    private RecruitTaxiregBinding binding; // 바인딩변수 선언
+    private RecruitTaxiregBinding binding;
+    private static final int REQUEST_CODE_START = 1;
+    private static final int REQUEST_CODE_END = 2;
     private String[] peopleOptions = {"n", "1", "2", "3", "4"};
     private Calendar calendar;
 
@@ -36,14 +39,12 @@ public class TaxiReg_Recruit extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = RecruitTaxiregBinding.inflate(inflater, container, false); // 바인딩 초기화
+        binding = RecruitTaxiregBinding.inflate(inflater, container, false);
 
-        // 인원 수 Spinner와 Adapter 설정
         Spinner spinnerPeople = binding.getRoot().findViewById(R.id.spinner_people);
         ArrayAdapter<CharSequence> peopleAdapter = new ArrayAdapter<CharSequence>(requireContext(), android.R.layout.simple_spinner_item, peopleOptions) {
             @Override
             public boolean isEnabled(int position) {
-                // 첫 번째 항목 선택을 불가능하게 설정
                 return position != 0;
             }
 
@@ -51,7 +52,6 @@ public class TaxiReg_Recruit extends Fragment {
             public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView textView = (TextView) view;
-                // 첫 번째 항목 선택을 불가능하게 설정한 경우, 텍스트 색상을 회색으로 변경
                 if (position == 0) {
                     textView.setTextColor(getResources().getColor(android.R.color.darker_gray));
                 } else {
@@ -63,44 +63,33 @@ public class TaxiReg_Recruit extends Fragment {
         peopleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPeople.setAdapter(peopleAdapter);
 
-        // 날짜 선택 다이얼로그 표시
-        binding.date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePickerDialog();
-            }
+        binding.date.setOnClickListener(v -> showDatePickerDialog());
+        binding.time.setOnClickListener(v -> showTimePickerDialog());
+
+        binding.currentLocation.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), texi_route.class);
+            startActivityForResult(intent, REQUEST_CODE_START);
         });
 
-        // 시간 선택 다이얼로그 표시
-        binding.time.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showTimePickerDialog();
-            }
+        binding.destination.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), texi_route.class);
+            startActivityForResult(intent, REQUEST_CODE_END);
         });
 
-        // 등록 버튼 클릭 시
-        binding.register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String date = binding.date.getText().toString();
-                String time = binding.time.getText().toString();
-                int people = Integer.parseInt(peopleOptions[spinnerPeople.getSelectedItemPosition()]);
+        binding.registerButton.setOnClickListener(v -> {
+            String date = binding.date.getText().toString();
+            String time = binding.time.getText().toString();
+            int people = Integer.parseInt(peopleOptions[spinnerPeople.getSelectedItemPosition()]);
 
-                // 데이터베이스에 데이터 삽입
-                TaxiRecruitDBHelper dbHelper = new TaxiRecruitDBHelper(getContext());
-                dbHelper.insertTaxi(date, time, people);
+            TaxiRecruitDBHelper dbHelper = new TaxiRecruitDBHelper(getContext());
+            dbHelper.insertTaxi(date, time, people);
 
-                // NavController를 가져와서 이동
-                NavController navController = Navigation.findNavController(v);
-                navController.navigate(R.id.action_navigation_recruit_taxireg_to_navigation_recruit_taxilist);
-            }
+            Navigation.findNavController(v).navigate(R.id.action_navigation_recruit_taxireg_to_navigation_recruit_taxilist);
         });
 
         return binding.getRoot();
     }
 
-    // DatePickerDialog 표시
     private void showDatePickerDialog() {
         calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -108,29 +97,31 @@ public class TaxiReg_Recruit extends Fragment {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(),
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        binding.date.setText(String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth));
-                    }
-                }, year, month, day);
+                (view, year1, month1, dayOfMonth) -> binding.date.setText(String.format("%04d-%02d-%02d", year1, month1 + 1, dayOfMonth)), year, month, day);
         datePickerDialog.show();
     }
 
-    // TimePickerDialog 표시
     private void showTimePickerDialog() {
         calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(),
-                new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        binding.time.setText(String.format("%02d:%02d", hourOfDay, minute));
-                    }
-                }, hour, minute, true);
+                (view, hourOfDay, minute1) -> binding.time.setText(String.format("%02d:%02d", hourOfDay, minute1)), hour, minute, true);
         timePickerDialog.show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == getActivity().RESULT_OK && data != null) {
+            String selectedLocation = data.getStringExtra("selectedLocation");
+            if (requestCode == REQUEST_CODE_START) {
+                binding.currentLocation.setText(selectedLocation);
+            } else if (requestCode == REQUEST_CODE_END) {
+                binding.destination.setText(selectedLocation);
+            }
+        }
     }
 
     @Override

@@ -78,7 +78,7 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback, Pl
         confirmButton = findViewById(R.id.confirmButton);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new PlaceAutocompleteAdapter(this, R.layout.item_search, this);
+        adapter = new PlaceAutocompleteAdapter(this, this);
         recyclerView.setAdapter(adapter);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -169,7 +169,7 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback, Pl
             List<AutocompletePrediction> predictionList = response.getAutocompletePredictions();
             if (predictionList != null && predictionList.size() > 0) {
                 recyclerView.setVisibility(View.VISIBLE);
-                adapter.setPredictionList(predictionList);
+                adapter.setPredictionList(predictionList, false); // Updated method call
             } else {
                 recyclerView.setVisibility(View.GONE);
             }
@@ -177,11 +177,11 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback, Pl
     }
 
     @Override
-    public void onPlaceClick(ArrayList<AutocompletePrediction> resultList, int position) {
+    public void onPlaceClick(ArrayList<AutocompletePrediction> resultList, int position, boolean isCurrentLocation) {
         if (position >= resultList.size()) {
             Log.e(TAG, "Invalid place selected: " + position);
             Toast.makeText(this, "Invalid place selected", Toast.LENGTH_SHORT).show();
-            recyclerView.setVisibility(View.GONE); // 자동완성 창 숨기기
+            recyclerView.setVisibility(View.GONE); // Hide autocomplete list
             return;
         }
 
@@ -218,7 +218,7 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback, Pl
         }).addOnFailureListener(exception -> {
             Log.e(TAG, "Place not found: " + exception.getMessage());
             Toast.makeText(this, "Invalid place selected", Toast.LENGTH_SHORT).show();
-            recyclerView.setVisibility(View.GONE); // 자동완성 창 숨기기
+            recyclerView.setVisibility(View.GONE); // Hide autocomplete list
         });
     }
 

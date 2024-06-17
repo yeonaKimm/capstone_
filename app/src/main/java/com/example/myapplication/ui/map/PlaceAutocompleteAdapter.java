@@ -7,55 +7,62 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.myapplication.R;
 import com.google.android.libraries.places.api.model.AutocompletePrediction;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlaceAutocompleteAdapter extends RecyclerView.Adapter<PlaceAutocompleteAdapter.PlaceAutocompleteViewHolder> {
-    private List<AutocompletePrediction> mResultList;
-    private final Context mContext;
-    private final PlaceAutoCompleteInterface mPlaceAutoCompleteInterface;
+public class PlaceAutocompleteAdapter extends RecyclerView.Adapter<PlaceAutocompleteAdapter.PredictionHolder> {
+    private List<AutocompletePrediction> predictionList;
+    private Context context;
+    private PlaceAutoCompleteInterface placeAutoCompleteInterface;
 
-    public PlaceAutocompleteAdapter(Context context, int resource, PlaceAutoCompleteInterface placeAutoCompleteInterface) {
-        mContext = context;
-        mPlaceAutoCompleteInterface = placeAutoCompleteInterface;
-        mResultList = new ArrayList<>();
+    public interface PlaceAutoCompleteInterface {
+        void onPlaceClick(ArrayList<AutocompletePrediction> resultList, int position, boolean isCurrentLocation);
+    }
+
+    public PlaceAutocompleteAdapter(Context context, PlaceAutoCompleteInterface placeAutoCompleteInterface) {
+        this.context = context;
+        this.placeAutoCompleteInterface = placeAutoCompleteInterface;
+        this.predictionList = new ArrayList<>();
+    }
+
+    public void setPredictionList(List<AutocompletePrediction> predictionList, boolean isCurrentLocation) {
+        this.predictionList = predictionList;
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public PlaceAutocompleteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_search, parent, false);
-        return new PlaceAutocompleteViewHolder(view);
+    public PredictionHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_search, parent, false);
+        return new PredictionHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PlaceAutocompleteViewHolder holder, int position) {
-        holder.textView.setText(mResultList.get(position).getFullText(null));
-        holder.itemView.setOnClickListener(v -> mPlaceAutoCompleteInterface.onPlaceClick(new ArrayList<>(mResultList), position));
+    public void onBindViewHolder(@NonNull PredictionHolder holder, int position) {
+        holder.prediction.setText(predictionList.get(position).getFullText(null));
     }
 
     @Override
     public int getItemCount() {
-        return mResultList.size();
+        return predictionList.size();
     }
 
-    public void setPredictionList(List<AutocompletePrediction> predictions) {
-        mResultList = predictions;
-        notifyDataSetChanged();
-    }
+    class PredictionHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView prediction;
 
-    public interface PlaceAutoCompleteInterface {
-        void onPlaceClick(ArrayList<AutocompletePrediction> resultList, int position);
-    }
+        PredictionHolder(View itemView) {
+            super(itemView);
+            prediction = itemView.findViewById(R.id.tv_address);
+            itemView.setOnClickListener(this);
+        }
 
-    public static class PlaceAutocompleteViewHolder extends RecyclerView.ViewHolder {
-        public final TextView textView;
-
-        public PlaceAutocompleteViewHolder(View view) {
-            super(view);
-            textView = view.findViewById(R.id.tv_address);
+        @Override
+        public void onClick(View view) {
+            placeAutoCompleteInterface.onPlaceClick((ArrayList<AutocompletePrediction>) predictionList, getAdapterPosition(), false);
         }
     }
 }
