@@ -2,17 +2,19 @@ package com.example.myapplication.ui.recruit;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.myapplication.R;
 
 import java.util.List;
@@ -45,6 +47,18 @@ public class BuyAdapter extends RecyclerView.Adapter<BuyAdapter.BuyViewHolder> {
         holder.itemPrice.setText(String.valueOf(item.getPrice()));
         holder.itemPeople.setText(String.valueOf(item.getPeople()));
 
+        // Glide를 사용하여 이미지 로드
+        if (item.getImageUri() != null && !item.getImageUri().isEmpty()) {
+            Glide.with(context)
+                    .load(item.getImageUri())
+                    .placeholder(R.drawable.ic_image) // 로딩 중 이미지
+                    .error(R.drawable.ic_rice) // 오류 시 이미지
+                    .diskCacheStrategy(DiskCacheStrategy.ALL) // 디스크 캐시 전략
+                    .into(holder.itemImage);
+        } else {
+            holder.itemImage.setImageResource(R.drawable.water); // 기본 이미지 설정
+        }
+
         // 아이템 클릭 리스너 설정
         holder.recruitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +84,7 @@ public class BuyAdapter extends RecyclerView.Adapter<BuyAdapter.BuyViewHolder> {
         private TextView itemPrice;
         private TextView itemPeople;
         private TextView itemContent;
+        private ImageView itemImage;
         private Button recruitButton;
 
         public BuyViewHolder(@NonNull View itemView) {
@@ -78,6 +93,7 @@ public class BuyAdapter extends RecyclerView.Adapter<BuyAdapter.BuyViewHolder> {
             itemContent = itemView.findViewById(R.id.item_content);
             itemPrice = itemView.findViewById(R.id.item_price);
             itemPeople = itemView.findViewById(R.id.item_people);
+            itemImage = itemView.findViewById(R.id.item_image);
             recruitButton = itemView.findViewById(R.id.recruit);
         }
     }

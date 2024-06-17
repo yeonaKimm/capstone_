@@ -11,8 +11,7 @@
         android:id="@+id/item_list"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="item_list">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/item_image"

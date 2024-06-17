@@ -23,7 +23,7 @@ public class Home_Safety extends Fragment {
 
     // 예상 소요 시간과 비상 연락처의 목록
     private String[] timeOptions = {"--분", "10분", "20분", "30분", "40분", "50분"};
-    private String[] contactOptions = {"저장명", "친구", "가족", "이웃"};
+    private String[] contactOptions = {"저장명", "엄마", "아빠", "언니", "오빠"};
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
