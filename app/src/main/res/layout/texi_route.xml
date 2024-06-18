@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.recruit.TaxiReg_Recruit">
+    tools:context=".ui.recruit.texi_route">
 
     <!-- 상단 바 -->
     <RelativeLayout
@@ -87,6 +87,13 @@
         </LinearLayout>
     </LinearLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:visibility="visible" />
+
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
@@ -94,21 +101,14 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:visibility="gone" />
-
     <!-- 등록 버튼 -->
     <Button
-        android:id="@+id/registerButton"
+        android:id="@+id/register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="등록하기"
         android:background="@color/ic_bokdak_background"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        android:enabled="false" />
+         />
 </LinearLayout>

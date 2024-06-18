@@ -8,10 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.DatePicker;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,18 +23,21 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.myapplication.R;
-import com.example.myapplication.databinding.RecruitTaxiregBinding;
-import com.example.myapplication.ui.recruit.texi_route;
 
 import java.util.Calendar;
 
 public class TaxiReg_Recruit extends Fragment {
 
-    private RecruitTaxiregBinding binding;
     private static final int REQUEST_CODE_START = 1;
     private static final int REQUEST_CODE_END = 2;
     private String[] peopleOptions = {"n", "1", "2", "3", "4"};
     private Calendar calendar;
+    private EditText startEditText;
+    private EditText endEditText;
+    private TextView dateTextView;
+    private TextView timeTextView;
+    private Spinner peopleSpinner;
+    private Button registerButton;
 
     public static TaxiReg_Recruit newInstance() {
         return new TaxiReg_Recruit();
@@ -40,10 +46,25 @@ public class TaxiReg_Recruit extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = RecruitTaxiregBinding.inflate(inflater, container, false);
-        View view = binding.getRoot();
+        View view = inflater.inflate(R.layout.recruit_taxireg, container, false);
 
-        Spinner spinnerPeople = view.findViewById(R.id.spinner_people);
+        startEditText = view.findViewById(R.id.start);
+        endEditText = view.findViewById(R.id.end);
+        dateTextView = view.findViewById(R.id.date);
+        timeTextView = view.findViewById(R.id.time);
+        peopleSpinner = view.findViewById(R.id.spinner_people);
+        registerButton = view.findViewById(R.id.registerButton);
+
+        startEditText.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), texi_route.class);
+            startActivityForResult(intent, REQUEST_CODE_START);
+        });
+
+        endEditText.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), texi_route.class);
+            startActivityForResult(intent, REQUEST_CODE_END);
+        });
+
         ArrayAdapter<CharSequence> peopleAdapter = new ArrayAdapter<CharSequence>(requireContext(), android.R.layout.simple_spinner_item, peopleOptions) {
             @Override
             public boolean isEnabled(int position) {
@@ -63,25 +84,21 @@ public class TaxiReg_Recruit extends Fragment {
             }
         };
         peopleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerPeople.setAdapter(peopleAdapter);
+        peopleSpinner.setAdapter(peopleAdapter);
 
         view.findViewById(R.id.date).setOnClickListener(v -> showDatePickerDialog());
         view.findViewById(R.id.time).setOnClickListener(v -> showTimePickerDialog());
 
-        view.findViewById(R.id.currentLocation).setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), texi_route.class);
-            startActivityForResult(intent, REQUEST_CODE_START);
-        });
-
-        view.findViewById(R.id.destination).setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), texi_route.class);
-            startActivityForResult(intent, REQUEST_CODE_END);
-        });
-
-        view.findViewById(R.id.registerButton).setOnClickListener(v -> {
-            String date = ((TextView) view.findViewById(R.id.date)).getText().toString();
-            String time = ((TextView) view.findViewById(R.id.time)).getText().toString();
-            int people = Integer.parseInt(peopleOptions[spinnerPeople.getSelectedItemPosition()]);
+        registerButton.setOnClickListener(v -> {
+            String startLocation = startEditText.getText().toString();
+            String endLocation = endEditText.getText().toString();
+            if (startLocation.isEmpty() || endLocation.isEmpty()) {
+                Toast.makeText(getContext(), "출발지와 목적지 모두 설정해주세요", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            String date = dateTextView.getText().toString();
+            String time = timeTextView.getText().toString();
+            int people = Integer.parseInt(peopleOptions[peopleSpinner.getSelectedItemPosition()]);
 
             TaxiRecruitDBHelper dbHelper = new TaxiRecruitDBHelper(getContext());
             dbHelper.insertTaxi(date, time, people);
@@ -100,7 +117,7 @@ public class TaxiReg_Recruit extends Fragment {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(),
-                (view, year1, month1, dayOfMonth) -> binding.date.setText(String.format("%04d-%02d-%02d", year1, month1 + 1, dayOfMonth)), year, month, day);
+                (view, year1, month1, dayOfMonth) -> dateTextView.setText(String.format("%04d-%02d-%02d", year1, month1 + 1, dayOfMonth)), year, month, day);
         datePickerDialog.show();
     }
 
@@ -110,7 +127,7 @@ public class TaxiReg_Recruit extends Fragment {
         int minute = calendar.get(Calendar.MINUTE);
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(),
-                (view, hourOfDay, minute1) -> binding.time.setText(String.format("%02d:%02d", hourOfDay, minute1)), hour, minute, true);
+                (view, hourOfDay, minute1) -> timeTextView.setText(String.format("%02d:%02d", hourOfDay, minute1)), hour, minute, true);
         timePickerDialog.show();
     }
 
@@ -118,18 +135,13 @@ public class TaxiReg_Recruit extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == getActivity().RESULT_OK && data != null) {
-            String selectedLocation = data.getStringExtra("selectedLocation");
             if (requestCode == REQUEST_CODE_START) {
-                ((TextView) getView().findViewById(R.id.currentLocation)).setText(selectedLocation);
+                String startLocation = data.getStringExtra("currentLocation");
+                startEditText.setText(startLocation);
             } else if (requestCode == REQUEST_CODE_END) {
-                ((TextView) getView().findViewById(R.id.destination)).setText(selectedLocation);
+                String endLocation = data.getStringExtra("destination");
+                endEditText.setText(endLocation);
             }
         }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
     }
 }

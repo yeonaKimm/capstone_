@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,7 +21,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.map.PlaceAutocompleteAdapter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -38,23 +36,25 @@ import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class texi_route extends FragmentActivity implements OnMapReadyCallback, PlaceAutocompleteAdapter.PlaceAutoCompleteInterface {
+public class texi_route extends FragmentActivity implements OnMapReadyCallback, PlaceAutocompleteAdapterForTexiRoute.PlaceAutoCompleteInterface {
 
     private static final String TAG = "texi_route";
     private GoogleMap mMap;
     private PlacesClient placesClient;
     private RecyclerView recyclerView;
-    private PlaceAutocompleteAdapter adapter;
-    private EditText currentLocation;
-    private EditText destination;
+    private PlaceAutocompleteAdapterForTexiRoute adapter;
+    private EditText currentLocationEditText;
+    private EditText destinationEditText;
+    private Button registerButton;
     private AutocompleteSessionToken sessionToken;
     private Marker currentMarker;
-    private boolean isStartLocation;
-    private Button registerButton;
+    private LatLng selectedLocation;
+    private boolean isSettingCurrentLocation = true;
+    private String currentLocationName;
+    private String destinationName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,13 +64,14 @@ public class texi_route extends FragmentActivity implements OnMapReadyCallback, 
         Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
         placesClient = Places.createClient(this);
 
-        currentLocation = findViewById(R.id.currentLocation);
-        destination = findViewById(R.id.destination);
         recyclerView = findViewById(R.id.recycler_view);
-        registerButton = findViewById(R.id.registerButton);
+        registerButton = findViewById(R.id.register);
+        currentLocationEditText = findViewById(R.id.currentLocation);
+        destinationEditText = findViewById(R.id.destination);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new PlaceAutocompleteAdapter(this, R.layout.item_search, this);
+
+        adapter = new PlaceAutocompleteAdapterForTexiRoute(this, this, isSettingCurrentLocation);
         recyclerView.setAdapter(adapter);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -80,32 +81,26 @@ public class texi_route extends FragmentActivity implements OnMapReadyCallback, 
 
         sessionToken = AutocompleteSessionToken.newInstance();
 
-        currentLocation.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (count > 0) {
-                    isStartLocation = true;
-                    getAutocompletePredictions(s.toString());
-                } else {
-                    recyclerView.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {}
+        currentLocationEditText.setOnClickListener(v -> {
+            isSettingCurrentLocation = true;
+            currentLocationEditText.setText("");
+            recyclerView.setVisibility(View.GONE);
         });
 
-        destination.addTextChangedListener(new TextWatcher() {
+        destinationEditText.setOnClickListener(v -> {
+            isSettingCurrentLocation = false;
+            destinationEditText.setText("");
+            recyclerView.setVisibility(View.GONE);
+        });
+
+        currentLocationEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (count > 0) {
-                    isStartLocation = false;
                     getAutocompletePredictions(s.toString());
                 } else {
                     recyclerView.setVisibility(View.GONE);
@@ -113,23 +108,42 @@ public class texi_route extends FragmentActivity implements OnMapReadyCallback, 
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        destinationEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (count > 0) {
+                    getAutocompletePredictions(s.toString());
+                } else {
+                    recyclerView.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
         });
 
         registerButton.setOnClickListener(v -> {
-            if (currentLocation.getText().toString().isEmpty() || destination.getText().toString().isEmpty()) {
-                Toast.makeText(this, "출발지와 목적지를 모두 설정하세요.", Toast.LENGTH_SHORT).show();
+            String currentLocation = currentLocationEditText.getText().toString();
+            String destination = destinationEditText.getText().toString();
+            if (currentLocation.isEmpty() || destination.isEmpty()) {
+                Toast.makeText(this, "출발지와 목적지를 모두 선택해주세요", Toast.LENGTH_SHORT).show();
             } else {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("currentLocation", currentLocation.getText().toString());
-                resultIntent.putExtra("destination", destination.getText().toString());
-                setResult(RESULT_OK, resultIntent);
+                Intent intent = new Intent();
+                intent.putExtra("currentLocation", currentLocation);
+                intent.putExtra("destination", destination);
+                setResult(RESULT_OK, intent);
                 finish();
             }
         });
-
-        ImageView backButton = findViewById(R.id.backButton);
-        backButton.setOnClickListener(v -> finish());
     }
 
     @Override
@@ -150,9 +164,9 @@ public class texi_route extends FragmentActivity implements OnMapReadyCallback, 
 
         placesClient.findAutocompletePredictions(request).addOnSuccessListener(response -> {
             List<AutocompletePrediction> predictionList = response.getAutocompletePredictions();
-            if (predictionList != null && !predictionList.isEmpty()) {
+            if (predictionList != null && predictionList.size() > 0) {
                 recyclerView.setVisibility(View.VISIBLE);
-                adapter.setPredictionList(predictionList, isStartLocation);
+                adapter.setPredictionList(predictionList);
             } else {
                 recyclerView.setVisibility(View.GONE);
             }
@@ -160,7 +174,7 @@ public class texi_route extends FragmentActivity implements OnMapReadyCallback, 
     }
 
     @Override
-    public void onPlaceClick(ArrayList<AutocompletePrediction> resultList, int position, boolean isStartLocation) {
+    public void onPlaceClick(List<AutocompletePrediction> resultList, int position, boolean isSettingCurrentLocation) {
         if (position >= resultList.size()) {
             Log.e(TAG, "Invalid place selected: " + position);
             Toast.makeText(this, "Invalid place selected", Toast.LENGTH_SHORT).show();
@@ -177,17 +191,23 @@ public class texi_route extends FragmentActivity implements OnMapReadyCallback, 
             if (place != null) {
                 LatLng latLng = place.getLatLng();
                 if (latLng != null) {
-                    if (isStartLocation) {
-                        currentLocation.setText(place.getName());
+                    if (isSettingCurrentLocation) {
+                        currentLocationName = place.getName();
+                        currentLocationEditText.setText(currentLocationName);
                     } else {
-                        destination.setText(place.getName());
+                        destinationName = place.getName();
+                        destinationEditText.setText(destinationName);
                     }
                     recyclerView.setVisibility(View.GONE);
+
                     if (currentMarker != null) {
                         currentMarker.remove();
                     }
+
                     currentMarker = mMap.addMarker(new MarkerOptions().position(latLng).title(place.getName()));
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+
+                    selectedLocation = latLng;
                 }
             } else {
                 Log.e(TAG, "Place details not found.");

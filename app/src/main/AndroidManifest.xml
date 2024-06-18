@@ -38,11 +38,11 @@
         <activity android:name=".ui.Login.SetNicknameActivity" />
 
         <activity
-            android:name=".ui.mypage.AccountInfo_Mypage"
-            android:exported="false" />
+            android:name=".ui.mypage.AccountInfo_Mypage" />
         <activity
-            android:name=".ui.mypage.AppSettings_Mypage"
-            android:exported="false" />
+            android:name=".ui.mypage.AppSettings_Mypage"/>
+
+        <activity android:name=".ui.recruit.texi_route"/>
 
         <activity android:name=".MainActivity" />
 

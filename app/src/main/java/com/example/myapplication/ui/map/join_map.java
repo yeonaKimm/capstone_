@@ -41,17 +41,16 @@ import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class join_map extends FragmentActivity implements OnMapReadyCallback, PlaceAutocompleteAdapter.PlaceAutoCompleteInterface {
+public class join_map extends FragmentActivity implements OnMapReadyCallback, PlaceAutocompleteAdapterForJoinMap.PlaceAutoCompleteInterface {
 
     private static final String TAG = "join_map";
     private GoogleMap mMap;
     private PlacesClient placesClient;
     private RecyclerView recyclerView;
-    private PlaceAutocompleteAdapter adapter;
+    private PlaceAutocompleteAdapterForJoinMap adapter;
     private EditText searchAddress;
     private ImageButton clearButton;
     private AutocompleteSessionToken sessionToken;
@@ -78,7 +77,7 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback, Pl
         confirmButton = findViewById(R.id.confirmButton);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new PlaceAutocompleteAdapter(this, this);
+        adapter = new PlaceAutocompleteAdapterForJoinMap(this, this);
         recyclerView.setAdapter(adapter);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -149,6 +148,7 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback, Pl
         userId = getIntent().getStringExtra("USER_ID");
     }
 
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -169,7 +169,7 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback, Pl
             List<AutocompletePrediction> predictionList = response.getAutocompletePredictions();
             if (predictionList != null && predictionList.size() > 0) {
                 recyclerView.setVisibility(View.VISIBLE);
-                adapter.setPredictionList(predictionList, false); // Updated method call
+                adapter.setPredictionList(predictionList); // Updated method call
             } else {
                 recyclerView.setVisibility(View.GONE);
             }
@@ -177,7 +177,7 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback, Pl
     }
 
     @Override
-    public void onPlaceClick(ArrayList<AutocompletePrediction> resultList, int position, boolean isCurrentLocation) {
+    public void onPlaceClick(List<AutocompletePrediction> resultList, int position) {
         if (position >= resultList.size()) {
             Log.e(TAG, "Invalid place selected: " + position);
             Toast.makeText(this, "Invalid place selected", Toast.LENGTH_SHORT).show();
