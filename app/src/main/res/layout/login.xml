@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_image">
+    android:background="@drawable/loginpage">
 
     <!-- 로그인 버튼 -->
     <ImageView
@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="550dp"
+        android:layout_marginTop="660dp"
         android:src="@drawable/kakao_login_medium_wide"
         android:layout_marginBottom="30dp"
         />
@@ -22,7 +22,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/login"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
         android:text="사용자 정보 삭제"
         />
 

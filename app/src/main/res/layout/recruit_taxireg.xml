@@ -17,9 +17,11 @@
         android:layout_marginLeft="100dp">
 
         <ImageView
+            android:id="@+id/profile_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@mipmap/ic_bokdak_round" />
+            android:src="@drawable/grade_babe"
+            android:background="@drawable/circle_shape" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -29,6 +31,7 @@
             android:paddingStart="16dp">
 
             <TextView
+                android:id="@+id/profile_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="복당이"
@@ -36,6 +39,7 @@
                 android:textAppearance="?attr/textAppearanceHeadline6" />
 
             <TextView
+                android:id="@+id/profile_gender_age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="여, 20대"
@@ -43,6 +47,7 @@
         </LinearLayout>
     </LinearLayout>
 
+    <!-- 출발지와 도착지 설정 -->
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -74,7 +79,6 @@
             android:layout_gravity="center"
             android:gravity="center_horizontal"
             android:background="@color/ic_bokdak_background"/>
-
     </LinearLayout>
 
     <LinearLayout
@@ -94,7 +98,10 @@
             android:padding="8dp"
             android:textColor="#000000"
             android:hint="출발지 설정"
-            android:inputType="text" />
+            android:inputType="text"
+            android:focusable="false"
+            android:clickable="true"
+            android:onClick="openTexiRouteActivity" />
 
         <!-- 도착지 -->
         <EditText
@@ -106,8 +113,10 @@
             android:padding="8dp"
             android:textColor="#000000"
             android:hint="도착지 설정"
-            android:inputType="text" />
-
+            android:inputType="text"
+            android:focusable="false"
+            android:clickable="true"
+            android:onClick="openTexiRouteActivity" />
     </LinearLayout>
 
     <LinearLayout
@@ -118,79 +127,77 @@
         android:layout_marginBottom="10dp">
 
         <!-- 탑승일 -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="탑승일"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#000000" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="탑승일"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#000000" />
 
-            <EditText
-                android:id="@+id/date"
-                android:layout_width="170dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="35dp"
-                android:background="@drawable/edittext_line"
-                android:padding="5dp"
-                android:textColor="#000000"
-                android:hint=" - - - - , - - - -"
-                android:inputType="text"
-                android:focusable="false"
-                android:onClick="showDatePickerDialog"
-                android:drawableRight="@drawable/ic_calendar" />
-
+        <EditText
+            android:id="@+id/date"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:background="@drawable/edittext_line"
+            android:padding="5dp"
+            android:textColor="#000000"
+            android:hint=" - - - - , - - - -"
+            android:inputType="text"
+            android:focusable="false"
+            android:onClick="showDatePickerDialog"
+            android:drawableRight="@drawable/ic_calendar" />
     </LinearLayout>
 
-        <!-- 탑승시간 -->
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
+    <!-- 탑승시간 -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp">
+            android:text="탑승시간"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="탑승시간"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#000000"
-                android:layout_marginBottom="10dp"/>
+        <EditText
+            android:id="@+id/time"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/edittext_line"
+            android:padding="5dp"
+            android:textColor="#000000"
+            android:hint=" - - : - -"
+            android:inputType="text"
+            android:focusable="false"
+            android:onClick="showTimePickerDialog"
+            android:drawableRight="@drawable/ic_clock" />
+    </LinearLayout>
 
-            <EditText
-                android:id="@+id/time"
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/edittext_line"
-                android:padding="5dp"
-                android:textColor="#000000"
-                android:hint=" - - : - -"
-                android:inputType="text"
-                android:focusable="false"
-                android:onClick="showTimePickerDialog"
-                android:drawableRight="@drawable/ic_clock" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
 
-        </LinearLayout>
-
-        <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp">
-
-            <!-- 모집인원 -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="모집인원"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#000000" />
+        <!-- 모집인원 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="모집인원"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#000000" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -215,9 +222,7 @@
                 android:textSize="18sp"
                 android:textColor="#000000"
                 android:layout_marginLeft="5dp" />
-
         </LinearLayout>
-
     </LinearLayout>
 
     <!-- 택시모집글 등록 버튼 -->
@@ -228,11 +233,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="30dp">
         <Button
-            android:id="@+id/register"
+            android:id="@+id/registerButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="등록하기"
             android:onClick="register"/>
     </LinearLayout>
-
 </LinearLayout>

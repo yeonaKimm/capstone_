@@ -1,9 +1,8 @@
-package com.example.myapplication.ui.map;
+package com.example.myapplication.ui.recruit;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,15 +19,11 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
-import com.example.myapplication.ui.Login.DatabaseHelper;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.Circle;
-import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -44,40 +38,36 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import java.util.Arrays;
 import java.util.List;
 
-public class join_map extends FragmentActivity implements OnMapReadyCallback, PlaceAutocompleteAdapterForJoinMap.PlaceAutoCompleteInterface {
+public class texi_route extends FragmentActivity implements OnMapReadyCallback, PlaceAutocompleteAdapterForTexiRoute.PlaceAutoCompleteInterface {
 
-    private static final String TAG = "join_map";
+    private static final String TAG = "texi_route";
     private GoogleMap mMap;
     private PlacesClient placesClient;
     private RecyclerView recyclerView;
-    private PlaceAutocompleteAdapterForJoinMap adapter;
-    private EditText searchAddress;
-    private ImageButton clearButton;
+    private PlaceAutocompleteAdapterForTexiRoute adapter;
+    private EditText currentLocationEditText;
+    private EditText destinationEditText;
+    private Button registerButton;
     private AutocompleteSessionToken sessionToken;
     private Marker currentMarker;
-    private Circle currentCircle;
-    private boolean radiusSet = false;
-    private Button confirmButton;
     private LatLng selectedLocation;
-    private int selectedRadius;
-    private DatabaseHelper databaseHelper;
-    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.join_map);
+        setContentView(R.layout.texi_route);
 
         Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
         placesClient = Places.createClient(this);
 
-        searchAddress = findViewById(R.id.searchAddress);
         recyclerView = findViewById(R.id.recycler_view);
-        clearButton = findViewById(R.id.clearButton);
-        confirmButton = findViewById(R.id.confirmButton);
+        registerButton = findViewById(R.id.register);
+        currentLocationEditText = findViewById(R.id.currentLocation);
+        destinationEditText = findViewById(R.id.destination);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new PlaceAutocompleteAdapterForJoinMap(this, this);
+        adapter = new PlaceAutocompleteAdapterForTexiRoute(this, this);
         recyclerView.setAdapter(adapter);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -87,7 +77,7 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback, Pl
 
         sessionToken = AutocompleteSessionToken.newInstance();
 
-        searchAddress.addTextChangedListener(new TextWatcher() {
+        currentLocationEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -99,7 +89,6 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback, Pl
                 } else {
                     recyclerView.setVisibility(View.GONE);
                 }
-                clearButton.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -107,45 +96,38 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback, Pl
             }
         });
 
-        clearButton.setOnClickListener(v -> {
-            searchAddress.setText("");
-            recyclerView.setVisibility(View.GONE);
-            clearButton.setVisibility(View.GONE);
-            if (currentMarker != null) {
-                currentMarker.remove();
-                currentMarker = null;
+        destinationEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
-            if (currentCircle != null) {
-                currentCircle.remove();
-                currentCircle = null;
-            }
-            radiusSet = false;
-            confirmButton.setEnabled(false);
-        });
 
-        findViewById(R.id.button400m).setOnClickListener(v -> setRadius(400));
-        findViewById(R.id.button700m).setOnClickListener(v -> setRadius(700));
-        findViewById(R.id.button1km).setOnClickListener(v -> setRadius(1000));
-
-        confirmButton.setOnClickListener(v -> {
-            if (radiusSet) {
-                double maxDistance = selectedRadius;
-                if (databaseHelper.updateUserLocationAndRadius(userId, selectedLocation.latitude, selectedLocation.longitude, selectedRadius, maxDistance)) {
-                    Toast.makeText(this, "반경이 저장되었습니다.", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(join_map.this, MainActivity.class);
-                    intent.putExtra("USER_ID", userId);
-                    startActivity(intent);
-                    finish();
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (count > 0) {
+                    getAutocompletePredictions(s.toString());
                 } else {
-                    Toast.makeText(this, "반경 저장에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    recyclerView.setVisibility(View.GONE);
                 }
-            } else {
-                Toast.makeText(this, "Please select a radius first.", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
             }
         });
 
-        databaseHelper = new DatabaseHelper(this);
-        userId = getIntent().getStringExtra("USER_ID");
+        registerButton.setOnClickListener(v -> {
+            String currentLocation = currentLocationEditText.getText().toString();
+            String destination = destinationEditText.getText().toString();
+            if (currentLocation.isEmpty() || destination.isEmpty()) {
+                Toast.makeText(this, "출발지와 목적지를 모두 선택해주세요", Toast.LENGTH_SHORT).show();
+            } else {
+                Intent intent = new Intent();
+                intent.putExtra("currentLocation", currentLocation);
+                intent.putExtra("destination", destination);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
     }
 
     @Override
@@ -173,7 +155,7 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback, Pl
             List<AutocompletePrediction> predictionList = response.getAutocompletePredictions();
             if (predictionList != null && predictionList.size() > 0) {
                 recyclerView.setVisibility(View.VISIBLE);
-                adapter.setPredictionList(predictionList); // Updated method call
+                adapter.setPredictionList(predictionList);
             } else {
                 recyclerView.setVisibility(View.GONE);
             }
@@ -185,7 +167,7 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback, Pl
         if (position >= resultList.size()) {
             Log.e(TAG, "Invalid place selected: " + position);
             Toast.makeText(this, "Invalid place selected", Toast.LENGTH_SHORT).show();
-            recyclerView.setVisibility(View.GONE); // Hide autocomplete list
+            recyclerView.setVisibility(View.GONE);
             return;
         }
 
@@ -198,22 +180,21 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback, Pl
             if (place != null) {
                 LatLng latLng = place.getLatLng();
                 if (latLng != null) {
-                    searchAddress.setText(place.getName());
+                    if (currentLocationEditText.hasFocus()) {
+                        currentLocationEditText.setText(place.getName());
+                    } else if (destinationEditText.hasFocus()) {
+                        destinationEditText.setText(place.getName());
+                    }
                     recyclerView.setVisibility(View.GONE);
 
                     if (currentMarker != null) {
                         currentMarker.remove();
-                    }
-                    if (currentCircle != null) {
-                        currentCircle.remove();
                     }
 
                     currentMarker = mMap.addMarker(new MarkerOptions().position(latLng).title(place.getName()));
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
 
                     selectedLocation = latLng;
-                    radiusSet = false;
-                    confirmButton.setEnabled(false);
                 }
             } else {
                 Log.e(TAG, "Place details not found.");
@@ -222,27 +203,8 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback, Pl
         }).addOnFailureListener(exception -> {
             Log.e(TAG, "Place not found: " + exception.getMessage());
             Toast.makeText(this, "Invalid place selected", Toast.LENGTH_SHORT).show();
-            recyclerView.setVisibility(View.GONE); // Hide autocomplete list
+            recyclerView.setVisibility(View.GONE);
         });
-    }
-
-    private void setRadius(int radius) {
-        if (currentMarker != null && currentMarker.getPosition() != null) {
-            LatLng latLng = currentMarker.getPosition();
-            if (currentCircle != null) {
-                currentCircle.remove();
-            }
-            currentCircle = mMap.addCircle(new CircleOptions()
-                    .center(latLng)
-                    .radius(radius)
-                    .strokeColor(Color.RED)
-                    .fillColor(Color.argb(50, 255, 0, 0)));
-            selectedRadius = radius;
-            radiusSet = true;
-            confirmButton.setEnabled(true);
-        } else {
-            Toast.makeText(this, "Please select a place first.", Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override

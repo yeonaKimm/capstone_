@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.myapplication.ui.recruit.User;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "User.db";
@@ -254,6 +256,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getUserData(String userId) {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE ID = ?", new String[]{userId});
+    }
+
+    public User getUserById(String userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = null;
+        User user = null;
+        try {
+            res = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE ID = ?", new String[]{userId});
+            if (res != null && res.moveToFirst()) {
+                String id = res.getString(res.getColumnIndexOrThrow(COL_1));
+                String email = res.getString(res.getColumnIndexOrThrow(COL_2));
+                String name = res.getString(res.getColumnIndexOrThrow(COL_3));
+                String gender = res.getString(res.getColumnIndexOrThrow(COL_4));
+                String ageRange = res.getString(res.getColumnIndexOrThrow(COL_5));
+                String birthyear = res.getString(res.getColumnIndexOrThrow(COL_6));
+                String nickname = res.getString(res.getColumnIndexOrThrow(COL_7));
+                String profilePicture = res.getString(res.getColumnIndexOrThrow(COL_8));
+                String rankId = res.getString(res.getColumnIndexOrThrow(COL_9));
+                user = new User(id, email, name, gender, ageRange, birthyear, nickname, profilePicture, rankId);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error getting user data", e);
+        } finally {
+            if (res != null) {
+                res.close();
+            }
+            db.close();
+        }
+        return user;
     }
 
     // Method to get posts within a certain distance from a location
