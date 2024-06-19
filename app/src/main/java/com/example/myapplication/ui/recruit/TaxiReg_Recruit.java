@@ -130,7 +130,7 @@ public class TaxiReg_Recruit extends Fragment {
             int people = Integer.parseInt(peopleOptions[peopleSpinner.getSelectedItemPosition()]);
 
             TaxiRecruitDBHelper dbHelper = new TaxiRecruitDBHelper(getContext());
-            dbHelper.insertTaxi(date, time, people);
+            dbHelper.insertTaxi(date, time, people, startLocation, endLocation);
 
             NavController navController = Navigation.findNavController(v);
             navController.navigate(R.id.action_navigation_recruit_taxireg_to_navigation_recruit_taxilist);

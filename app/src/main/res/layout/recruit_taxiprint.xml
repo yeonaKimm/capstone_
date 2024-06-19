@@ -8,7 +8,6 @@
     tools:context=".ui.recruit.TaxiReg_Recruit"
     android:layout_margin="30dp">
 
-
     <!-- Profile Section -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,6 +17,7 @@
         android:paddingBottom="16dp">
 
         <ImageView
+            android:id="@+id/profile_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@mipmap/ic_bokdak_round" />
@@ -35,6 +35,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/profile_nickname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="복당이"
@@ -42,6 +43,7 @@
                     android:textAppearance="?attr/textAppearanceHeadline6" />
 
                 <TextView
+                    android:id="@+id/profile_gender_age"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="여, 20대"
@@ -55,7 +57,6 @@
                 android:textAppearance="?attr/textAppearanceBody2" />
         </LinearLayout>
 
-
         <ImageView
             android:id="@+id/favoriteButton"
             android:layout_width="32dp"
@@ -63,7 +64,6 @@
             android:padding="4dp"
             android:src="@drawable/ic_star"
             android:scaleType="fitCenter" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -186,7 +186,6 @@
             android:textSize="25sp"
             android:textStyle="bold"
             android:textColor="#000000" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -215,7 +214,6 @@
             android:textSize="25sp"
             android:textStyle="bold"
             android:textColor="#000000" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -223,7 +221,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp" >
-
 
         <!-- 모집인원 -->
         <TextView
@@ -244,7 +241,6 @@
             android:textSize="25sp"
             android:textStyle="bold"
             android:textColor="#000000" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -254,7 +250,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="16dp" >
 
-        <!-- 탑승시간 -->
+        <!-- 남은시간 -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -274,10 +270,7 @@
             android:textSize="25sp"
             android:textStyle="bold"
             android:textColor="#FD5585" />
-
     </LinearLayout>
-
-
 
     <!-- 택시모집글 등록 버튼 -->
     <LinearLayout

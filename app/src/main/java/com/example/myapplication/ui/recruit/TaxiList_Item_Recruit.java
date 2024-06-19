@@ -7,17 +7,23 @@ public class TaxiList_Item_Recruit implements Parcelable {
     private String date;
     private String time;
     private int people;
+    private String startLocation;
+    private String endLocation;
 
-    public TaxiList_Item_Recruit(String date, String time, int people) {
+    public TaxiList_Item_Recruit(String date, String time, int people, String startLocation, String endLocation) {
         this.date = date;
         this.time = time;
         this.people = people;
+        this.startLocation = startLocation;
+        this.endLocation = endLocation;
     }
 
     protected TaxiList_Item_Recruit(Parcel in) {
         date = in.readString();
         time = in.readString();
         people = in.readInt();
+        startLocation = in.readString();
+        endLocation = in.readString();
     }
 
     public static final Creator<TaxiList_Item_Recruit> CREATOR = new Creator<TaxiList_Item_Recruit>() {
@@ -44,6 +50,14 @@ public class TaxiList_Item_Recruit implements Parcelable {
         return people;
     }
 
+    public String getStartLocation() {
+        return startLocation;
+    }
+
+    public String getEndLocation() {
+        return endLocation;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -54,6 +68,7 @@ public class TaxiList_Item_Recruit implements Parcelable {
         dest.writeString(date);
         dest.writeString(time);
         dest.writeInt(people);
+        dest.writeString(startLocation);
+        dest.writeString(endLocation);
     }
 }
-
