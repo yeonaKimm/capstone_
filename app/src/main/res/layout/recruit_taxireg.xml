@@ -17,9 +17,11 @@
         android:layout_marginLeft="100dp">
 
         <ImageView
+            android:id="@+id/profile_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@mipmap/ic_bokdak_round" />
+            android:src="@drawable/grade_babe"
+            android:background="@drawable/circle_shape" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -29,6 +31,7 @@
             android:paddingStart="16dp">
 
             <TextView
+                android:id="@+id/profile_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="복당이"
@@ -36,6 +39,7 @@
                 android:textAppearance="?attr/textAppearanceHeadline6" />
 
             <TextView
+                android:id="@+id/profile_gender_age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="여, 20대"
@@ -43,6 +47,7 @@
         </LinearLayout>
     </LinearLayout>
 
+    <!-- 출발지와 도착지 설정 -->
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -74,7 +79,6 @@
             android:layout_gravity="center"
             android:gravity="center_horizontal"
             android:background="@color/ic_bokdak_background"/>
-
     </LinearLayout>
 
     <LinearLayout
@@ -96,7 +100,8 @@
             android:hint="출발지 설정"
             android:inputType="text"
             android:focusable="false"
-            android:clickable="true" />
+            android:clickable="true"
+            android:onClick="openTexiRouteActivity" />
 
         <!-- 도착지 -->
         <EditText
@@ -110,9 +115,8 @@
             android:hint="도착지 설정"
             android:inputType="text"
             android:focusable="false"
-            android:clickable="true" />
-
-
+            android:clickable="true"
+            android:onClick="openTexiRouteActivity" />
     </LinearLayout>
 
     <LinearLayout
@@ -144,7 +148,6 @@
             android:focusable="false"
             android:onClick="showDatePickerDialog"
             android:drawableRight="@drawable/ic_calendar" />
-
     </LinearLayout>
 
     <!-- 탑승시간 -->
@@ -177,7 +180,6 @@
             android:focusable="false"
             android:onClick="showTimePickerDialog"
             android:drawableRight="@drawable/ic_clock" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -220,9 +222,7 @@
                 android:textSize="18sp"
                 android:textColor="#000000"
                 android:layout_marginLeft="5dp" />
-
         </LinearLayout>
-
     </LinearLayout>
 
     <!-- 택시모집글 등록 버튼 -->
@@ -239,5 +239,4 @@
             android:text="등록하기"
             android:onClick="register"/>
     </LinearLayout>
-
 </LinearLayout>

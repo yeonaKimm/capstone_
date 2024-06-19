@@ -148,10 +148,14 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback, Pl
         userId = getIntent().getStringExtra("USER_ID");
     }
 
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+        // 여수시의 위도와 경도
+        LatLng yeosu = new LatLng(34.7604, 127.6622);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(yeosu, 12)); // 줌 레벨 조정 가능
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
         } else {

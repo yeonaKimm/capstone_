@@ -3,7 +3,6 @@ package com.example.myapplication.ui.recruit;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -52,9 +51,6 @@ public class texi_route extends FragmentActivity implements OnMapReadyCallback, 
     private AutocompleteSessionToken sessionToken;
     private Marker currentMarker;
     private LatLng selectedLocation;
-    private boolean isSettingCurrentLocation = true;
-    private String currentLocationName;
-    private String destinationName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +67,7 @@ public class texi_route extends FragmentActivity implements OnMapReadyCallback, 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new PlaceAutocompleteAdapterForTexiRoute(this, this, isSettingCurrentLocation);
+        adapter = new PlaceAutocompleteAdapterForTexiRoute(this, this);
         recyclerView.setAdapter(adapter);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -80,18 +76,6 @@ public class texi_route extends FragmentActivity implements OnMapReadyCallback, 
         }
 
         sessionToken = AutocompleteSessionToken.newInstance();
-
-        currentLocationEditText.setOnClickListener(v -> {
-            isSettingCurrentLocation = true;
-            currentLocationEditText.setText("");
-            recyclerView.setVisibility(View.GONE);
-        });
-
-        destinationEditText.setOnClickListener(v -> {
-            isSettingCurrentLocation = false;
-            destinationEditText.setText("");
-            recyclerView.setVisibility(View.GONE);
-        });
 
         currentLocationEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -149,6 +133,11 @@ public class texi_route extends FragmentActivity implements OnMapReadyCallback, 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+        // 여수시의 위도와 경도
+        LatLng yeosu = new LatLng(34.7604, 127.6622);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(yeosu, 12)); // 줌 레벨 조정 가능
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
         } else {
@@ -174,7 +163,7 @@ public class texi_route extends FragmentActivity implements OnMapReadyCallback, 
     }
 
     @Override
-    public void onPlaceClick(List<AutocompletePrediction> resultList, int position, boolean isSettingCurrentLocation) {
+    public void onPlaceClick(List<AutocompletePrediction> resultList, int position) {
         if (position >= resultList.size()) {
             Log.e(TAG, "Invalid place selected: " + position);
             Toast.makeText(this, "Invalid place selected", Toast.LENGTH_SHORT).show();
@@ -191,12 +180,10 @@ public class texi_route extends FragmentActivity implements OnMapReadyCallback, 
             if (place != null) {
                 LatLng latLng = place.getLatLng();
                 if (latLng != null) {
-                    if (isSettingCurrentLocation) {
-                        currentLocationName = place.getName();
-                        currentLocationEditText.setText(currentLocationName);
-                    } else {
-                        destinationName = place.getName();
-                        destinationEditText.setText(destinationName);
+                    if (currentLocationEditText.hasFocus()) {
+                        currentLocationEditText.setText(place.getName());
+                    } else if (destinationEditText.hasFocus()) {
+                        destinationEditText.setText(place.getName());
                     }
                     recyclerView.setVisibility(View.GONE);
 

@@ -48,4 +48,11 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
         return preferences.getString(USER_ID_KEY, null);
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+        return NavigationUI.navigateUp(navController, new AppBarConfiguration.Builder(navController.getGraph()).build())
+                || super.onSupportNavigateUp();
+    }
 }

@@ -54,6 +54,7 @@ dependencies {
     implementation("com.google.android.libraries.places:places:2.5.0")
     implementation("com.android.support:multidex:1.0.3" )
     implementation("com.google.android.material:material:1.4.0")
+    implementation("com.squareup.picasso:picasso:2.71828")
 
 
     // Glide 라이브러리 추가

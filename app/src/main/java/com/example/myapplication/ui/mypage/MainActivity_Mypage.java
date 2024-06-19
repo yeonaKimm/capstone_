@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.Target;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.Login.DatabaseHelper;

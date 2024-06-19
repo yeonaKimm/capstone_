@@ -21,15 +21,18 @@ public class PlaceAutocompleteAdapterForTexiRoute extends RecyclerView.Adapter<P
     private final PlaceAutoCompleteInterface placeAutoCompleteInterface;
     private boolean isSettingCurrentLocation;
 
-    public PlaceAutocompleteAdapterForTexiRoute(Context context, PlaceAutoCompleteInterface placeAutoCompleteInterface, boolean isSettingCurrentLocation) {
+    public PlaceAutocompleteAdapterForTexiRoute(Context context, PlaceAutoCompleteInterface placeAutoCompleteInterface) {
         this.context = context;
         this.placeAutoCompleteInterface = placeAutoCompleteInterface;
-        this.isSettingCurrentLocation = isSettingCurrentLocation;
     }
 
     public void setPredictionList(List<AutocompletePrediction> predictionList) {
         this.predictionList = predictionList;
         notifyDataSetChanged();
+    }
+
+    public void setSettingCurrentLocation(boolean isSettingCurrentLocation) {
+        this.isSettingCurrentLocation = isSettingCurrentLocation;
     }
 
     @NonNull
@@ -50,7 +53,7 @@ public class PlaceAutocompleteAdapterForTexiRoute extends RecyclerView.Adapter<P
     }
 
     public interface PlaceAutoCompleteInterface {
-        void onPlaceClick(List<AutocompletePrediction> resultList, int position, boolean isSettingCurrentLocation);
+        void onPlaceClick(List<AutocompletePrediction> resultList, int position);
     }
 
     class PlaceViewHolder extends RecyclerView.ViewHolder {
@@ -60,7 +63,7 @@ public class PlaceAutocompleteAdapterForTexiRoute extends RecyclerView.Adapter<P
         PlaceViewHolder(View itemView) {
             super(itemView);
             addressText = itemView.findViewById(R.id.tv_address);
-            itemView.setOnClickListener(v -> placeAutoCompleteInterface.onPlaceClick(predictionList, getAdapterPosition(), isSettingCurrentLocation));
+            itemView.setOnClickListener(v -> placeAutoCompleteInterface.onPlaceClick(predictionList, getAdapterPosition()));
         }
 
         void bind(AutocompletePrediction prediction) {
