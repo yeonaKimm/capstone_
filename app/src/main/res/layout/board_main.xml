@@ -38,7 +38,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginLeft="13dp"
             android:orientation="vertical"
-            android:backgroundTint="@color/light_gray"
+            android:backgroundTint="#DAEDFF"
             android:background="@drawable/custom_button_background"
             android:elevation="10dp"
             android:gravity="center">
@@ -71,7 +71,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="13dp"
             android:orientation="vertical"
-            android:backgroundTint="@color/light_gray"
+            android:backgroundTint="#DAEDFF"
             android:background="@drawable/custom_button_background"
             android:elevation="16dp"
             android:gravity="center">

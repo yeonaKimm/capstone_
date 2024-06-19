@@ -43,7 +43,7 @@ public class BuyPrint_Recruit extends Fragment {
                 Glide.with(requireContext())
                         .load(selectedItem.getImageUri())
                         .placeholder(R.drawable.ic_image) // 로딩 중 이미지
-                        .error(R.drawable.ic_error) // 오류 시 이미지
+                        .error(R.drawable.ic_rice) // 오류 시 이미지
                         .into(binding.itemImage);
             }
         }
