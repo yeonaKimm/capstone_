@@ -51,7 +51,7 @@ public class BuyAdapter extends RecyclerView.Adapter<BuyAdapter.BuyViewHolder> {
             Glide.with(context)
                     .load(item.getImageUri())
                     .placeholder(R.drawable.ic_image)
-                    .error(R.drawable.ic_rice)
+                    .error(R.drawable.ic_error)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(holder.itemImage);
         } else {
