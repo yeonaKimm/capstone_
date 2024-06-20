@@ -29,11 +29,6 @@
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 android:textStyle="bold" />
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
                 <!-- 내용 -->
                 <TextView
                     android:id="@+id/item_content"
@@ -42,7 +37,36 @@
                     android:text="여기 중에 뭐볼까 추천 좀"
                     android:textColor="#000000" />
 
-            </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <!-- 투표 -->
+            <TextView
+                android:id="@+id/item_option1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="투표 항목1"
+                android:textColor="#000000" />
+
+            <!-- 투표 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" VS "
+                android:textColor="#000000" />
+
+            <!-- 투표 -->
+            <TextView
+                android:id="@+id/item_option2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="투표 항목1"
+                android:textColor="#000000" />
+
+        </LinearLayout>
 
             <LinearLayout
                 android:orientation="horizontal"

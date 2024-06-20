@@ -75,7 +75,7 @@
             android:layout_marginBottom="15dp"/>
 
         <EditText
-            android:id="@+id/VoteOption1"
+            android:id="@+id/option1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="항목 1"
@@ -84,12 +84,11 @@
             android:padding="16dp"/>
 
         <EditText
-            android:id="@+id/VoteOption2"
+            android:id="@+id/option2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="항목 2"
             android:textColorHint="@color/ic_bokdak_background"
-            android:layout_below="@id/VoteOption2"
             android:background="@drawable/edittext_line"
             android:layout_marginTop="10dp"
             android:padding="16dp"/>

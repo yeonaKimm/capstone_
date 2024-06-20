@@ -43,6 +43,8 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.VoteViewHolder
         VoteList_Item_Board item = voteList.get(position);
         holder.itemTopic.setText(item.getTopic());
         holder.itemContent.setText(item.getContent());
+        holder.itemOption1.setText(item.getOption1());
+        holder.itemOption2.setText(item.getOption2());
 
         // Glide를 사용하여 이미지 로드
         if (item.getImageUri() != null && !item.getImageUri().isEmpty()) {
@@ -80,12 +82,16 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.VoteViewHolder
         private TextView itemTopic;
         private TextView itemContent;
         private ImageView itemImage;
+        private TextView itemOption1;
+        private TextView itemOption2;
 
         public VoteViewHolder(@NonNull View itemView) {
             super(itemView);
             itemTopic = itemView.findViewById(R.id.item_topic);
             itemContent = itemView.findViewById(R.id.item_content);
             itemImage = itemView.findViewById(R.id.item_image);
+            itemOption1 = itemView.findViewById(R.id.item_option1);
+            itemOption2 = itemView.findViewById(R.id.item_option2);
         }
     }
 

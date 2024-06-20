@@ -7,17 +7,23 @@ public class VoteList_Item_Board implements Parcelable {
     private String topic;
     private String content;
     private String imageUri;
+    private String option1;
+    private String option2;
 
-    public VoteList_Item_Board(String topic, String content, String imageUri) {
+    public VoteList_Item_Board(String topic, String content, String imageUri, String option1, String option2) {
         this.topic = topic;
         this.content = content;
         this.imageUri = imageUri;
+        this.option1 = option1;
+        this.option2 = option2;
     }
 
     protected VoteList_Item_Board(Parcel in) {
         topic = in.readString();
         content = in.readString();
         imageUri = in.readString();
+        option1 = in.readString();
+        option2 = in.readString();
     }
 
     public static final Creator<VoteList_Item_Board> CREATOR = new Creator<VoteList_Item_Board>() {
@@ -43,6 +49,8 @@ public class VoteList_Item_Board implements Parcelable {
     public String getImageUri() {
         return this.imageUri;
     }
+    public String getOption1() { return option1; }
+    public String getOption2() { return option2; }
 
     @Override
     public int describeContents() {
@@ -54,5 +62,7 @@ public class VoteList_Item_Board implements Parcelable {
         dest.writeString(topic);
         dest.writeString(content);
         dest.writeString(imageUri);
+        dest.writeString(option1);
+        dest.writeString(option2);
     }
 }

@@ -20,7 +20,7 @@ public class VoteDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE votes (id INTEGER PRIMARY KEY, topic TEXT, content TEXT, imageUri TEXT)");
+        db.execSQL("CREATE TABLE votes (id INTEGER PRIMARY KEY, topic TEXT, content TEXT, imageUri TEXT, option1 TEXT, option2 TEXT)");
     }
 
     @Override
@@ -30,12 +30,14 @@ public class VoteDBHelper extends SQLiteOpenHelper {
     }
 
     // 새로운 게시글을 추가하는 메서드 외부에서 호출할 수 있도록 public으로 지정합니다.
-    public void insertVote(String topic, String content,String imageUri) {
+    public void insertVote(String topic, String content, String imageUri, String option1, String option2) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("topic", topic);
         values.put("content", content);
         values.put("imageUri", imageUri);
+        values.put("option1", option1);
+        values.put("option2", option2);
 
         // Log the content values to ensure they are set correctly
         Log.d("VoteDBHelper", "Inserting Vote: " + values.toString());
@@ -59,13 +61,17 @@ public class VoteDBHelper extends SQLiteOpenHelper {
         int topicIndex = cursor.getColumnIndex("topic");
         int contentIndex = cursor.getColumnIndex("content");
         int imageUriIndex = cursor.getColumnIndex("imageUri");
+        int option1Index = cursor.getColumnIndex("option1");
+        int option2Index = cursor.getColumnIndex("option2");
 
-        if (topicIndex != -1 && contentIndex != -1   && imageUriIndex != -1&& cursor.moveToFirst()) {
+        if (topicIndex != -1 && contentIndex != -1 && imageUriIndex != -1 && option1Index != -1 && option2Index != -1&& cursor.moveToFirst()) {
             do {
                 String topic = cursor.getString(topicIndex);
                 String content = cursor.getString(contentIndex);
                 String imageUri = cursor.getString(imageUriIndex);
-                votesList.add(new VoteList_Item_Board(topic, content, imageUri));
+                String option1 = cursor.getString(option1Index);
+                String option2 = cursor.getString(option2Index);
+                votesList.add(new VoteList_Item_Board(topic, content, imageUri, option1, option2));
             } while (cursor.moveToNext());
         }
 

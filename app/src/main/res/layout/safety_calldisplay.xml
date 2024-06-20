@@ -1,16 +1,62 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.safety.CallDisplay_Safety">
+    android:layout_height="match_parent">
 
-    <!-- 통화화면 -->
-        <ImageView
-            android:id="@+id/imageView"
+    <!-- 막대 그래프 -->
+    <LinearLayout
+        android:id="@+id/graphContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- 막대 1 -->
+        <LinearLayout
+            android:id="@+id/barContainer1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/call" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-</LinearLayout>
+            <View
+                android:id="@+id/barFillOption1"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:background="#B6DDFF"/>
+
+            <TextView
+                android:id="@+id/tvBarLabel1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="100%"
+                android:layout_marginEnd="8dp"/>
+        </LinearLayout>
+
+        <!-- 막대 2 -->
+        <LinearLayout
+            android:id="@+id/barContainer2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <View
+            android:id="@+id/barFillOption2"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:background="#B6DDFF"/>
+
+            <TextView
+                android:id="@+id/tvBarLabel2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="0%"
+                android:layout_marginEnd="8dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
