@@ -26,7 +26,7 @@
                 android:id="@+id/item_topic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="정주행할 드라마 추천"
+                android:text="오늘 날씨 좋당"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 android:textStyle="bold" />
 
@@ -35,39 +35,9 @@
                     android:id="@+id/item_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="여기 중에 뭐볼까 추천 좀"
+                    android:text="오늘 완전 한강 피크닉 가야할 날씨야!"
                     android:textColor="#000000" />
 
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-        <!-- 투표 -->
-            <TextView
-                android:id="@+id/item_option1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="투표 항목1"
-                android:textColor="#000000" />
-
-            <!-- 투표 -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" VS "
-                android:textColor="#000000" />
-
-            <!-- 투표 -->
-            <TextView
-                android:id="@+id/item_option2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="투표 항목1"
-                android:textColor="#000000" />
-
-        </LinearLayout>
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -111,7 +81,7 @@
             android:id="@+id/item_image"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/drama"
+            android:src="@drawable/friend"
             android:scaleType="centerCrop"/>
 
     </LinearLayout>

@@ -251,6 +251,13 @@
             app:destination="@id/navigation_board_regform"
             app:popUpTo="@id/navigation_board_postlist"
             app:popUpToInclusive="false" />
+
+        <!-- 게시글 목록 화면에서 상세화면으로 이동하는 액션 -->
+        <action
+            android:id="@+id/action_navigation_board_postlist_to_navigation_board_printform"
+            app:destination="@id/navigation_board_printform"
+            app:popUpTo="@id/navigation_board_postlist"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <!-- 등록 폼 화면 -->
@@ -262,8 +269,8 @@
 
         <!-- 등록 폼 화면에서 출력 폼으로 이동하는 액션 -->
         <action
-            android:id="@+id/action_navigation_board_regform_to_navigation_board_printform"
-            app:destination="@id/navigation_board_printform"
+            android:id="@+id/action_navigation_board_regform_to_navigation_board_postlist"
+            app:destination="@id/navigation_board_postlist"
             app:popUpTo="@id/navigation_board_postlist"
             app:popUpToInclusive="false"/>
     </fragment>
