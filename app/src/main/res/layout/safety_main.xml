@@ -83,7 +83,7 @@
                     android:id="@+id/callBt"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/safety_callscreen_shadow"
+                    android:src="@drawable/safety_siren_shadow"
                     android:layout_gravity="center"
                     android:contentDescription="사이렌"/>
 
