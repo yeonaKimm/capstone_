@@ -57,6 +57,7 @@ dependencies {
     implementation("com.android.support:multidex:1.0.3" )
     implementation("com.google.android.material:material:1.4.0")
     implementation("com.squareup.picasso:picasso:2.71828")
+    implementation ("androidx.annotation:annotation:1.2.0")
 
 
 

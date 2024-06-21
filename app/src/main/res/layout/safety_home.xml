@@ -37,12 +37,101 @@
     </LinearLayout>
 
 
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="#CCCCCC"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/> <!-- 회색 밑줄 -->
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
+
+        <!-- 소요시간 -->
+        <TextView
+            android:layout_width="0in"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="예상소요시간"
+            android:layout_marginLeft="20dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- 저장명을 선택할 수 있는 드롭다운 에디트텍스트 -->
+        <Spinner
+            android:id="@+id/spinner_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/edittext_line"
+            android:layout_marginRight="20dp"
+            android:padding="8dp"
+            android:textColor="#000000"
+            android:spinnerMode="dropdown"/>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
+
+        <!-- 비상연락처 -->
+        <TextView
+            android:layout_width="0in"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="비상연락처"
+            android:layout_marginLeft="20dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+
+
+        <!-- 저장명을 선택할 수 있는 드롭다운 에디트텍스트 -->
+        <Spinner
+            android:id="@+id/spinner_contact"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/edittext_line"
+            android:layout_marginRight="20dp"
+            android:padding="8dp"
+            android:textColor="#000000"
+            android:spinnerMode="dropdown"/>
+    </LinearLayout>
+
+    <!-- 위치 공유하기 버튼 -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp">
+        <Button
+            android:id="@+id/share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="확인"
+            android:onClick="share"/>
+    </LinearLayout>
+
     <!-- 출발지와 도착지 설정 -->
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="15dp">
 
         <!-- 출발지 -->
         <TextView
@@ -110,92 +199,5 @@
             android:onClick="openTexiRouteActivity" />
     </LinearLayout>
 
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="#CCCCCC"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"/> <!-- 회색 밑줄 -->
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp">
-
-        <!-- 소요시간 -->
-        <TextView
-            android:layout_width="0in"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="예상소요시간"
-            android:layout_marginLeft="20dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:layout_marginBottom="10dp"/>
-
-        <!-- 저장명을 선택할 수 있는 드롭다운 에디트텍스트 -->
-        <Spinner
-            android:id="@+id/spinner_time"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/edittext_line"
-            android:layout_marginRight="20dp"
-            android:padding="8dp"
-            android:textColor="#000000"
-            android:spinnerMode="dropdown"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp">
-
-        <!-- 비상연락처 -->
-        <TextView
-            android:layout_width="0in"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="비상연락처"
-            android:layout_marginLeft="20dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:layout_marginBottom="10dp"/>
-
-
-        <!-- 저장명을 선택할 수 있는 드롭다운 에디트텍스트 -->
-        <Spinner
-            android:id="@+id/spinner_contact"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/edittext_line"
-            android:layout_marginRight="20dp"
-            android:padding="8dp"
-            android:textColor="#000000"
-            android:spinnerMode="dropdown"/>
-    </LinearLayout>
-
-
-    <!-- 위치 공유하기 버튼 -->
-    <LinearLayout
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp">
-        <Button
-            android:id="@+id/share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="공유하기"
-            android:onClick="share"/>
-    </LinearLayout>
 
 </LinearLayout>
