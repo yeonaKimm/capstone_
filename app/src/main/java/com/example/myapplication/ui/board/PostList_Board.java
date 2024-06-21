@@ -48,14 +48,13 @@ public class PostList_Board extends Fragment {
 
         List<PostList_Item_Board> postsList = boardDBHelper.getAllPosts();
 
-        BoardAdapter adapter = new BoardAdapter(requireContext(), postsList, new BoardAdapter.OnItemClickListener() {
+        BoardAdapter adapter1 = new BoardAdapter(requireContext(), postsList, new BoardAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(PostList_Item_Board item) {
                 // 클릭 이벤트 처리
             }
         });
-
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter1);
 
         // fab 클릭 시에 이 액션을 트리거하도록 설정
         FloatingActionButton fab = view.findViewById(R.id.fab);

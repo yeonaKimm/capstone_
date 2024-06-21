@@ -7,137 +7,163 @@
     android:orientation="vertical"
     tools:context=".ui.board.MainActivity_Board">
 
-    <!-- 게시글 검색창 -->
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:iconifiedByDefault="false"
-        app:queryHint="검색어를 입력하세요"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/rounded_line"
-        app:queryBackground="@android:color/transparent"
-        tools:ignore="MissingConstraints" />
-
-    <!-- 게시판 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        android:layout_marginBottom="20dp">
-
-        <!-- 자유게시판 -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.6"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="13dp"
-            android:orientation="vertical"
-            android:backgroundTint="#DAEDFF"
-            android:background="@drawable/custom_button_background"
-            android:elevation="10dp"
-            android:gravity="center">
-
-            <ImageView
-                android:id="@+id/freeBt"
-                android:layout_width="130dp"
-                android:layout_height="100dp"
-                android:src="@drawable/board_freeposting_shadow"
-                android:layout_gravity="center"
-                android:contentDescription="자유게시판"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="자유게시판"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/nanum_square_round_eb"/>
-        </LinearLayout>
-
-        <!-- 투표게시판 -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.6"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="13dp"
-            android:orientation="vertical"
-            android:backgroundTint="#DAEDFF"
-            android:background="@drawable/custom_button_background"
-            android:elevation="16dp"
-            android:gravity="center">
-
-            <ImageView
-                android:id="@+id/voteBt"
-                android:layout_width="130dp"
-                android:layout_height="100dp"
-                android:src="@drawable/board_vote_shadow"
-                android:layout_gravity="center"
-                android:contentDescription="투표게시판"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="투표게시판"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/nanum_square_round_eb"/>
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- 인기게시글 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="전체게시글"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="10dp"
-            android:textColor="@android:color/black"
-            android:fontFamily="@font/nanum_square_round_eb" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:text="전체보기"
-            android:textSize="15sp"
-            android:textColor="@color/ic_bokdak_background" />
-    </LinearLayout>
-
     <!-- 전체 게시글 -->
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp">
+        android:layout_height="match_parent">
 
-        <!-- all_listView -->
-        <ListView
-            android:id="@+id/board_listView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"/>
-    </RelativeLayout>
+            android:orientation="vertical">
+
+            <!-- 게시글 검색창 -->
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:iconifiedByDefault="false"
+                app:queryHint="검색어를 입력하세요"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/rounded_line"
+                app:queryBackground="@android:color/transparent"
+                tools:ignore="MissingConstraints" />
+
+            <!-- 게시판 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:layout_marginBottom="20dp">
+
+                <!-- 자유게시판 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="13dp"
+                    android:orientation="vertical"
+                    android:backgroundTint="#DAEDFF"
+                    android:background="@drawable/custom_button_background"
+                    android:elevation="10dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/freeBt"
+                        android:layout_width="130dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/board_freeposting_shadow"
+                        android:layout_gravity="center"
+                        android:contentDescription="자유게시판"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="자유게시판"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/nanum_square_round_eb"/>
+                </LinearLayout>
+
+                <!-- 투표게시판 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="13dp"
+                    android:orientation="vertical"
+                    android:backgroundTint="#DAEDFF"
+                    android:background="@drawable/custom_button_background"
+                    android:elevation="16dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/voteBt"
+                        android:layout_width="130dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/board_vote_shadow"
+                        android:layout_gravity="center"
+                        android:contentDescription="투표게시판"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="투표게시판"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/nanum_square_round_eb"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 인기게시글 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="전체게시글"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@android:color/black"
+                    android:fontFamily="@font/nanum_square_round_eb" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:text="전체보기"
+                    android:textSize="15sp"
+                    android:textColor="@color/ic_bokdak_background" />
+            </LinearLayout>
+
+            <!-- 전체 게시글 -->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp">
+
+                <!-- 자유게시판 RecyclerView -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_free"
+                    android:scrollbars="none"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentTop="true"/>
+
+                <!-- 투표게시판 RecyclerView -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_vote"
+                    android:scrollbars="none"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/recycler_view_free"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
 </LinearLayout>
