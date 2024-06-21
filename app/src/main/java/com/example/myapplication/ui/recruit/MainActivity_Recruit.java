@@ -18,6 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.RecruitMainBinding;
+import com.example.myapplication.ui.board.BoardAdapter;
+import com.example.myapplication.ui.board.PostList_Item_Board;
+import com.example.myapplication.ui.board.VoteAdapter;
+import com.example.myapplication.ui.board.VoteList_Item_Board;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +29,10 @@ import java.util.List;
 public class MainActivity_Recruit extends Fragment {
 
     private RecruitMainBinding binding; // 바인딩 변수 선언
-    private RecyclerView recyclerViewTaxi;
     private RecyclerView recyclerViewBuy;
+    private RecyclerView recyclerViewShare;
     private BuyRecruitDBHelper buydbHelper;
     private ShareRecruitDBHelper sharedbHelper;
-    private TaxiRecruitDBHelper taxidbHelper;
 
     public static MainActivity_Recruit newInstance() {
         return new MainActivity_Recruit();
@@ -73,18 +76,6 @@ public class MainActivity_Recruit extends Fragment {
             }
         });
 
-        // 함께택시 클릭 시에 이 액션을 트리거하도록 설정
-        binding.taxiBt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // NavController를 가져옴
-                NavController navController = Navigation.findNavController(v);
-
-                // 액션을 트리거하여 navigationrecruit_buylist로 이동
-                navController.navigate(R.id.action_navigation_recruit_to_navigation_recruit_taxilist);
-            }
-        });
-
         // 무료나눔 클릭 시에 이 액션을 트리거하도록 설정
         binding.shareBt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,16 +95,15 @@ public class MainActivity_Recruit extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerViewTaxi = view.findViewById(R.id.recycler_view_taxi);
         recyclerViewBuy = view.findViewById(R.id.recycler_view_buy);
+        recyclerViewShare = view.findViewById(R.id.recycler_view_share);
 
-        recyclerViewTaxi.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerViewBuy.setLayoutManager(new LinearLayoutManager(requireContext()));
+        recyclerViewShare.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         // 데이터베이스 헬퍼 초기화
         buydbHelper = new BuyRecruitDBHelper(requireContext());
-        taxidbHelper = new TaxiRecruitDBHelper(requireContext());
-
+        sharedbHelper = new ShareRecruitDBHelper(requireContext());
 
         // 함께구매 목록 설정
         List<BuyList_Item_Recruit> buysList = buydbHelper.getAllBuys();
@@ -124,8 +114,17 @@ public class MainActivity_Recruit extends Fragment {
             }
         });
         recyclerViewBuy.setAdapter(buyadapter);
-    }
 
+        // 투표게시판 데이터 가져오기 및 설정
+        List<ShareList_Item_Recruit> sharesList = sharedbHelper.getAllshares();
+        ShareAdapter shareadapter = new ShareAdapter(requireContext(), sharesList, new ShareAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(ShareList_Item_Recruit item) {
+                // 클릭 이벤트 처리
+            }
+        });
+        recyclerViewShare.setAdapter(shareadapter);
+    }
 
     @Override
     public void onDestroyView() {

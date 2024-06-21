@@ -7,173 +7,189 @@
     android:orientation="vertical"
     tools:context=".ui.recruit.MainActivity_Recruit">
 
-    <!-- 모집글 전체 검색창 -->
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:iconifiedByDefault="false"
-        app:queryHint="검색어를 입력하세요"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/rounded_line"
-        app:queryBackground="@android:color/transparent"
-        tools:ignore="MissingConstraints" />
-
-    <!-- 모집글 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="18dp" >
-
-        <!-- 함께구매 모집글 -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="vertical"
-            android:backgroundTint="#DAEDFF"
-            android:background="@drawable/custom_button_background"
-            android:elevation="5dp"
-            android:gravity="center">
-
-            <ImageView
-                android:id="@+id/buyBt"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:contentDescription="함께구매"
-                android:src="@drawable/main_groupbuying_shadow" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="함께구매"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:fontFamily="@font/nanum_square_round_eb"/>
-        </LinearLayout>
-
-        <!-- 함께택시 모집글 -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="vertical"
-            android:backgroundTint="#DAEDFF"
-            android:background="@drawable/custom_button_background"
-            android:elevation="5dp"
-            android:gravity="center">
-
-            <ImageView
-                android:id="@+id/taxiBt"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/main_taxi_shadow"
-                android:layout_gravity="center"
-                android:contentDescription="함께택시"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="함께택시"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:fontFamily="@font/nanum_square_round_eb"/>
-        </LinearLayout>
-
-        <!-- 서로나눔 모집글 -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="1dp"
-            android:layout_weight="1"
-            android:background="@drawable/custom_button_background"
-            android:backgroundTint="#DAEDFF"
-            android:elevation="5dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="15dp">
-
-            <ImageView
-                android:id="@+id/shareBt"
-                android:layout_width="90dp"
-                android:layout_height="78dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:contentDescription="서로나눔"
-                android:src="@drawable/main_sharing_shadow" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="서로나눔"
-                android:layout_marginTop="9dp"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:fontFamily="@font/nanum_square_round_eb"/>
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- 인기게시글 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="같이할래요?"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="10dp"
-            android:textColor="@android:color/black"
-            android:fontFamily="@font/nanum_square_round_eb"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:text="전체보기"
-            android:textSize="15sp"
-            android:textColor="@color/ic_bokdak_background" />
-    </LinearLayout>
-
     <!-- 전체 게시글 -->
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp">
+        android:layout_height="match_parent">
 
-        <!-- 함께택시 RecyclerView -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_taxi"
-            android:scrollbars="none"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_alignParentTop="true"/>
+            android:orientation="vertical">
 
-        <!-- 함께구매 RecyclerView -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_buy"
-            android:scrollbars="none"
+        <!-- 모집글 전체 검색창 -->
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/recycler_view_taxi"/>
-    </RelativeLayout>
+            app:iconifiedByDefault="false"
+            app:queryHint="검색어를 입력하세요"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/rounded_line"
+            app:queryBackground="@android:color/transparent"
+            tools:ignore="MissingConstraints" />
+
+        <!-- 모집글 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="18dp" >
+
+            <!-- 함께구매 모집글 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical"
+                android:backgroundTint="#DAEDFF"
+                android:background="@drawable/custom_button_background"
+                android:elevation="5dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/buyBt"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="함께구매"
+                    android:src="@drawable/main_groupbuying_shadow" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="함께구매"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:fontFamily="@font/nanum_square_round_eb"/>
+            </LinearLayout>
+
+            <!-- 함께택시 모집글 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical"
+                android:backgroundTint="#DAEDFF"
+                android:background="@drawable/custom_button_background"
+                android:elevation="5dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/taxiBt"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/main_taxi_shadow"
+                    android:layout_gravity="center"
+                    android:contentDescription="함께택시"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="함께택시"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:fontFamily="@font/nanum_square_round_eb"/>
+            </LinearLayout>
+
+            <!-- 서로나눔 모집글 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/custom_button_background"
+                android:backgroundTint="#DAEDFF"
+                android:elevation="5dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <ImageView
+                    android:id="@+id/shareBt"
+                    android:layout_width="90dp"
+                    android:layout_height="78dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:contentDescription="서로나눔"
+                    android:src="@drawable/main_sharing_shadow" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="서로나눔"
+                    android:layout_marginTop="9dp"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/nanum_square_round_eb"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 인기게시글 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="같이할래요?"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:textColor="@android:color/black"
+                android:fontFamily="@font/nanum_square_round_eb"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="전체보기"
+                android:textSize="15sp"
+                android:textColor="@color/ic_bokdak_background" />
+        </LinearLayout>
+
+            <!-- 전체 게시글 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp">
+
+                <!-- 자유게시판 RecyclerView -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_buy"
+                    android:scrollbars="none"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentTop="true"/>
+
+                <!-- 투표게시판 RecyclerView -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_share"
+                    android:scrollbars="none"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/recycler_view_buy"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
 </LinearLayout>

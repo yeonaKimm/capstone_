@@ -135,7 +135,6 @@
             </LinearLayout>
 
             <!-- 전체 게시글 -->
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
