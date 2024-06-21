@@ -11,7 +11,7 @@ import java.util.List;
 
 public class TaxiRecruitDBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "TaxiRecruitdb";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3; // Incremented the version
 
     public TaxiRecruitDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -19,7 +19,7 @@ public class TaxiRecruitDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE taxis (id INTEGER PRIMARY KEY, date TEXT, time TEXT, people INTEGER, start_location TEXT, end_location TEXT)");
+        db.execSQL("CREATE TABLE taxis (id INTEGER PRIMARY KEY, date TEXT, time TEXT, people INTEGER, start_location TEXT, end_location TEXT, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)");
     }
 
     @Override
@@ -27,6 +27,9 @@ public class TaxiRecruitDBHelper extends SQLiteOpenHelper {
         if (oldVersion < 2) {
             db.execSQL("ALTER TABLE taxis ADD COLUMN start_location TEXT");
             db.execSQL("ALTER TABLE taxis ADD COLUMN end_location TEXT");
+        }
+        if (oldVersion < 3) {
+            db.execSQL("ALTER TABLE taxis ADD COLUMN timestamp DATETIME DEFAULT CURRENT_TIMESTAMP");
         }
     }
 
@@ -38,6 +41,7 @@ public class TaxiRecruitDBHelper extends SQLiteOpenHelper {
         values.put("people", people);
         values.put("start_location", startLocation);
         values.put("end_location", endLocation);
+        // timestamp is set automatically by default value
         db.insert("taxis", null, values);
         db.close();
     }
@@ -45,7 +49,7 @@ public class TaxiRecruitDBHelper extends SQLiteOpenHelper {
     public List<TaxiList_Item_Recruit> getAllTaxis() {
         List<TaxiList_Item_Recruit> taxisList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM taxis", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM taxis ORDER BY timestamp DESC", null);
 
         int dateIndex = cursor.getColumnIndex("date");
         int timeIndex = cursor.getColumnIndex("time");

@@ -43,6 +43,8 @@ public class TaxiAdapter extends RecyclerView.Adapter<TaxiAdapter.TaxiViewHolder
         holder.itemDate.setText(item.getDate());
         holder.itemTime.setText(item.getTime());
         holder.itemPeople.setText(String.valueOf(item.getPeople()));
+        holder.itemStart.setText(formatText(item.getStartLocation()));
+        holder.itemEnd.setText(formatText(item.getEndLocation()));
 
         // 모집 버튼 클릭 이벤트 처리
         holder.recruitButton.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +64,13 @@ public class TaxiAdapter extends RecyclerView.Adapter<TaxiAdapter.TaxiViewHolder
         });
     }
 
+    private String formatText(String text) {
+        if (text != null && text.length() > 5) {
+            return text.substring(0, 5) + "\n" + text.substring(5);
+        }
+        return text;
+    }
+
     @Override
     public int getItemCount() {
         return taxiList.size();
@@ -71,6 +80,8 @@ public class TaxiAdapter extends RecyclerView.Adapter<TaxiAdapter.TaxiViewHolder
         private TextView itemDate;
         private TextView itemPeople;
         private TextView itemTime;
+        private TextView itemStart;
+        private TextView itemEnd;
         private Button recruitButton;
 
         public TaxiViewHolder(@NonNull View itemView) {
@@ -78,6 +89,8 @@ public class TaxiAdapter extends RecyclerView.Adapter<TaxiAdapter.TaxiViewHolder
             itemDate = itemView.findViewById(R.id.item_date);
             itemPeople = itemView.findViewById(R.id.item_people);
             itemTime = itemView.findViewById(R.id.item_time);
+            itemStart = itemView.findViewById(R.id.item_start);
+            itemEnd = itemView.findViewById(R.id.item_end);
             recruitButton = itemView.findViewById(R.id.recruit);
         }
     }

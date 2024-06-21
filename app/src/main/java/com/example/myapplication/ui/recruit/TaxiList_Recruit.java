@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.RecruitTaxilistBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -49,6 +51,9 @@ public class TaxiList_Recruit extends Fragment {
             @Override
             public void onItemClick(TaxiList_Item_Recruit item) {
                 // 클릭 이벤트 처리
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("selectedItem", item);
+                Navigation.findNavController(view).navigate(R.id.action_navigation_recruit_taxilist_to_navigation_recruit_taxiprint, bundle);
             }
         });
 

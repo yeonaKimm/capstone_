@@ -2,6 +2,9 @@ package com.example.myapplication;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -35,6 +38,17 @@ public class MainActivity extends AppCompatActivity {
         if (userId != null) {
             saveUserId(userId);
         }
+
+        // 함께택시 버튼 클릭 리스너 설정
+        ImageView taxiBt = findViewById(R.id.taxiBt);
+        taxiBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("MainActivity", "Taxi button clicked");
+                navController.navigate(R.id.navigation_recruit_taxilist);
+            }
+        });
+
     }
 
     private void saveUserId(String userId) {
