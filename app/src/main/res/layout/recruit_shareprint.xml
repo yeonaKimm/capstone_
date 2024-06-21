@@ -16,7 +16,7 @@
         android:padding="10dp" >
 
         <ImageView
-            android:id="@+id/postImageView"
+            android:id="@+id/item_image"
             android:layout_width="match_parent"
             android:layout_height="340dp"
             android:src="@drawable/strawberry"
@@ -89,7 +89,7 @@
             android:layout_marginBottom="10dp"/>
 
         <TextView
-            android:id="@+id/postTitleTextView"
+            android:id="@+id/item_topic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="딸기 나눔해요~"
@@ -98,13 +98,36 @@
             android:layout_marginBottom="8dp" />
 
         <TextView
-            android:id="@+id/postContentTextView"
+            android:id="@+id/item_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="이번에 딸기가 1+1이길래 사왔는데
-금방 상할 거 같아서 가까운 이웃 분께 나눔~^^"
+            android:text="이번에 딸기가 1+1이길래 사왔는데\n금방 상할 거 같아서 가까운 이웃 분께 나눔~^^"
             android:textAppearance="?attr/textAppearanceBody1"
             android:layout_marginBottom="8dp"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/item_quantity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="수량"
+                android:textColor="#3F51B5"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="개 나눔!"
+                android:textColor="#3F51B5"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:layout_marginBottom="8dp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -126,7 +149,7 @@
             android:src="@drawable/ic_heart" />
 
         <TextView
-            android:id="@+id/price"
+            android:id="@+id/item_place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
