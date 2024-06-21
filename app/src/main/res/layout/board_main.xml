@@ -64,7 +64,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="자유게시판"
+                        android:text="함께고민"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:gravity="center"
@@ -97,7 +97,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="투표게시판"
+                        android:text="함께선택"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:gravity="center"
