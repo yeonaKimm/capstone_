@@ -36,13 +36,12 @@
 
     </LinearLayout>
 
-
     <View
         android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:background="#CCCCCC"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"/> <!-- 회색 밑줄 -->
+        android:layout_marginBottom="10dp"/>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -76,8 +75,6 @@
             android:spinnerMode="dropdown"/>
     </LinearLayout>
 
-
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -97,7 +94,6 @@
             android:textColor="#000000"
             android:layout_marginBottom="10dp"/>
 
-
         <!-- 저장명을 선택할 수 있는 드롭다운 에디트텍스트 -->
         <Spinner
             android:id="@+id/spinner_contact"
@@ -111,7 +107,6 @@
             android:spinnerMode="dropdown"/>
     </LinearLayout>
 
-    <!-- 위치 공유하기 버튼 -->
     <LinearLayout
         android:orientation="horizontal"
         android:gravity="center"
@@ -160,7 +155,6 @@
             android:background="@color/ic_bokdak_background"/>
     </LinearLayout>
 
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -198,6 +192,4 @@
             android:clickable="true"
             android:onClick="openTexiRouteActivity" />
     </LinearLayout>
-
-
 </LinearLayout>

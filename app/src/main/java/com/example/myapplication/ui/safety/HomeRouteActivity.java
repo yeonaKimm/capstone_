@@ -40,9 +40,6 @@ public class HomeRouteActivity extends AppCompatActivity implements OnMapReadyCa
     private LatLng currentLocationLatLng;
     private LatLng destinationLatLng;
 
-    private String selectedTime;
-    private String selectedContact;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,10 +63,9 @@ public class HomeRouteActivity extends AppCompatActivity implements OnMapReadyCa
 
         sessionToken = AutocompleteSessionToken.newInstance();
 
-        if (getIntent() != null) {
-            selectedTime = getIntent().getStringExtra("selectedTime");
-            selectedContact = getIntent().getStringExtra("selectedContact");
-        }
+        // 소요 시간과 비상 연락처 값을 인텐트에서 가져오기
+        String selectedTime = getIntent().getStringExtra("selectedTime");
+        String selectedContact = getIntent().getStringExtra("selectedContact");
 
         currentLocationEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -114,8 +110,8 @@ public class HomeRouteActivity extends AppCompatActivity implements OnMapReadyCa
                 Intent intent = new Intent(HomeRouteActivity.this, HomeNext_Safety.class);
                 intent.putExtra("currentLocation", currentLocation);
                 intent.putExtra("destination", destination);
-                intent.putExtra("selectedTime", selectedTime);
-                intent.putExtra("selectedContact", selectedContact);
+                intent.putExtra("selectedTime", selectedTime); // 소요 시간 추가
+                intent.putExtra("selectedContact", selectedContact); // 비상 연락처 추가
                 if (currentLocationLatLng != null) {
                     intent.putExtra("startLat", currentLocationLatLng.latitude);
                     intent.putExtra("startLng", currentLocationLatLng.longitude);
