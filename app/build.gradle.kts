@@ -51,10 +51,13 @@ dependencies {
     implementation("com.kakao.maps.open:android:2.9.5") //카카오지도 SDK에 대한 의존성 추가
     implementation("com.google.android.gms:play-services-maps:18.0.2") //구글플레이서비스 라이브러리 추가
     implementation("com.google.android.gms:play-services-location:21.2.0")
+    implementation ("androidx.recyclerview:recyclerview:1.2.1")
+    
     implementation("com.google.android.libraries.places:places:2.5.0")
     implementation("com.android.support:multidex:1.0.3" )
     implementation("com.google.android.material:material:1.4.0")
     implementation("com.squareup.picasso:picasso:2.71828")
+
 
 
     // Glide 라이브러리 추가

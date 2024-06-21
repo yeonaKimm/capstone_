@@ -1,0 +1,68 @@
+package com.example.myapplication.ui.safety;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.myapplication.R;
+import com.google.android.libraries.places.api.model.AutocompletePrediction;
+
+import java.util.List;
+
+public class PlaceAutocompleteAdapterForHomeRoute extends RecyclerView.Adapter<PlaceAutocompleteAdapterForHomeRoute.PlaceViewHolder> {
+
+    private final Context context;
+    private List<AutocompletePrediction> predictionList;
+    private final PlaceAutoCompleteInterface placeAutoCompleteInterface;
+
+    public PlaceAutocompleteAdapterForHomeRoute(Context context, PlaceAutoCompleteInterface placeAutoCompleteInterface) {
+        this.context = context;
+        this.placeAutoCompleteInterface = placeAutoCompleteInterface;
+    }
+
+    public void setPredictionList(List<AutocompletePrediction> predictionList) {
+        this.predictionList = predictionList;
+        notifyDataSetChanged();
+    }
+
+    @NonNull
+    @Override
+    public PlaceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_search, parent, false);
+        return new PlaceViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull PlaceViewHolder holder, int position) {
+        holder.bind(predictionList.get(position));
+    }
+
+    @Override
+    public int getItemCount() {
+        return predictionList == null ? 0 : predictionList.size();
+    }
+
+    public interface PlaceAutoCompleteInterface {
+        void onPlaceClick(List<AutocompletePrediction> resultList, int position);
+    }
+
+    class PlaceViewHolder extends RecyclerView.ViewHolder {
+
+        private final TextView addressText;
+
+        PlaceViewHolder(View itemView) {
+            super(itemView);
+            addressText = itemView.findViewById(R.id.tv_address);
+            itemView.setOnClickListener(v -> placeAutoCompleteInterface.onPlaceClick(predictionList, getAdapterPosition()));
+        }
+
+        void bind(AutocompletePrediction prediction) {
+            addressText.setText(prediction.getPrimaryText(null).toString());  // 장소의 이름을 표시
+        }
+    }
+}

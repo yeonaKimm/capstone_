@@ -46,6 +46,13 @@
 
         <activity android:name=".MainActivity" />
 
+        <activity android:name=".ui.safety.HomeRouteActivity" />
+
+        <activity android:name=".ui.safety.HomeNext_Safety" />
+
+
+
+
 
 
         <meta-data

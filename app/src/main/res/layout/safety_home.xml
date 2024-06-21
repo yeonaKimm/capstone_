@@ -37,72 +37,77 @@
     </LinearLayout>
 
 
+    <!-- 출발지와 도착지 설정 -->
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="20dp">
 
-        <!-- 출발지 지도 -->
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="136dp"
-            android:layout_height="125dp"
+        <!-- 출발지 -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_gravity="start"
-            android:src="@drawable/gps" />
+            android:text="출발지"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:background="@color/ic_bokdak_background"/>
 
-        <!-- 도착지 지도 -->
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="136dp"
-            android:layout_height="125dp"
+        <!-- 도착지 -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_gravity="end"
-            android:src="@drawable/gps" />
-
+            android:text="도착지"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:background="@color/ic_bokdak_background"/>
     </LinearLayout>
 
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="30dp">
 
-        <!-- 출발위치 -->
+        <!-- 출발지 -->
         <EditText
             android:id="@+id/startET"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
             android:layout_weight="1"
             android:background="@drawable/edittext_line"
-            android:layout_marginRight="30dp"
-            android:padding="5dp"
+            android:padding="8dp"
             android:textColor="#000000"
-            android:hint=" 출발위치"
-            android:textStyle="bold"
-            android:layout_gravity="center"
+            android:hint="출발지 설정"
             android:inputType="text"
-            android:gravity="center_horizontal"/>
+            android:focusable="false"
+            android:clickable="true"
+            android:onClick="openTexiRouteActivity" />
 
-        <!-- 도착위치 -->
+        <!-- 도착지 -->
         <EditText
             android:id="@+id/endET"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
             android:layout_weight="1"
             android:background="@drawable/edittext_line"
-            android:padding="5dp"
+            android:padding="8dp"
             android:textColor="#000000"
-            android:hint=" 도착위치"
-            android:textStyle="bold"
-            android:layout_gravity="center"
+            android:hint="도착지 설정"
             android:inputType="text"
-            android:gravity="center_horizontal"/>
-
+            android:focusable="false"
+            android:clickable="true"
+            android:onClick="openTexiRouteActivity" />
     </LinearLayout>
 
     <View
