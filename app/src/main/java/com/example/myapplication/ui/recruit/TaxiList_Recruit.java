@@ -45,14 +45,14 @@ public class TaxiList_Recruit extends Fragment {
         List<TaxiList_Item_Recruit> taxisList = taxidbHelper.getAllTaxis();
 
         // 변경된 부분: 어댑터 생성 시에 리스트와 OnItemClickListener를 전달
-        TaxiAdapter adapter = new TaxiAdapter(requireContext(), taxisList, new TaxiAdapter.OnItemClickListener() {
+        TaxiAdapter taxiadapter = new TaxiAdapter(requireContext(), taxisList, new TaxiAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(TaxiList_Item_Recruit item) {
                 // 클릭 이벤트 처리
             }
         });
 
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(taxiadapter);
 
         FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

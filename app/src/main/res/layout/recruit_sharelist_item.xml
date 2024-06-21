@@ -1,0 +1,95 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".ui.recruit.ShareList_Item_Recruit"
+    android:layout_margin="10dp" >
+
+    <LinearLayout
+        android:id="@+id/item_list"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/item_image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/strawberry"
+            android:scaleType="centerCrop"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" >
+        <!-- 제목 -->
+
+            <TextView
+                android:id="@+id/item_topic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="딸기 나눔함!"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textStyle="bold" />
+
+            <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+                <!-- 내용 -->
+                <TextView
+                    android:id="@+id/item_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="8시에 나눔할게!"
+                    android:textColor="#000000"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <!-- 나눔 장소 -->
+            <TextView
+                android:id="@+id/item_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="푸른학사 1층"
+                android:textColor="#0022FF" />
+
+
+            <!-- 모집인원 -->
+            <TextView
+                android:id="@+id/item_quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="1/2"
+                android:textSize="16sp"
+                android:textColor="#94E87F"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:drawableLeft="@drawable/ic_emoji" />
+
+            <!-- 빈 영역 (왼쪽 여백 조절을 위해 추가) -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+            <Button
+                android:id="@+id/recruit"
+                android:layout_width="61dp"
+                android:layout_height="40dp"
+                android:text="나눔"/>
+        </LinearLayout>
+    </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

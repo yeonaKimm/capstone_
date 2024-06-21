@@ -47,14 +47,14 @@ public class BuyList_Recruit extends Fragment {
 
         List<BuyList_Item_Recruit> buysList = buydbHelper.getAllBuys();
 
-        BuyAdapter adapter = new BuyAdapter(requireContext(), buysList, new BuyAdapter.OnItemClickListener() {
+        BuyAdapter buyadapter = new BuyAdapter(requireContext(), buysList, new BuyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BuyList_Item_Recruit item) {
                 // 클릭 이벤트 처리
             }
         });
 
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(buyadapter);
 
         FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

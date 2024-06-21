@@ -62,10 +62,12 @@ public class VoteReg_Board extends Fragment {
             public void onClick(View v) {
                 String topic = binding.topic.getText().toString();
                 String content = binding.content.getText().toString();
+                String option1 = binding.option1.getText().toString();
+                String option2 = binding.option2.getText().toString();
 
-                // topic과 content를 데이터베이스에 삽입
+                // topic과 content, imageuri, option1, option2를 데이터베이스에 삽입
                 VoteDBHelper dbHelper = new VoteDBHelper(getContext());
-                dbHelper.insertVote(topic, content, selectedImageUri != null ? selectedImageUri.toString() : null);
+                dbHelper.insertVote(topic, content, selectedImageUri != null ? selectedImageUri.toString() : null, option1, option2);
 
                 // NavController를 가져옴
                 NavController navController = Navigation.findNavController(v);

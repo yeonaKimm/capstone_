@@ -6,8 +6,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.board.VotePrint_Board"
-    android:layout_margin="20dp">
+    android:padding="20dp">
 
+    <!-- 게시글 정보 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,7 +16,7 @@
         android:background="@drawable/edittext_line"
         android:padding="10dp" >
 
-        <!-- 게시글 -->
+        <!-- 게시글 헤더 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,7 +45,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="익명"
-                        android:textSize="15dp"
+                        android:textSize="15sp"
                         android:textStyle="bold"
                         android:textAppearance="?attr/textAppearanceHeadline6" />
 
@@ -81,6 +82,7 @@
 
         </LinearLayout>
 
+        <!-- 게시글 내용 및 이미지 -->
         <TextView
             android:id="@+id/item_topic"
             android:layout_width="match_parent"
@@ -97,7 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="더벤티 오픈 vs 맥날 주말
-                                   둘 중에 뭐가 나을지 눌러줘라."
+                          둘 중에 뭐가 나을지 눌러줘라."
             android:textAppearance="?attr/textAppearanceBody1"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="20dp"
@@ -125,65 +127,97 @@
                 android:scaleType="centerCrop" />
         </LinearLayout>
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/item_option1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@drawable/edittext_line"
+            android:text="더벤티 오픈"
+            android:textStyle="bold"
+            android:textAppearance="?attr/textAppearanceBody1"
             android:padding="10dp"
-            android:layout_margin="16dp">
-
-            <TextView
-                android:id="@+id/Vote_option1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="더벤티 오픈"
-                android:textStyle="bold"
-                android:background="@color/ic_bokdak_background"
-                android:textAppearance="?attr/textAppearanceBody1"
-                android:layout_margin="10dp"/>
-
-            <TextView
-                android:id="@+id/Vote_percentage1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="70%"
-                android:textColor="@color/ic_bokdak_background"
-                android:textAppearance="?attr/textAppearanceBody1"
-                android:layout_margin="10dp"/>
-        </LinearLayout>
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:background="@drawable/edittext_line"
             android:padding="10dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp">
 
-            <TextView
-                android:id="@+id/Vote_option2"
+            <!-- 막대 1 -->
+            <LinearLayout
+                android:id="@+id/barContainer1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="맥날 주말"
-                android:background="#EEB2FF"
-                android:textStyle="bold"
-                android:textAppearance="?attr/textAppearanceBody1"
-                android:layout_margin="10dp"/>
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-            <TextView
-                android:id="@+id/Vote_percentage2"
+                <View
+                    android:id="@+id/barFillOption1"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:background="#B6DDFF"/>
+
+                <TextView
+                    android:id="@+id/tvBarLabel1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="100%"
+                    android:layout_marginEnd="8dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/item_option2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="맥날 주말"
+            android:textStyle="bold"
+            android:textAppearance="?attr/textAppearanceBody1"
+            android:padding="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/edittext_line"
+            android:padding="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
+
+            <!-- 막대 2 -->
+            <LinearLayout
+                android:id="@+id/barContainer2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="30%"
-                android:textColor="#EEB2FF"
-                android:textAppearance="?attr/textAppearanceBody1"
-                android:layout_margin="10dp"/>
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <View
+                    android:id="@+id/barFillOption2"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:background="#B6DDFF"/>
+
+                <TextView
+                    android:id="@+id/tvBarLabel2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="0%"
+                    android:layout_marginEnd="8dp"/>
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
         <TextView
@@ -238,7 +272,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="익명"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     android:textAppearance="?attr/textAppearanceHeadline6" />
 

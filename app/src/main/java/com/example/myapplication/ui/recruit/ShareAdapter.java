@@ -2,6 +2,7 @@ package com.example.myapplication.ui.recruit;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,34 +19,34 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.myapplication.R;
 
 import java.util.List;
-import android.util.Log; // Log 클래스를 가져옵니다.
 
-public class BuyAdapter extends RecyclerView.Adapter<BuyAdapter.BuyViewHolder> {
+public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.ShareViewHolder> {
 
-    private static final String TAG = "BuyAdapter"; // 로그 태그 설정
-    private List<BuyList_Item_Recruit> buyList;
+    private static final String TAG = "ShareAdapter"; // 로그 태그 설정
+    private List<ShareList_Item_Recruit> shareList;
     private Context context;
     private OnItemClickListener mListener;
 
-    public BuyAdapter(Context context, List<BuyList_Item_Recruit> buyList, OnItemClickListener mlistener) {
+    public ShareAdapter(Context context, List<ShareList_Item_Recruit> shareList, OnItemClickListener mlistener) {
         this.context = context;
-        this.buyList = buyList;
+        this.shareList = shareList;
         this.mListener = mlistener;
     }
 
     @NonNull
     @Override
-    public BuyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.recruit_buylist_item, parent, false);
-        return new BuyViewHolder(view);
+    public ShareViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.recruit_sharelist_item, parent, false);
+        return new ShareViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BuyViewHolder holder, int position) {
-        BuyList_Item_Recruit item = buyList.get(position);
+    public void onBindViewHolder(@NonNull ShareViewHolder holder, int position) {
+        ShareList_Item_Recruit item = shareList.get(position);
         holder.itemTopic.setText(item.getTopic());
-        holder.itemPrice.setText(String.valueOf(item.getPrice()));
-        holder.itemPeople.setText(String.valueOf(item.getPeople()));
+        holder.itemContent.setText(item.getContent());
+        holder.itemPlace.setText(String.valueOf(item.getPlace()));
+        holder.itemQuantity.setText(String.valueOf(item.getQuantity()));
 
         if (item.getImageUri() != null && !item.getImageUri().isEmpty()) {
             Glide.with(context)
@@ -61,43 +62,43 @@ public class BuyAdapter extends RecyclerView.Adapter<BuyAdapter.BuyViewHolder> {
         holder.recruitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BuyList_Item_Recruit selectedItem = buyList.get(holder.getAdapterPosition());
+                ShareList_Item_Recruit selectedItem = shareList.get(holder.getAdapterPosition());
 
                 // 로그로 선택한 아이템의 데이터를 출력합니다.
                 Log.d(TAG, "Item clicked: " + selectedItem.getTopic() + ", " + selectedItem.getContent() + ", " + selectedItem.getImageUri());
 
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("selectedItem", selectedItem);
-                Navigation.findNavController(v).navigate(R.id.action_navigation_recruit_buylist_to_navigation_recruit_buyprint, bundle);
+                Navigation.findNavController(v).navigate(R.id.action_navigation_recruit_sharelist_to_navigation_recruit_shareprint, bundle);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return buyList.size();
+        return shareList.size();
     }
 
-    public static class BuyViewHolder extends RecyclerView.ViewHolder {
+    public static class ShareViewHolder extends RecyclerView.ViewHolder {
         private TextView itemTopic;
-        private TextView itemPrice;
-        private TextView itemPeople;
+        private TextView itemPlace;
+        private TextView itemQuantity;
         private TextView itemContent;
         private ImageView itemImage;
         private Button recruitButton;
 
-        public BuyViewHolder(@NonNull View itemView) {
+        public ShareViewHolder(@NonNull View itemView) {
             super(itemView);
             itemTopic = itemView.findViewById(R.id.item_topic);
             itemContent = itemView.findViewById(R.id.item_content);
-            itemPrice = itemView.findViewById(R.id.item_price);
-            itemPeople = itemView.findViewById(R.id.item_people);
+            itemPlace = itemView.findViewById(R.id.item_place);
+            itemQuantity = itemView.findViewById(R.id.item_quantity);
             itemImage = itemView.findViewById(R.id.item_image);
             recruitButton = itemView.findViewById(R.id.recruit);
         }
     }
 
     public interface OnItemClickListener {
-        void onItemClick(BuyList_Item_Recruit item);
+        void onItemClick(ShareList_Item_Recruit item);
     }
 }

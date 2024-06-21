@@ -1,31 +1,53 @@
 package com.example.myapplication.ui.safety;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.myapplication.R; // 이 부분은 실제 프로젝트에서 사용하는 리소스 이름으로 변경해야 합니다.
+import com.example.myapplication.R;
 
 public class CallDisplay_Safety extends Fragment {
+
+    private Button button;
+    private MediaPlayer mediaPlayer;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // XML 레이아웃을 인플레이트합니다.
-        View rootView = inflater.inflate(R.layout.safety_calldisplay, container, false);
+        View root = inflater.inflate(R.layout.safety_calldisplay, container, false);
 
-        // 인플레이트된 이미지뷰를 참조합니다.
-        ImageView imageView = rootView.findViewById(R.id.imageView);
+        button = root.findViewById(R.id.button);
 
-        // 이미지뷰에 이미지를 설정합니다.
-        imageView.setImageResource(R.drawable.call);
+        // MediaPlayer 초기화
+        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.play_police); // 여기서 R.raw.play_police는 재생할 오디오 파일의 리소스 ID입니다.
 
-        return rootView;
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 버튼 클릭 시 음성 재생
+                if (mediaPlayer != null) {
+                    mediaPlayer.start();
+                }
+            }
+        });
+
+        return root;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        // 프래그먼트 종료 시 MediaPlayer 해제
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 }

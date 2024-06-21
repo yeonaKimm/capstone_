@@ -13,6 +13,8 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.RecruitMainBinding;
@@ -23,9 +25,8 @@ import java.util.List;
 public class MainActivity_Recruit extends Fragment {
 
     private RecruitMainBinding binding; // 바인딩 변수 선언
-
-    private ListView recruitlistView;
-    private ArrayAdapter<String> adapter; // 하나의 어댑터로 변경
+    private RecyclerView recyclerViewTaxi;
+    private RecyclerView recyclerViewBuy;
     private BuyRecruitDBHelper buydbHelper;
     private ShareRecruitDBHelper sharedbHelper;
     private TaxiRecruitDBHelper taxidbHelper;
@@ -103,30 +104,28 @@ public class MainActivity_Recruit extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // UI 요소 초기화
-        recruitlistView = view.findViewById(R.id.recruit_listView);
+        recyclerViewTaxi = view.findViewById(R.id.recycler_view_taxi);
+        recyclerViewBuy = view.findViewById(R.id.recycler_view_buy);
+
+        recyclerViewTaxi.setLayoutManager(new LinearLayoutManager(requireContext()));
+        recyclerViewBuy.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         // 데이터베이스 헬퍼 초기화
         buydbHelper = new BuyRecruitDBHelper(requireContext());
-        sharedbHelper = new ShareRecruitDBHelper(requireContext());
-        taxidbHelper = new TaxiRecruitDBHelper(requireContext());// requireContext()를 사용하여 Fragment의 Context를 가져옵니다.
+        taxidbHelper = new TaxiRecruitDBHelper(requireContext());
 
-        // 모든 게시글을 가져와서 리스트에 추가
-        //List<String> buysList = buydbHelper.getAllBuys();
-        List<String> SharesList = sharedbHelper.getAllshares();
-        //List<String> taxisList = taxidbHelper.getAllTaxis();
 
-        /// 두 리스트를 합치기 위해 하나의 리스트로 결합
-        List<String> combinedList = new ArrayList<>();
-        //combinedList.addAll(buysList);
-        combinedList.addAll(SharesList);
-        //combinedList.addAll(taxisList);
-
-        // 어댑터를 사용하여 리스트에 데이터 연결
-        adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, combinedList);
-        recruitlistView.setAdapter(adapter);
-
+        // 함께구매 목록 설정
+        List<BuyList_Item_Recruit> buysList = buydbHelper.getAllBuys();
+        BuyAdapter buyadapter = new BuyAdapter(requireContext(), buysList, new BuyAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BuyList_Item_Recruit item) {
+                // 클릭 이벤트 처리
+            }
+        });
+        recyclerViewBuy.setAdapter(buyadapter);
     }
+
 
     @Override
     public void onDestroyView() {

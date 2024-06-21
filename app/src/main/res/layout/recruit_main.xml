@@ -155,17 +155,25 @@
     <!-- 전체 게시글 -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp">
 
-        <!-- all_listView -->
-        <ListView
-            android:id="@+id/recruit_listView"
+        <!-- 함께택시 RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_taxi"
+            android:scrollbars="none"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"/>
+            android:layout_marginTop="10dp"
+            android:layout_alignParentTop="true"/>
+
+        <!-- 함께구매 RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_buy"
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recycler_view_taxi"/>
     </RelativeLayout>
 </LinearLayout>

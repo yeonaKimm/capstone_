@@ -51,7 +51,7 @@ public class SafetyDBHelper extends SQLiteOpenHelper {
             do {
                 String name = cursor.getString(nameIndex);
                 String contact = cursor.getString(contactIndex);
-                contactsList.add("\n" + "이름: " + name + "\n전화번호: " + contact + "\n");
+                contactsList.add("\n"  + name + "\n" + contact + "\n");
             } while (cursor.moveToNext());
         }
 

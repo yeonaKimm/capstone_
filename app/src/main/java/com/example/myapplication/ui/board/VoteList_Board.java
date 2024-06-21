@@ -46,14 +46,13 @@ public class VoteList_Board extends Fragment {
 
         List<VoteList_Item_Board> votesList = voteDBHelper.getAllVotes();
 
-        VoteAdapter adapter = new VoteAdapter(requireContext(), votesList, new VoteAdapter.OnItemClickListener() {
+        VoteAdapter adapter2 = new VoteAdapter(requireContext(), votesList, new VoteAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(VoteList_Item_Board item) {
                 // 클릭 이벤트 처리
             }
         });
-
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter2);
 
         // fab 클릭 시에 이 액션을 트리거하도록 설정
         FloatingActionButton fab = view.findViewById(R.id.fab);
