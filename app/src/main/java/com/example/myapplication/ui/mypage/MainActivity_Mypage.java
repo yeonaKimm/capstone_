@@ -189,9 +189,9 @@ public class MainActivity_Mypage extends Fragment {
         ImageView[] stars = {star1, star2, star3, star4, star5};
         for (int i = 0; i < stars.length; i++) {
             if (i < rating) {
-                stars[i].setImageResource(R.drawable.star_filled);
+                stars[i].setImageResource(R.drawable.ic_star);
             } else {
-                stars[i].setImageResource(R.drawable.star_outline);
+                stars[i].setImageResource(R.drawable.ic_star_none);
             }
         }
     }
