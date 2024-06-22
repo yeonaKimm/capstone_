@@ -19,6 +19,7 @@ import com.example.myapplication.R;
 public class BuyPrint_Recruit extends Fragment {
 
     private RecruitBuyprintBinding binding;
+    private BuyList_Item_Recruit selectedItem; // 선택된 아이템을 멤버 변수로 선언
 
     public static BuyPrint_Recruit newInstance() {
         return new BuyPrint_Recruit();
@@ -31,7 +32,7 @@ public class BuyPrint_Recruit extends Fragment {
 
         // 번들에서 전달된 데이터 가져오기
         if (getArguments() != null) {
-            BuyList_Item_Recruit selectedItem = getArguments().getParcelable("selectedItem");
+            selectedItem = getArguments().getParcelable("selectedItem");
             if (selectedItem != null) {
                 // UI 요소에 데이터 설정
                 binding.itemTopic.setText(selectedItem.getTopic());
@@ -43,7 +44,7 @@ public class BuyPrint_Recruit extends Fragment {
                 Glide.with(requireContext())
                         .load(selectedItem.getImageUri())
                         .placeholder(R.drawable.ic_image) // 로딩 중 이미지
-                        .error(R.drawable.ic_rice) // 오류 시 이미지
+                        .error(R.drawable.ic_error) // 오류 시 이미지
                         .into(binding.itemImage);
             }
         }
@@ -56,8 +57,12 @@ public class BuyPrint_Recruit extends Fragment {
                 // NavController를 가져옴
                 NavController navController = Navigation.findNavController(v);
 
-                // 액션을 트리거하여 navigation_board_printform로 이동
-                navController.navigate(R.id.action_navigation_recruit_buyprint_to_navigation_recruit_buyenter);
+                // 번들 생성 및 데이터 추가
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("selectedItem", selectedItem);
+
+                // 액션을 트리거하여 navigation_board_printform로 이동하면서 번들 전달
+                navController.navigate(R.id.action_navigation_recruit_buyprint_to_navigation_recruit_buyenter, bundle);
             }
         });
 

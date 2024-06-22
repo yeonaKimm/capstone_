@@ -12,6 +12,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.RecruitBuyenterBinding;
 
@@ -23,7 +24,7 @@ public class BuyEnter_Recruit extends Fragment {
     private RecruitBuyenterBinding binding;
     private List<BuyCommentList_Item_Recruit> commentList;
     private BuyCommentAdapter buycommentAdapter;
-    private BuyList_Item_Recruit selectedItem; // 추가: 선택된 아이템을 멤버 변수로 선언
+    private BuyList_Item_Recruit selectedItem; // 선택된 아이템을 멤버 변수로 선언
 
     public static BuyEnter_Recruit newInstance() {
         return new BuyEnter_Recruit();
@@ -38,10 +39,18 @@ public class BuyEnter_Recruit extends Fragment {
         if (getArguments() != null) {
             selectedItem = getArguments().getParcelable("selectedItem");
             if (selectedItem != null) {
+                // UI 요소에 데이터 설정
                 binding.itemTopic.setText(selectedItem.getTopic());
+                binding.itemContent.setText(selectedItem.getContent());
                 binding.itemPrice.setText(String.valueOf(selectedItem.getPrice()));
                 binding.itemPeople.setText(String.valueOf(selectedItem.getPeople()));
-                binding.itemContent.setText(selectedItem.getContent());
+
+                // Glide를 사용하여 이미지 로드
+                Glide.with(requireContext())
+                        .load(selectedItem.getImageUri())
+                        .placeholder(R.drawable.ic_image) // 로딩 중 이미지
+                        .error(R.drawable.ic_error) // 오류 시 이미지
+                        .into(binding.itemImage);
             }
         }
 

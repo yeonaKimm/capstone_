@@ -17,7 +17,8 @@ import com.example.myapplication.databinding.RecruitShareprintBinding;
 
 public class SharePrint_Recruit extends Fragment {
 
-    private RecruitShareprintBinding binding; // 바인딩변수 선언
+    private RecruitShareprintBinding binding; // 바인딩 변수 선언
+    private ShareList_Item_Recruit selectedItem; // 선택된 아이템을 멤버 변수로 선언
 
     public static SharePrint_Recruit newInstance() {
         return new SharePrint_Recruit();
@@ -30,7 +31,7 @@ public class SharePrint_Recruit extends Fragment {
 
         // 번들에서 전달된 데이터 가져오기
         if (getArguments() != null) {
-            ShareList_Item_Recruit selectedItem = getArguments().getParcelable("selectedItem");
+            selectedItem = getArguments().getParcelable("selectedItem");
             if (selectedItem != null) {
                 // UI 요소에 데이터 설정
                 binding.itemTopic.setText(selectedItem.getTopic());
@@ -55,8 +56,12 @@ public class SharePrint_Recruit extends Fragment {
                 // NavController를 가져옴
                 NavController navController = Navigation.findNavController(v);
 
-                // 액션을 트리거하여 navigation_recruit_shareenter로 이동
-                navController.navigate(R.id.action_navigation_recruit_shareprint_to_navigation_recruit_shareenter);
+                // 번들 생성 및 데이터 추가
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("selectedItem", selectedItem);
+
+                // 액션을 트리거하여 navigation_recruit_shareenter로 이동하면서 번들 전달
+                navController.navigate(R.id.action_navigation_recruit_shareprint_to_navigation_recruit_shareenter, bundle);
             }
         });
 
