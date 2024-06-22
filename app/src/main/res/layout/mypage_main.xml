@@ -157,39 +157,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center"
-            android:paddingTop="15dp" >
+            android:gravity="center" >
 
             <!-- Star Ratings -->
             <ImageView
                 android:id="@+id/star1"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/star_outline"/>
+                android:src="@drawable/ic_star_none"/>
 
             <ImageView
                 android:id="@+id/star2"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/star_outline"/>
+                android:src="@drawable/ic_star_none"/>
 
             <ImageView
                 android:id="@+id/star3"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/star_outline"/>
+                android:src="@drawable/ic_star_none"/>
 
             <ImageView
                 android:id="@+id/star4"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/star_outline"/>
+                android:src="@drawable/ic_star_none"/>
 
             <ImageView
                 android:id="@+id/star5"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/star_outline"/>
+                android:src="@drawable/ic_star_none"/>
 
             <TextView
                 android:id="@+id/textViewAverageRating"
