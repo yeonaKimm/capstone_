@@ -69,8 +69,11 @@ public class BuyEnter_Recruit extends Fragment {
         binding.cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // NavController를 사용하여 이전 프래그먼트로 이동하고 데이터 전달
                 NavController navController = Navigation.findNavController(v);
-                navController.navigate(R.id.action_navigation_recruit_buyenter_to_navigation_recruit_buyprint);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("selectedItem", selectedItem);
+                navController.navigate(R.id.action_navigation_recruit_buyenter_to_navigation_recruit_buyprint, bundle);
             }
         });
 

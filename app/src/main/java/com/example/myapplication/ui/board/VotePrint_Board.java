@@ -13,18 +13,26 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.BoardVoteprintBinding;
+import com.example.myapplication.ui.recruit.BuyCommentAdapter;
+import com.example.myapplication.ui.recruit.BuyCommentList_Item_Recruit;
 import com.example.myapplication.ui.recruit.BuyList_Item_Recruit;
 import com.example.myapplication.ui.board.VoteList_Item_Board;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class VotePrint_Board extends Fragment {
 
     private BoardVoteprintBinding binding; // 바인딩 변수 선언
+
+    private List<BoardCommentList_Item_Board> commentList;
+    private BoardCommentAdapter boardcommentAdapter;
     private int voteCountOption1 = 0;
     private int voteCountOption2 = 0;
 
@@ -87,7 +95,18 @@ public class VotePrint_Board extends Fragment {
                         .error(R.drawable.ic_error) // 오류 시 이미지
                         .into(binding.itemImage);
             }
-        }
+            commentList = new ArrayList<>();
+            boardcommentAdapter = new BoardCommentAdapter(commentList);
+            binding.commentRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+            binding.commentRecyclerView.setAdapter(boardcommentAdapter);
+
+            binding.sendBt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sendComment();
+                }
+            }); }
+
 
         return rootView;
     }
@@ -119,6 +138,18 @@ public class VotePrint_Board extends Fragment {
         // 막대 레이블 업데이트
         tvBarLabel1.setText(String.format(Locale.getDefault(), "%.0f%%", ratioOption1 * 100));
         tvBarLabel2.setText(String.format(Locale.getDefault(), "%.0f%%", ratioOption2 * 100));
+    }
+
+
+    private void sendComment() {
+        String commentContent = binding.commentET.getText().toString().trim();
+        if (!commentContent.isEmpty()) {
+            // 새로운 댓글을 생성하고 어댑터에 추가
+            BoardCommentList_Item_Board newComment = new BoardCommentList_Item_Board(commentContent);
+            commentList.add(newComment);
+            boardcommentAdapter.notifyDataSetChanged();
+            binding.commentET.setText("");
+        }
     }
 
     @Override

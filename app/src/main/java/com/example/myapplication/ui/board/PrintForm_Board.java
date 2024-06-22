@@ -15,9 +15,16 @@ import androidx.navigation.Navigation;
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.BoardPrintformBinding;
+import com.example.myapplication.ui.recruit.BuyCommentAdapter;
+import com.example.myapplication.ui.recruit.BuyCommentList_Item_Recruit;
+
+import java.util.List;
+
 public class PrintForm_Board extends Fragment {
 
     private BoardPrintformBinding binding; // 바인딩변수 선언
+    private List<BoardCommentList_Item_Board> commentList;
+    private BoardCommentAdapter boardcommentAdapter;
 
     public static PrintForm_Board newInstance() {
         return new PrintForm_Board();
@@ -44,9 +51,20 @@ public class PrintForm_Board extends Fragment {
                         .into(binding.itemImage);
             }
         }
+
         return binding.getRoot();
     }
 
+    private void sendComment() {
+        String commentContent = binding.commentET.getText().toString().trim();
+        if (!commentContent.isEmpty()) {
+            // 새로운 댓글을 생성하고 어댑터에 추가
+            BoardCommentList_Item_Board newComment = new BoardCommentList_Item_Board(commentContent);
+            commentList.add(newComment);
+            boardcommentAdapter.notifyDataSetChanged();
+            binding.commentET.setText("");
+        }
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();
