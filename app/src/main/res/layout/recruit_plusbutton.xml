@@ -3,194 +3,241 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- 모집자 댓글 -->
     <LinearLayout
         android:id="@+id/commentInputPlus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        android:layout_marginBottom="250dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@android:color/white">
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/profile"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="10dp"
-            android:src="@mipmap/ic_bokdak_round" />
-
-        <EditText
-            android:id="@+id/commentET"
-            android:layout_width="0dp"
+        <!-- 모집자 댓글 -->
+        <LinearLayout
+            android:id="@+id/commentInputPlus1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/edittext_line"
-            android:padding="5dp"
-            android:textColor="#000000"
-            android:hint=" 댓글을 입력하세요."
-            android:inputType="text"/>
-
-        <ImageView
-            android:id="@+id/sendBt"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_send" />
-
-    </LinearLayout>
-
-    <!-- 계좌공유 -->
-    <LinearLayout
-        android:id="@+id/commentInputPlus1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        android:layout_marginBottom="200dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@android:color/white">
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/ic_circle_account" />
+            android:background="@android:color/white"
+            android:orientation="horizontal"
+            android:padding="10dp">
 
-        <EditText
-            android:id="@+id/commentET_account"
-            android:layout_width="0dp"
+            <ImageView
+                android:id="@+id/profile"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/ic_bokdak_round" />
+
+            <EditText
+                android:id="@+id/promise"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/edittext_line"
+                android:hint=" 약속해요~"
+                android:inputType="text"
+                android:padding="5dp"
+                android:textColor="#000000" />
+
+            <ImageView
+                android:id="@+id/sendBt"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_send" />
+
+        </LinearLayout>
+
+        <!-- 계좌공유 -->
+        <LinearLayout
+            android:id="@+id/commentInputPlus2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/edittext_line"
-            android:padding="5dp"
-            android:textColor="#000000"
-            android:hint=" 계좌번호 불러오기"
-            android:inputType="text"/>
-
-        <ImageView
-            android:id="@+id/send_acoount"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_send2" />
+            android:layout_marginRight="10dp"
+            android:background="@android:color/white"
+            android:orientation="horizontal"
+            android:padding="10dp">
 
-    </LinearLayout>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_circle_account" />
+
+            <Spinner
+                android:id="@+id/spinner_bank"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_line"
+                android:padding="6dp"
+                android:spinnerMode="dropdown"/>
+
+            <EditText
+                android:id="@+id/account"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/edittext_line"
+                android:hint=" 123-4567-9123-45"
+                android:inputType="text"
+                android:padding="5dp"
+                android:textColor="#000000" />
+
+        </LinearLayout>
 
     <!-- 약속생성 -->
-    <LinearLayout
-        android:id="@+id/commentInputPlus2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        android:layout_marginBottom="110dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@android:color/white">
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/ic_circle_promise" />
-
-        <EditText
-            android:id="@+id/commentET_promise"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/edittext_line"
-            android:padding="5dp"
-            android:textColor="#000000"
-            android:hint=" YYYY / MM / DD\n 00:00\n 직거래장소"
-            android:inputType="text"/>
-
-        <ImageView
-            android:id="@+id/send_promise"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_send2" />
-
-    </LinearLayout>
-
-    <!-- 정산하기 -->
     <LinearLayout
         android:id="@+id/commentInputPlus3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        android:layout_marginBottom="50dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/ic_circle_calculate" />
+        <!-- 약속생성 -->
+        <LinearLayout
+            android:id="@+id/commentInputPlusdeep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/white"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_circle_promise" />
+
+            <EditText
+                android:id="@+id/date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/edittext_line"
+                android:drawableRight="@drawable/ic_calendar"
+                android:hint=" YYYY/MM/DD"
+                android:inputType="text"
+                android:padding="5dp"
+                android:textColor="#000000" />
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/item_price"
+            android:id="@+id/time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginRight="60dp"
+            android:layout_marginLeft="50dp"
             android:background="@drawable/edittext_line"
+            android:drawableRight="@drawable/ic_clock"
+            android:hint=" 00:00"
+            android:inputType="text"
             android:padding="5dp"
-            android:textColor="#000000"
-            android:hint=" 원가"
-            android:inputType="text"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" / "
-            android:textAppearance="?attr/textAppearanceHeadline6"
-            android:layout_marginBottom="8dp" />
-
-        <TextView
-            android:id="@+id/item_people"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="3"
-            android:textAppearance="?attr/textAppearanceHeadline6"
-            android:layout_marginBottom="8dp" />
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/ic_pay" />
-
-        <EditText
-            android:id="@+id/commentET_pay"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/edittext_line"
-            android:padding="5dp"
-            android:textColor="#000000"
-            android:hint=" 정산가"
-            android:inputType="text"/>
-
-        <ImageView
-            android:id="@+id/send_calculate"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_send2" />
-
+            android:textColor="#000000" />
     </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/place"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="60dp"
+            android:layout_marginLeft="50dp"
+            android:background="@drawable/edittext_line"
+            android:hint=" 직거래 장소"
+            android:drawableRight="@drawable/ic_map"
+            android:inputType="text"
+            android:padding="5dp"
+            android:textColor="#000000" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+        <!-- 정산하기 -->
+        <LinearLayout
+            android:id="@+id/commentInputPlus4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/white"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_circle_calculate" />
+
+            <EditText
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/edittext_line"
+                android:hint=" 원가"
+                android:inputType="text"
+                android:padding="5dp"
+                android:textColor="#000000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text=" / "
+                android:textAppearance="?attr/textAppearanceHeadline6" />
+
+            <EditText
+                android:id="@+id/division"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/edittext_line"
+                android:hint=" n"
+                android:inputType="text"
+                android:padding="5dp"
+                android:textColor="#000000" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_pay" />
+
+            <EditText
+                android:id="@+id/payment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/edittext_line"
+                android:hint=" 정산가"
+                android:inputType="text"
+                android:padding="5dp"
+                android:textColor="#000000" />
+
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>
