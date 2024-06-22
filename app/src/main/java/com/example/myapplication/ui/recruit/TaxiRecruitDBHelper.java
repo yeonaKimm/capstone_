@@ -5,13 +5,18 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class TaxiRecruitDBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "TaxiRecruitdb";
-    private static final int DATABASE_VERSION = 3; // Incremented the version
+    private static final int DATABASE_VERSION = 3; // Incremented version number
 
     public TaxiRecruitDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -19,7 +24,7 @@ public class TaxiRecruitDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE taxis (id INTEGER PRIMARY KEY, date TEXT, time TEXT, people INTEGER, start_location TEXT, end_location TEXT, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)");
+        db.execSQL("CREATE TABLE taxis (id INTEGER PRIMARY KEY, date TEXT, time TEXT, people INTEGER, start_location TEXT, end_location TEXT)");
     }
 
     @Override
@@ -29,8 +34,13 @@ public class TaxiRecruitDBHelper extends SQLiteOpenHelper {
             db.execSQL("ALTER TABLE taxis ADD COLUMN end_location TEXT");
         }
         if (oldVersion < 3) {
-            db.execSQL("ALTER TABLE taxis ADD COLUMN timestamp DATETIME DEFAULT CURRENT_TIMESTAMP");
+            // Handle future upgrades if needed
         }
+    }
+
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // Handle downgrade if needed
     }
 
     public void insertTaxi(String date, String time, int people, String startLocation, String endLocation) {
@@ -41,7 +51,6 @@ public class TaxiRecruitDBHelper extends SQLiteOpenHelper {
         values.put("people", people);
         values.put("start_location", startLocation);
         values.put("end_location", endLocation);
-        // timestamp is set automatically by default value
         db.insert("taxis", null, values);
         db.close();
     }
@@ -49,7 +58,7 @@ public class TaxiRecruitDBHelper extends SQLiteOpenHelper {
     public List<TaxiList_Item_Recruit> getAllTaxis() {
         List<TaxiList_Item_Recruit> taxisList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM taxis ORDER BY timestamp DESC", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM taxis", null);
 
         int dateIndex = cursor.getColumnIndex("date");
         int timeIndex = cursor.getColumnIndex("time");
@@ -70,6 +79,58 @@ public class TaxiRecruitDBHelper extends SQLiteOpenHelper {
 
         cursor.close();
         db.close();
-        return taxisList;
+
+        // 모집중과 마감된 항목을 분리하여 정렬
+        List<TaxiList_Item_Recruit> recruiting = new ArrayList<>();
+        List<TaxiList_Item_Recruit> closed = new ArrayList<>();
+        Date now = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+
+        for (TaxiList_Item_Recruit item : taxisList) {
+            try {
+                Date tripTime = dateFormat.parse(item.getDate() + " " + item.getTime());
+                if (tripTime != null && tripTime.before(now)) {
+                    closed.add(item);
+                } else {
+                    recruiting.add(item);
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // 정렬: 내림차순
+        Collections.sort(recruiting, new Comparator<TaxiList_Item_Recruit>() {
+            @Override
+            public int compare(TaxiList_Item_Recruit o1, TaxiList_Item_Recruit o2) {
+                try {
+                    Date date1 = dateFormat.parse(o1.getDate() + " " + o1.getTime());
+                    Date date2 = dateFormat.parse(o2.getDate() + " " + o2.getTime());
+                    return date2.compareTo(date1);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    return 0;
+                }
+            }
+        });
+
+        Collections.sort(closed, new Comparator<TaxiList_Item_Recruit>() {
+            @Override
+            public int compare(TaxiList_Item_Recruit o1, TaxiList_Item_Recruit o2) {
+                try {
+                    Date date1 = dateFormat.parse(o1.getDate() + " " + o1.getTime());
+                    Date date2 = dateFormat.parse(o2.getDate() + " " + o2.getTime());
+                    return date2.compareTo(date1);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    return 0;
+                }
+            }
+        });
+
+        // 모집중인 리스트 뒤에 마감된 리스트를 추가
+        recruiting.addAll(closed);
+
+        return recruiting;
     }
 }

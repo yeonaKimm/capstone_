@@ -12,7 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class TaxiAdapter extends RecyclerView.Adapter<TaxiAdapter.TaxiViewHolder> {
 
@@ -43,8 +47,11 @@ public class TaxiAdapter extends RecyclerView.Adapter<TaxiAdapter.TaxiViewHolder
         holder.itemDate.setText(item.getDate());
         holder.itemTime.setText(item.getTime());
         holder.itemPeople.setText(String.valueOf(item.getPeople()));
-        holder.itemStart.setText(formatText(item.getStartLocation()));
-        holder.itemEnd.setText(formatText(item.getEndLocation()));
+        holder.itemStart.setText(formatLocation(item.getStartLocation()));
+        holder.itemEnd.setText(formatLocation(item.getEndLocation()));
+
+        // 모집 버튼 상태 업데이트
+        updateRecruitButton(holder.recruitButton, item.getDate(), item.getTime());
 
         // 모집 버튼 클릭 이벤트 처리
         holder.recruitButton.setOnClickListener(new View.OnClickListener() {
@@ -62,13 +69,6 @@ public class TaxiAdapter extends RecyclerView.Adapter<TaxiAdapter.TaxiViewHolder
                 Navigation.findNavController(v).navigate(R.id.action_navigation_recruit_taxilist_to_navigation_recruit_taxiprint, bundle);
             }
         });
-    }
-
-    private String formatText(String text) {
-        if (text != null && text.length() > 5) {
-            return text.substring(0, 5) + "\n" + text.substring(5);
-        }
-        return text;
     }
 
     @Override
@@ -92,6 +92,30 @@ public class TaxiAdapter extends RecyclerView.Adapter<TaxiAdapter.TaxiViewHolder
             itemStart = itemView.findViewById(R.id.item_start);
             itemEnd = itemView.findViewById(R.id.item_end);
             recruitButton = itemView.findViewById(R.id.recruit);
+        }
+    }
+
+    private String formatLocation(String location) {
+        if (location.length() > 5) {
+            return location.substring(0, 5) + "\n" + location.substring(5);
+        }
+        return location;
+    }
+
+    private void updateRecruitButton(Button recruitButton, String date, String time) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+        try {
+            Date tripTime = dateFormat.parse(date + " " + time);
+            Date now = new Date();
+            if (tripTime != null && tripTime.before(now)) {
+                recruitButton.setText("마감");
+                recruitButton.setEnabled(false);
+            } else {
+                recruitButton.setText("모집");
+                recruitButton.setEnabled(true);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
 }

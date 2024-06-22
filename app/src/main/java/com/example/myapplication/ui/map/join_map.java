@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -130,15 +131,7 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback, Pl
         confirmButton.setOnClickListener(v -> {
             if (radiusSet) {
                 double maxDistance = selectedRadius;
-                if (databaseHelper.updateUserLocationAndRadius(userId, selectedLocation.latitude, selectedLocation.longitude, selectedRadius, maxDistance)) {
-                    Toast.makeText(this, "반경이 저장되었습니다.", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(join_map.this, MainActivity.class);
-                    intent.putExtra("USER_ID", userId);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    Toast.makeText(this, "반경 저장에 실패했습니다.", Toast.LENGTH_SHORT).show();
-                }
+                new UpdateUserLocationTask().execute(userId, selectedLocation.latitude, selectedLocation.longitude, selectedRadius, maxDistance);
             } else {
                 Toast.makeText(this, "Please select a radius first.", Toast.LENGTH_SHORT).show();
             }
@@ -146,6 +139,31 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback, Pl
 
         databaseHelper = new DatabaseHelper(this);
         userId = getIntent().getStringExtra("USER_ID");
+    }
+
+    private class UpdateUserLocationTask extends AsyncTask<Object, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Object... params) {
+            String userId = (String) params[0];
+            double latitude = (double) params[1];
+            double longitude = (double) params[2];
+            int radius = (int) params[3];
+            double maxDistance = (double) params[4];
+            return databaseHelper.updateUserLocationAndRadius(userId, latitude, longitude, radius, maxDistance);
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            if (success) {
+                Toast.makeText(join_map.this, "반경이 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(join_map.this, MainActivity.class);
+                intent.putExtra("USER_ID", userId);
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(join_map.this, "반경 저장에 실패했습니다.", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override
@@ -173,7 +191,7 @@ public class join_map extends FragmentActivity implements OnMapReadyCallback, Pl
             List<AutocompletePrediction> predictionList = response.getAutocompletePredictions();
             if (predictionList != null && predictionList.size() > 0) {
                 recyclerView.setVisibility(View.VISIBLE);
-                adapter.setPredictionList(predictionList); // Updated method call
+                adapter.setPredictionList(predictionList);
             } else {
                 recyclerView.setVisibility(View.GONE);
             }

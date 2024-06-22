@@ -2,6 +2,7 @@ package com.example.myapplication.ui.recruit;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +22,18 @@ import com.example.myapplication.R;
 import com.example.myapplication.databinding.RecruitTaxiprintBinding;
 import com.example.myapplication.ui.Login.DatabaseHelper;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class TaxiPrint_Recruit extends Fragment {
 
     private RecruitTaxiprintBinding binding; // 바인딩 변수 선언
     private DatabaseHelper databaseHelper;
     private String userId;
+    private Handler handler;
+    private Runnable updateRemainingTimeRunnable;
 
     public static TaxiPrint_Recruit newInstance() {
         return new TaxiPrint_Recruit();
@@ -54,6 +62,17 @@ public class TaxiPrint_Recruit extends Fragment {
                 binding.itemPeople.setText(String.valueOf(selectedItem.getPeople()));
                 binding.start.setText(selectedItem.getStartLocation());
                 binding.end.setText(selectedItem.getEndLocation());
+
+                // 남은 시간을 업데이트하는 핸들러와 Runnable 설정
+                handler = new Handler();
+                updateRemainingTimeRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        updateRemainingTime(selectedItem.getDate(), selectedItem.getTime());
+                        handler.postDelayed(this, 60000); // 1분마다 업데이트
+                    }
+                };
+                handler.post(updateRemainingTimeRunnable);
             }
         }
 
@@ -76,6 +95,9 @@ public class TaxiPrint_Recruit extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        if (handler != null && updateRemainingTimeRunnable != null) {
+            handler.removeCallbacks(updateRemainingTimeRunnable);
+        }
     }
 
     private void loadUserProfile(String userId) {
@@ -168,6 +190,35 @@ public class TaxiPrint_Recruit extends Fragment {
                 return "90대";
             default:
                 return "연령대 정보 없음";
+        }
+    }
+
+    private void updateRemainingTime(String date, String time) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+        try {
+            Date now = new Date();
+            Date tripTime = dateFormat.parse(date + " " + time);
+            if (tripTime != null) {
+                long diff = tripTime.getTime() - now.getTime();
+                long minutes = diff / (1000 * 60);
+                long hours = minutes / 60;
+                minutes = minutes % 60;
+                long days = hours / 24;
+                hours = hours % 24;
+
+                String remainingTime;
+                if (days > 0) {
+                    remainingTime = String.format(Locale.getDefault(), "%d일 %d시간 %d분 남음", days, hours, minutes);
+                } else if (hours > 0) {
+                    remainingTime = String.format(Locale.getDefault(), "%d시간 %d분 남음", hours, minutes);
+                } else {
+                    remainingTime = String.format(Locale.getDefault(), "%d분 남음", minutes);
+                }
+
+                binding.retime.setText(remainingTime);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
 }
