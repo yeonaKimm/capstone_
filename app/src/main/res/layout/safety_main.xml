@@ -219,7 +219,7 @@
                     android:layout_height="125dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="16dp"
-                    android:src="@drawable/gps" />
+                    android:src="@drawable/ic_gps" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -262,7 +262,7 @@
                     android:layout_height="125dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="16dp"
-                    android:src="@drawable/phone" />
+                    android:src="@drawable/ic_phone_siren" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -305,7 +305,7 @@
                     android:layout_height="125dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="16dp"
-                    android:src="@drawable/voice" />
+                    android:src="@drawable/ic_phone_voice" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -349,7 +349,7 @@
                     android:layout_height="125dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="16dp"
-                    android:src="@drawable/contact" />
+                    android:src="@drawable/ic_phone_contact" />
 
                 <LinearLayout
                     android:layout_width="0dp"
