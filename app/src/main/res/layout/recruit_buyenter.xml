@@ -250,8 +250,9 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_send" />
+            android:src="@drawable/ic_send2" />
 
     </LinearLayout>
+
 
 </RelativeLayout>
