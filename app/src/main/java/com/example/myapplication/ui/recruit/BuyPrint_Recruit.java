@@ -1,5 +1,7 @@
 package com.example.myapplication.ui.recruit;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Editable;
@@ -26,6 +28,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.ui.Login.DatabaseHelper;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class BuyPrint_Recruit extends Fragment {
@@ -41,6 +44,7 @@ public class BuyPrint_Recruit extends Fragment {
     private BuyCommentAdapter commentAdapter;
     private BuyCommentRecruitDBHelper commentDbHelper;
     private Spinner bankSpinner;
+    private Calendar calendar;
 
     @Nullable
     @Override
@@ -90,6 +94,10 @@ public class BuyPrint_Recruit extends Fragment {
                 itemContent.setText(selectedItem.getContent());
                 itemPrice.setText(String.format("%,d원", selectedItem.getPrice()));
                 itemPeople.setText(String.valueOf(selectedItem.getPeople()));
+
+                priceEditText.setText(String.valueOf(selectedItem.getPrice())); // 원가 자동 입력
+                divisionEditText.setText(String.valueOf(selectedItem.getPeople() + 1)); // 모집인원 + 1 자동 입력
+                calculatePayment(); // 정산가 자동 계산
 
                 DatabaseHelper db = new DatabaseHelper(getContext());
                 User user = db.getUserById(selectedItem.getUserId());
@@ -155,6 +163,22 @@ public class BuyPrint_Recruit extends Fragment {
             }
         });
 
+        // DatePickerDialog를 표시하도록 설정
+        dateEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });
+
+        // TimePickerDialog를 표시하도록 설정
+        timeEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimePickerDialog();
+            }
+        });
+
         return view;
     }
 
@@ -165,7 +189,7 @@ public class BuyPrint_Recruit extends Fragment {
         if (!priceStr.isEmpty() && !divisionStr.isEmpty()) {
             try {
                 int price = Integer.parseInt(priceStr);
-                int division = Integer.parseInt(divisionStr) + 1; // 인원수 + 1
+                int division = Integer.parseInt(divisionStr);
                 int payment = price / division;
 
                 paymentEditText.setText(String.format("%,d", payment));
@@ -237,5 +261,26 @@ public class BuyPrint_Recruit extends Fragment {
             commentDbHelper.insertComment(promiseContent, accountContent, bankContent, dateContent, timeContent, placeContent, priceContent, divisionContent, paymentContent);
             loadComments();
         }
+    }
+
+    private void showDatePickerDialog() {
+        calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(),
+                (view, year1, month1, dayOfMonth) -> dateEditText.setText(String.format("%04d-%02d-%02d", year1, month1 + 1, dayOfMonth)), year, month, day);
+        datePickerDialog.show();
+    }
+
+    private void showTimePickerDialog() {
+        calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(),
+                (view, hourOfDay, minute1) -> timeEditText.setText(String.format("%02d:%02d", hourOfDay, minute1)), hour, minute, true);
+        timePickerDialog.show();
     }
 }

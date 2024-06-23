@@ -383,6 +383,7 @@
                         android:text=" / "
                         android:textAppearance="?attr/textAppearanceHeadline6" />
 
+
                     <EditText
                         android:id="@+id/division"
                         android:layout_width="15dp"
