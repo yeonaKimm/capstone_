@@ -11,18 +11,19 @@ import java.util.List;
 
 public class BuyRecruitDBHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "BuyRecruit.db";
+    private static final String DATABASE_NAME = "buyrecruit.db";
     private static final int DATABASE_VERSION = 1;
 
-    private static final String TABLE_NAME = "buy_recruit";
-    private static final String COL_ID = "id";
-    private static final String COL_TOPIC = "topic";
-    private static final String COL_CONTENT = "content";
-    private static final String COL_PRICE = "price";
-    private static final String COL_PEOPLE = "people";
-    private static final String COL_IMAGE_URI = "image_uri";
-    private static final String COL_USER_ID = "user_id";
-    private static final String COL_CLOSED = "closed";
+    private static final String TABLE_NAME = "buyrecruits";
+    private static final String COLUMN_ID = "id";
+    private static final String COLUMN_TOPIC = "topic";
+    private static final String COLUMN_CONTENT = "content";
+    private static final String COLUMN_PRICE = "price";
+    private static final String COLUMN_PEOPLE = "people";
+    private static final String COLUMN_IMAGE_URI = "image_uri";
+    private static final String COLUMN_CLOSED = "closed";
+    private static final String COLUMN_USER_ID = "user_id";
+    private static final String COLUMN_TIMESTAMP = "timestamp";
 
     public BuyRecruitDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -30,16 +31,17 @@ public class BuyRecruitDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable = "CREATE TABLE " + TABLE_NAME + " (" +
-                COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COL_TOPIC + " TEXT, " +
-                COL_CONTENT + " TEXT, " +
-                COL_PRICE + " INTEGER, " +
-                COL_PEOPLE + " INTEGER, " +
-                COL_IMAGE_URI + " TEXT, " +
-                COL_USER_ID + " TEXT, " +
-                COL_CLOSED + " INTEGER DEFAULT 0)";
-        db.execSQL(createTable);
+        String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " ("
+                + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COLUMN_TOPIC + " TEXT, "
+                + COLUMN_CONTENT + " TEXT, "
+                + COLUMN_PRICE + " INTEGER, "
+                + COLUMN_PEOPLE + " INTEGER, "
+                + COLUMN_IMAGE_URI + " TEXT, "
+                + COLUMN_CLOSED + " INTEGER, "
+                + COLUMN_USER_ID + " TEXT, "
+                + COLUMN_TIMESTAMP + " INTEGER)";
+        db.execSQL(CREATE_TABLE);
     }
 
     @Override
@@ -48,44 +50,52 @@ public class BuyRecruitDBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertBuy(String topic, int price, int people, String content, String imageUri, String userId) {
+    public long insertBuy(String topic, String content, int price, int people, String imageUri, String userId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_TOPIC, topic);
-        contentValues.put(COL_PRICE, price);
-        contentValues.put(COL_PEOPLE, people);
-        contentValues.put(COL_CONTENT, content);
-        contentValues.put(COL_IMAGE_URI, imageUri);
-        contentValues.put(COL_USER_ID, userId);
-        long result = db.insert(TABLE_NAME, null, contentValues);
-        return result != -1;
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_TOPIC, topic);
+        values.put(COLUMN_CONTENT, content);
+        values.put(COLUMN_PRICE, price);
+        values.put(COLUMN_PEOPLE, people);
+        values.put(COLUMN_IMAGE_URI, imageUri);
+        values.put(COLUMN_USER_ID, userId);
+        values.put(COLUMN_TIMESTAMP, System.currentTimeMillis());
+        long result = db.insert(TABLE_NAME, null, values);
+        db.close();
+        return result;
     }
 
     public List<BuyList_Item_Recruit> getAllBuys() {
-        List<BuyList_Item_Recruit> buyList = new ArrayList<>();
+        List<BuyList_Item_Recruit> buysList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
-        if (res.moveToFirst()) {
+        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, COLUMN_TIMESTAMP + " DESC");
+
+        if (cursor != null && cursor.moveToFirst()) {
             do {
-                int id = res.getInt(res.getColumnIndexOrThrow(COL_ID));
-                String topic = res.getString(res.getColumnIndexOrThrow(COL_TOPIC));
-                String content = res.getString(res.getColumnIndexOrThrow(COL_CONTENT));
-                int price = res.getInt(res.getColumnIndexOrThrow(COL_PRICE));
-                int people = res.getInt(res.getColumnIndexOrThrow(COL_PEOPLE));
-                String imageUri = res.getString(res.getColumnIndexOrThrow(COL_IMAGE_URI));
-                String userId = res.getString(res.getColumnIndexOrThrow(COL_USER_ID));
-                boolean closed = res.getInt(res.getColumnIndexOrThrow(COL_CLOSED)) == 1;
-                buyList.add(new BuyList_Item_Recruit(id, topic, content, price, people, imageUri, closed, userId));
-            } while (res.moveToNext());
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID));
+                String topic = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TOPIC));
+                String content = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CONTENT));
+                int price = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_PRICE));
+                int people = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_PEOPLE));
+                String imageUri = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_IMAGE_URI));
+                boolean isClosed = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_CLOSED)) != 0;
+                String userId = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_ID));
+                long timestamp = cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_TIMESTAMP));
+
+                buysList.add(new BuyList_Item_Recruit(id, topic, content, price, people, imageUri, isClosed, userId, timestamp));
+            } while (cursor.moveToNext());
+
+            cursor.close();
         }
-        res.close();
-        return buyList;
+
+        return buysList;
     }
 
     public void updateRecruitStatus(int id, boolean isClosed) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_CLOSED, isClosed ? 1 : 0);
-        db.update(TABLE_NAME, contentValues, COL_ID + " = ?", new String[]{String.valueOf(id)});
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_CLOSED, isClosed ? 1 : 0);
+        db.update(TABLE_NAME, values, COLUMN_ID + "=?", new String[]{String.valueOf(id)});
+        db.close();
     }
 }

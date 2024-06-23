@@ -42,7 +42,10 @@ public class BuyEnter_Recruit extends Fragment {
                 // UI 요소에 데이터 설정
                 binding.itemTopic.setText(selectedItem.getTopic());
                 binding.itemContent.setText(selectedItem.getContent());
-                binding.itemPrice.setText(String.valueOf(selectedItem.getPrice()));
+                binding.
+
+
+                        itemPrice.setText(String.valueOf(selectedItem.getPrice()));
                 binding.itemPeople.setText(String.valueOf(selectedItem.getPeople()));
 
                 // Glide를 사용하여 이미지 로드

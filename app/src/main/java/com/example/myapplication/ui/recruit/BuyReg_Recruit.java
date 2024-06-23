@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,7 +128,7 @@ public class BuyReg_Recruit extends Fragment {
         String peopleStr = binding.spinnerPeople.getSelectedItem().toString().trim();
         String content = binding.content.getText().toString().trim();
 
-        if (topic.isEmpty() || priceStr.isEmpty() || peopleStr.equals("--명") || content.isEmpty()) {
+        if (TextUtils.isEmpty(topic) || TextUtils.isEmpty(priceStr) || peopleStr.equals("--명") || TextUtils.isEmpty(content)) {
             Toast.makeText(getContext(), "모든 필드를 채워주세요.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -141,10 +142,16 @@ public class BuyReg_Recruit extends Fragment {
         }
 
         BuyRecruitDBHelper dbHelper = new BuyRecruitDBHelper(getContext());
-        dbHelper.insertBuy(topic, price, people, content, selectedImageUri != null ? selectedImageUri.toString() : null, getUserIdFromPreferences());
+        long result = dbHelper.insertBuy(topic, content, price, people, selectedImageUri != null ? selectedImageUri.toString() : null, getUserIdFromPreferences());
 
-        NavController navController = Navigation.findNavController(binding.getRoot());
-        navController.navigate(R.id.action_navigation_recruit_buyreg_to_navigation_recruit_buylist);
+        if (result != -1) {
+            Toast.makeText(getContext(), "공구글이 등록되었습니다.", Toast.LENGTH_SHORT).show();
+            // 공구글 목록 화면으로 이동
+            NavController navController = Navigation.findNavController(binding.getRoot());
+            navController.navigate(R.id.action_navigation_recruit_buyreg_to_navigation_recruit_buylist);
+        } else {
+            Toast.makeText(getContext(), "등록에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private String getUserIdFromPreferences() {

@@ -297,7 +297,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return user;
     }
 
-
     public Cursor getPostsInRange(double latitude, double longitude, double radius) {
         SQLiteDatabase db = this.getReadableDatabase();
         double latMin = latitude - Math.toDegrees(radius / 6371.0);
@@ -317,5 +316,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getString(USER_ID_KEY, null);
     }
-
 }

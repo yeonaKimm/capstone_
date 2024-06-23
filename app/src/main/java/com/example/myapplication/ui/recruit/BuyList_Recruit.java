@@ -101,8 +101,9 @@ public class BuyList_Recruit extends Fragment {
         public void onBindViewHolder(@NonNull BuyViewHolder holder, int position) {
             BuyList_Item_Recruit item = buyList.get(position);
             holder.itemTopic.setText(item.getTopic());
-            holder.itemPrice.setText(String.valueOf(item.getPrice()));
+            holder.itemPrice.setText(String.format("%,d원", item.getPrice()));
             holder.itemPeople.setText(String.format("%d명 모집!", item.getPeople()));
+            holder.itemDivPrice.setText(String.format("%,d원", item.getIndividualPrice())); // 각자 값 설정
 
             if (item.getImageUri() != null && !item.getImageUri().isEmpty()) {
                 Glide.with(context)
@@ -140,6 +141,7 @@ public class BuyList_Recruit extends Fragment {
             public TextView itemPeople;
             public ImageView itemImage;
             public Button recruitButton;
+            public TextView itemDivPrice; // 추가된 필드
 
             public BuyViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -148,6 +150,7 @@ public class BuyList_Recruit extends Fragment {
                 itemPeople = itemView.findViewById(R.id.item_people);
                 itemImage = itemView.findViewById(R.id.item_image);
                 recruitButton = itemView.findViewById(R.id.recruit);
+                itemDivPrice = itemView.findViewById(R.id.item_divprice); // 추가된 필드
             }
         }
 

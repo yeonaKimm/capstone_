@@ -12,8 +12,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="640dp"
         android:src="@drawable/kakao_login_medium_wide"
-        android:layout_marginBottom="30dp"
-        />
+        android:layout_marginBottom="30dp" />
 
     <!-- 사용자 정보 삭제 버튼 -->
     <Button
@@ -23,6 +22,6 @@
         android:layout_below="@id/login"
         android:layout_centerHorizontal="true"
         android:text="사용자 정보 삭제"
-        android:visibility="visible"/>
+        android:visibility="invisible"/>
 
 </RelativeLayout>

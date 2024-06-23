@@ -103,7 +103,7 @@ public class BuyPrint_Recruit extends Fragment {
                 calculatePayment(); // 정산가 자동 계산
 
                 DatabaseHelper db = new DatabaseHelper(getContext());
-                User user = db.getUserById(selectedItem.getUserId());
+                User user = db.getUserById(selectedItem.getUserId());  // int userId로 수정됨
                 if (user != null) {
                     itemNickname.setText(user.getNickname());
                     itemGenderAge.setText(String.format("%s, %s", user.getGender(), user.getAgeRange()));

@@ -12,8 +12,9 @@ public class BuyList_Item_Recruit implements Parcelable {
     private String imageUri;
     private boolean isClosed;
     private String userId;
+    private int individualPrice; // 추가된 필드
 
-    public BuyList_Item_Recruit(int id, String topic, String content, int price, int people, String imageUri, boolean isClosed, String userId) {
+    public BuyList_Item_Recruit(int id, String topic, String content, int price, int people, String imageUri, boolean isClosed, String userId, long timestamp) {
         this.id = id;
         this.topic = topic;
         this.content = content;
@@ -22,6 +23,7 @@ public class BuyList_Item_Recruit implements Parcelable {
         this.imageUri = imageUri;
         this.isClosed = isClosed;
         this.userId = userId;
+        this.individualPrice = price / (people + 1); // 각자 값을 계산하여 저장
     }
 
     protected BuyList_Item_Recruit(Parcel in) {
@@ -33,6 +35,7 @@ public class BuyList_Item_Recruit implements Parcelable {
         imageUri = in.readString();
         isClosed = in.readByte() != 0;
         userId = in.readString();
+        individualPrice = in.readInt(); // 추가된 필드
     }
 
     public static final Creator<BuyList_Item_Recruit> CREATOR = new Creator<BuyList_Item_Recruit>() {
@@ -83,6 +86,10 @@ public class BuyList_Item_Recruit implements Parcelable {
         return userId;
     }
 
+    public int getIndividualPrice() { // 추가된 getter 메서드
+        return individualPrice;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -98,37 +105,6 @@ public class BuyList_Item_Recruit implements Parcelable {
         dest.writeString(imageUri);
         dest.writeByte((byte) (isClosed ? 1 : 0));
         dest.writeString(userId);
+        dest.writeInt(individualPrice); // 추가된 필드
     }
-
-    public class BuyCommentList_Item_Recruit {
-        private String promise;
-        private String account;
-        private String bank;
-        private String date;
-        private String time;
-        private String place;
-        private String price;
-        private String division;
-        private String payment;
-
-        public BuyCommentList_Item_Recruit(String promise, String account, String bank, String date, String time, String place, String price, String division, String payment) {
-            this.promise = promise;
-            this.account = account;
-            this.bank = bank;
-            this.date = date;
-            this.time = time;
-            this.place = place;
-            this.price = price;
-            this.division = division;
-            this.payment = payment;
-        }
-
-        // 추가된 단일 인수 생성자
-        public BuyCommentList_Item_Recruit(String promise) {
-            this.promise = promise;
-        }
-
-        // Getter and Setter methods
-    }
-
 }
