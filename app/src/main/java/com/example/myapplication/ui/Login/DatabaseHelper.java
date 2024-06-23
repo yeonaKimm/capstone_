@@ -2,6 +2,7 @@ package com.example.myapplication.ui.Login;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -13,6 +14,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "User.db";
     private static final String TABLE_NAME = "user_table";
+    private static final String SHARED_PREFS_NAME = "MyPrefs";
+    private static final String USER_ID_KEY = "userId";
 
     private static final String COL_1 = "ID";
     private static final String COL_2 = "EMAIL";
@@ -37,15 +40,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String POSTS_COL_LATITUDE = "LATITUDE";
     private static final String POSTS_COL_LONGITUDE = "LONGITUDE";
 
+    private Context context;
+
     public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, 2); // 버전을 2로 올립니다.
+        super(context, DATABASE_NAME, null, 2);
+        this.context = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         try {
             db.execSQL("CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY, EMAIL TEXT, NAME TEXT, GENDER TEXT, AGE_RANGE TEXT, BIRTHYEAR TEXT, NICKNAME TEXT, PROFILE_PICTURE TEXT, RANK_ID INTEGER, LATITUDE REAL, LONGITUDE REAL, RADIUS INTEGER, MAX_DISTANCE REAL, RATING INTEGER, RECENT_REVIEW TEXT, REVIEW_DATE TEXT)");
-            // Posts table creation if necessary
             db.execSQL("CREATE TABLE " + POSTS_TABLE_NAME + " (ID INTEGER PRIMARY KEY, LATITUDE REAL, LONGITUDE REAL, TITLE TEXT, CONTENT TEXT)");
         } catch (Exception e) {
             Log.e(TAG, "Error creating database", e);
@@ -82,9 +87,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             contentValues.put(COL_11, 0);
             contentValues.put(COL_12, 0);
             contentValues.put(COL_13, 0);
-            contentValues.put(COL_14, 0); // Default value for rating
-            contentValues.put(COL_15, ""); // Default value for recent review
-            contentValues.put(COL_16, ""); // Default value for review date
+            contentValues.put(COL_14, 0);
+            contentValues.put(COL_15, "");
+            contentValues.put(COL_16, "");
 
             long result = db.insert(TABLE_NAME, null, contentValues);
             Log.d(TAG, "Insert User Result: " + result);
@@ -259,6 +264,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public User getUserById(String userId) {
+        if (userId == null) {
+            Log.e(TAG, "getUserById: userId is null");
+            return null;
+        }
+
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = null;
         User user = null;
@@ -287,10 +297,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return user;
     }
 
-    // Method to get posts within a certain distance from a location
+
     public Cursor getPostsInRange(double latitude, double longitude, double radius) {
         SQLiteDatabase db = this.getReadableDatabase();
-        double latMin = latitude - Math.toDegrees(radius / 6371.0); // 6371 is the radius of the Earth in kilometers
+        double latMin = latitude - Math.toDegrees(radius / 6371.0);
         double latMax = latitude + Math.toDegrees(radius / 6371.0);
         double lonMin = longitude - Math.toDegrees(radius / (6371.0 * Math.cos(Math.toRadians(latitude))));
         double lonMax = longitude + Math.toDegrees(radius / (6371.0 * Math.cos(Math.toRadians(latitude))));
@@ -302,4 +312,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return db.rawQuery(query, args);
     }
+
+    public String getUserIdFromPreferences() {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(USER_ID_KEY, null);
+    }
+
 }

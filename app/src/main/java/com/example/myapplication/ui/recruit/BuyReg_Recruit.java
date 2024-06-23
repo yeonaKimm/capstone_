@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.recruit;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,10 +23,9 @@ import androidx.navigation.Navigation;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.RecruitBuyregBinding;
+import com.example.myapplication.ui.Login.DatabaseHelper;
 
 import java.io.IOException;
-
-import android.util.Log; // 로그를 위해 추가
 
 public class BuyReg_Recruit extends Fragment {
 
@@ -86,18 +87,7 @@ public class BuyReg_Recruit extends Fragment {
         binding.register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String topic = binding.topic.getText().toString();
-                int price = Integer.parseInt(binding.price.getText().toString());
-                int people = Integer.parseInt(peopleOptions[spinnerPeople.getSelectedItemPosition()]);
-                String content = binding.content.getText().toString();
-
-                Log.d("BuyReg_Recruit", "Selected Image URI: " + selectedImageUri); // 로그 추가
-
-                BuyRecruitDBHelper dbHelper = new BuyRecruitDBHelper(getContext());
-                dbHelper.insertBuy(topic, price, people, content, selectedImageUri != null ? selectedImageUri.toString() : null);
-
-                NavController navController = Navigation.findNavController(v);
-                navController.navigate(R.id.action_navigation_recruit_buyreg_to_navigation_recruit_buylist);
+                register();
             }
         });
 
@@ -114,8 +104,7 @@ public class BuyReg_Recruit extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == getActivity().RESULT_OK && data != null && data.getData() != null) {
-            selectedImageUri = data.getData(); // 선택한 사진의 URI
-            Log.d("BuyReg_Recruit", "Image URI selected: " + selectedImageUri); // 로그 추가
+            selectedImageUri = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImageUri);
                 photoImageView.setImageBitmap(bitmap);
@@ -129,7 +118,38 @@ public class BuyReg_Recruit extends Fragment {
     private void removePhoto() {
         photoImageView.setImageResource(R.drawable.ic_gallery);
         removePhotoButton.setVisibility(View.GONE);
-        selectedImageUri = null; // 선택된 이미지 URI를 null로 설정
+        selectedImageUri = null;
+    }
+
+    private void register() {
+        String topic = binding.topic.getText().toString().trim();
+        String priceStr = binding.price.getText().toString().trim().replace(",", "");
+        String peopleStr = binding.spinnerPeople.getSelectedItem().toString().trim();
+        String content = binding.content.getText().toString().trim();
+
+        if (topic.isEmpty() || priceStr.isEmpty() || peopleStr.equals("--명") || content.isEmpty()) {
+            Toast.makeText(getContext(), "모든 필드를 채워주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        int price = Integer.parseInt(priceStr);
+        int people = Integer.parseInt(peopleStr);
+
+        if (price <= 0 || people <= 0) {
+            Toast.makeText(getContext(), "유효한 가격 및 인원 수를 입력해주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        BuyRecruitDBHelper dbHelper = new BuyRecruitDBHelper(getContext());
+        dbHelper.insertBuy(topic, price, people, content, selectedImageUri != null ? selectedImageUri.toString() : null, getUserIdFromPreferences());
+
+        NavController navController = Navigation.findNavController(binding.getRoot());
+        navController.navigate(R.id.action_navigation_recruit_buyreg_to_navigation_recruit_buylist);
+    }
+
+    private String getUserIdFromPreferences() {
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+        return databaseHelper.getUserIdFromPreferences();
     }
 
     @Override

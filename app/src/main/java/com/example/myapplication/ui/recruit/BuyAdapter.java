@@ -27,10 +27,10 @@ public class BuyAdapter extends RecyclerView.Adapter<BuyAdapter.BuyViewHolder> {
     private Context context;
     private OnItemClickListener mListener;
 
-    public BuyAdapter(Context context, List<BuyList_Item_Recruit> buyList, OnItemClickListener mlistener) {
+    public BuyAdapter(Context context, List<BuyList_Item_Recruit> buyList, OnItemClickListener mListener) {
         this.context = context;
         this.buyList = buyList;
-        this.mListener = mlistener;
+        this.mListener = mListener;
     }
 
     @NonNull
@@ -58,6 +58,8 @@ public class BuyAdapter extends RecyclerView.Adapter<BuyAdapter.BuyViewHolder> {
             holder.itemImage.setImageDrawable(null);
         }
 
+        holder.recruitButton.setText(item.isClosed() ? "마감" : "모집");
+
         holder.recruitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,6 +78,17 @@ public class BuyAdapter extends RecyclerView.Adapter<BuyAdapter.BuyViewHolder> {
     @Override
     public int getItemCount() {
         return buyList.size();
+    }
+
+    public void updateItemStatus(int id, boolean isClosed) {
+        for (int i = 0; i < buyList.size(); i++) {
+            BuyList_Item_Recruit item = buyList.get(i);
+            if (item.getId() == id) {
+                item.setClosed(isClosed);
+                notifyItemChanged(i);
+                break;
+            }
+        }
     }
 
     public static class BuyViewHolder extends RecyclerView.ViewHolder {

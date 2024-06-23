@@ -1,5 +1,7 @@
 package com.example.myapplication.ui.recruit;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -13,8 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -49,8 +49,7 @@ public class Recruit_PlusButton extends AppCompatActivity {
         dbHelper = new RecruitPlusDBHelper(this);
 
         // Spinner 설정
-        String[] bankOptions = {"은행명", "국민은행", "농협은행", "신한은행", "카카오뱅크"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, bankOptions);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.bank_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         bankSpinner.setAdapter(adapter);
 
@@ -185,84 +184,6 @@ public class Recruit_PlusButton extends AppCompatActivity {
         } else {
             // 데이터 삽입 실패
         }
-    }
-
-    // 데이터 삽입 버튼 클릭 시 호출되는 메서드
-    public void onInsertClick(View view) {
-        String date = dateEditText.getText().toString().trim(); // 날짜 입력값을 문자열로 가져옴
-        String time = timeEditText.getText().toString().trim(); // 시간 입력값을 문자열로 가져옴
-        String place = placeEditText.getText().toString().trim(); // 장소 입력값을 문자열로 가져옴
-        String bank = bankSpinner.getSelectedItem().toString(); // 선택된 은행을 문자열로 가져옴
-        String account = accountEditText.getText().toString().trim(); // 계좌 입력값을 문자열로 가져옴
-        String priceStr = priceEditText.getText().toString().trim(); // 가격 입력값을 문자열로 가져옴
-        String divisionStr = divisionEditText.getText().toString().trim(); // 분할 입력값을 문자열로 가져옴
-        String paymentStr = paymentEditText.getText().toString().trim(); // 결제액 입력값을 문자열로 가져옴
-        String promise = promiseEditText.getText().toString().trim(); // 약속사항 입력값을 문자열로 가져옴
-
-        // 모든 필드가 비어 있지 않은지 확인
-        if (!date.isEmpty() && !time.isEmpty() && !place.isEmpty() && !bank.isEmpty() && !account.isEmpty() &&
-                !priceStr.isEmpty() && !divisionStr.isEmpty() && !paymentStr.isEmpty() && !promise.isEmpty()) {
-            try {
-                int price = Integer.parseInt(priceStr); // 가격을 정수로 변환
-                int division = Integer.parseInt(divisionStr); // 분할을 정수로 변환
-                int payment = Integer.parseInt(paymentStr); // 결제액을 정수로 변환
-
-                // 데이터베이스에 데이터 삽입 시도
-                boolean isInserted = dbHelper.insertData(date, time, place, bank, account, price, division, payment, promise);
-                if (isInserted) {
-                    Toast.makeText(this, "데이터 삽입 성공", Toast.LENGTH_SHORT).show(); // 성공 메시지 표시
-                } else {
-                    Toast.makeText(this, "데이터 삽입 실패", Toast.LENGTH_SHORT).show(); // 실패 메시지 표시
-                }
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-                Toast.makeText(this, "숫자 입력이 잘못되었습니다", Toast.LENGTH_SHORT).show(); // 잘못된 입력 메시지 표시
-            }
-        } else {
-            Toast.makeText(this, "모든 필드를 입력해주세요", Toast.LENGTH_SHORT).show(); // 필수 입력 필드 메시지 표시
-        }
-    }
-
-    // 데이터 조회 버튼 클릭 시 호출되는 메서드
-    public void onViewClick(View view) {
-        Cursor res = dbHelper.getAllData(); // 모든 데이터를 조회하는 Cursor 객체 가져오기
-        if (res.getCount() == 0) { // 조회 결과가 없는 경우
-            showMessage("오류", "데이터를 찾을 수 없습니다"); // 오류 메시지 표시
-            return;
-        }
-
-        StringBuilder buffer = new StringBuilder();
-        while (res.moveToNext()) {
-            // 조회된 데이터를 문자열로 변환하여 StringBuilder에 추가
-            buffer.append("ID: ").append(res.getString(0)).append("\n");
-            buffer.append("Date: ").append(res.getString(1)).append("\n");
-            buffer.append("Time: ").append(res.getString(2)).append("\n");
-            buffer.append("Place: ").append(res.getString(3)).append("\n");
-            buffer.append("Bank: ").append(res.getString(4)).append("\n");
-            buffer.append("Account: ").append(res.getString(5)).append("\n");
-            buffer.append("Price: ").append(res.getInt(6)).append("\n");
-            buffer.append("Division: ").append(res.getInt(7)).append("\n");
-            buffer.append("Payment: ").append(res.getInt(8)).append("\n");
-            buffer.append("Promise: ").append(res.getString(9)).append("\n\n");
-        }
-
-        showMessage("데이터", buffer.toString()); // 조회된 데이터를 다이얼로그로 표시
-    }
-
-    // 데이터 삭제 버튼 클릭 시 호출되는 메서드
-    public void onDeleteClick(View view) {
-        String id = "1"; // 삭제할 예제 ID, 실제 로직에 따라 변경 필요
-        Integer deletedRows = dbHelper.deleteData(id); // ID에 해당하는 데이터 삭제 시도
-        if (deletedRows > 0) {
-            Toast.makeText(this, "데이터 삭제됨", Toast.LENGTH_SHORT).show(); // 삭제 성공 메시지 표시
-        } else {
-            Toast.makeText(this, "데이터 삭제 실패", Toast.LENGTH_SHORT).show(); // 삭제 실패 메시지 표시
-        }
-    }
-
-    // 다이얼로그 형태로 메시지 표시하는 메서드
-    private void showMessage(String title, String message) {
-        Toast.makeText(this, title + ": \n" + message, Toast.LENGTH_LONG).show();
     }
 
     // 데이터베이스 도우미 클래스 정의

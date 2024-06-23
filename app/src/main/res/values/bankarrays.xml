@@ -1,0 +1,12 @@
+<resources>
+    <string-array name="bank_array">
+        <item>농협</item>
+        <item>카카오뱅크</item>
+        <item>KB국민</item>
+        <item>신한</item>
+        <item>우리</item>
+        <item>IBK기업</item>
+        <item>하나</item>
+        <!-- 추가 항목 -->
+    </string-array>
+</resources>

@@ -23,14 +23,39 @@ public class User {
         this.rankId = rankId;
     }
 
-    // Add getters for each field
-    public String getId() { return id; }
-    public String getEmail() { return email; }
-    public String getName() { return name; }
-    public String getGender() { return gender; }
-    public String getAgeRange() { return ageRange; }
-    public String getBirthyear() { return birthyear; }
-    public String getNickname() { return nickname; }
-    public String getProfilePicture() { return profilePicture; }
-    public String getRankId() { return rankId; }
+    public String getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getAgeRange() {
+        return ageRange;
+    }
+
+    public String getBirthyear() {
+        return birthyear;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public String getRankId() {
+        return rankId;
+    }
 }

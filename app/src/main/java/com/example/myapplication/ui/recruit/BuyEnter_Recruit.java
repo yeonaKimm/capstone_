@@ -84,7 +84,17 @@ public class BuyEnter_Recruit extends Fragment {
         String commentContent = binding.commentET.getText().toString().trim();
         if (!commentContent.isEmpty()) {
             // 새로운 댓글을 생성하고 어댑터에 추가
-            BuyCommentList_Item_Recruit newComment = new BuyCommentList_Item_Recruit(commentContent);
+            BuyCommentList_Item_Recruit newComment = new BuyCommentList_Item_Recruit(
+                    commentContent,
+                    "", // 예시로 비어있는 문자열을 추가
+                    "", // 예시로 비어있는 문자열을 추가
+                    "", // 예시로 비어있는 문자열을 추가
+                    "", // 예시로 비어있는 문자열을 추가
+                    "", // 예시로 비어있는 문자열을 추가
+                    "", // 예시로 비어있는 문자열을 추가
+                    "", // 예시로 비어있는 문자열을 추가
+                    ""  // 예시로 비어있는 문자열을 추가
+            );
             commentList.add(newComment);
             buycommentAdapter.notifyDataSetChanged();
             binding.commentET.setText("");

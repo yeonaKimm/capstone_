@@ -9,11 +9,20 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.util.Log; // 로그를 위해 추가
-
 public class BuyRecruitDBHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "BuyRecruitdb";
+
+    private static final String DATABASE_NAME = "BuyRecruit.db";
     private static final int DATABASE_VERSION = 1;
+
+    private static final String TABLE_NAME = "buy_recruit";
+    private static final String COL_ID = "id";
+    private static final String COL_TOPIC = "topic";
+    private static final String COL_CONTENT = "content";
+    private static final String COL_PRICE = "price";
+    private static final String COL_PEOPLE = "people";
+    private static final String COL_IMAGE_URI = "image_uri";
+    private static final String COL_USER_ID = "user_id";
+    private static final String COL_CLOSED = "closed";
 
     public BuyRecruitDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -21,65 +30,62 @@ public class BuyRecruitDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE buys (id INTEGER PRIMARY KEY, topic TEXT, price INTEGER, people INTEGER, content TEXT, imageUri TEXT)");
+        String createTable = "CREATE TABLE " + TABLE_NAME + " (" +
+                COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COL_TOPIC + " TEXT, " +
+                COL_CONTENT + " TEXT, " +
+                COL_PRICE + " INTEGER, " +
+                COL_PEOPLE + " INTEGER, " +
+                COL_IMAGE_URI + " TEXT, " +
+                COL_USER_ID + " TEXT, " +
+                COL_CLOSED + " INTEGER DEFAULT 0)";
+        db.execSQL(createTable);
     }
-
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS buys");
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
 
-    public void insertBuy(String topic, int price, int people, String content, String imageUri) {
+    public boolean insertBuy(String topic, int price, int people, String content, String imageUri, String userId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("topic", topic);
-        values.put("price", price);
-        values.put("people", people);
-        values.put("content", content);
-        values.put("imageUri", imageUri);
-
-        // Log the content values to ensure they are set correctly
-        Log.d("BuyRecruitDBHelper", "Inserting Buy: " + values.toString());
-
-        long result = db.insert("buys", null, values);
-        if (result == -1) {
-            Log.e("BuyRecruitDBHelper", "Failed to insert row");
-        } else {
-            Log.d("BuyRecruitDBHelper", "Successfully inserted row with ID: " + result);
-        }
-
-        db.close();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_TOPIC, topic);
+        contentValues.put(COL_PRICE, price);
+        contentValues.put(COL_PEOPLE, people);
+        contentValues.put(COL_CONTENT, content);
+        contentValues.put(COL_IMAGE_URI, imageUri);
+        contentValues.put(COL_USER_ID, userId);
+        long result = db.insert(TABLE_NAME, null, contentValues);
+        return result != -1;
     }
 
-
-    // 모든 게시글을 조회하여 리스트로 반환하는 메서드입니다. 외부에서 호출할 수 있도록 public으로 지정합니다.
     public List<BuyList_Item_Recruit> getAllBuys() {
-        List<BuyList_Item_Recruit> buysList = new ArrayList<>();
+        List<BuyList_Item_Recruit> buyList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM buys", null);
-
-        int topicIndex = cursor.getColumnIndex("topic");
-        int priceIndex = cursor.getColumnIndex("price");
-        int peopleIndex = cursor.getColumnIndex("people");
-        int contentIndex = cursor.getColumnIndex("content");
-        int imageUriIndex = cursor.getColumnIndex("imageUri");
-
-
-        if (topicIndex != -1 && priceIndex != -1 && peopleIndex != -1 && contentIndex != -1 && imageUriIndex != -1 && cursor.moveToFirst()) {
+        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        if (res.moveToFirst()) {
             do {
-                String topic = cursor.getString(topicIndex);
-                String content = cursor.getString(contentIndex);
-                int price = cursor.getInt(priceIndex);
-                int people = cursor.getInt(peopleIndex);
-                String imageUri = cursor.getString(imageUriIndex);
-                buysList.add(new BuyList_Item_Recruit(topic, content, price, people, imageUri));
-            } while (cursor.moveToNext());
+                int id = res.getInt(res.getColumnIndexOrThrow(COL_ID));
+                String topic = res.getString(res.getColumnIndexOrThrow(COL_TOPIC));
+                String content = res.getString(res.getColumnIndexOrThrow(COL_CONTENT));
+                int price = res.getInt(res.getColumnIndexOrThrow(COL_PRICE));
+                int people = res.getInt(res.getColumnIndexOrThrow(COL_PEOPLE));
+                String imageUri = res.getString(res.getColumnIndexOrThrow(COL_IMAGE_URI));
+                String userId = res.getString(res.getColumnIndexOrThrow(COL_USER_ID));
+                boolean closed = res.getInt(res.getColumnIndexOrThrow(COL_CLOSED)) == 1;
+                buyList.add(new BuyList_Item_Recruit(id, topic, content, price, people, imageUri, closed, userId));
+            } while (res.moveToNext());
         }
+        res.close();
+        return buyList;
+    }
 
-        cursor.close();
-        db.close();
-        return buysList;
+    public void updateRecruitStatus(int id, boolean isClosed) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_CLOSED, isClosed ? 1 : 0);
+        db.update(TABLE_NAME, contentValues, COL_ID + " = ?", new String[]{String.valueOf(id)});
     }
 }

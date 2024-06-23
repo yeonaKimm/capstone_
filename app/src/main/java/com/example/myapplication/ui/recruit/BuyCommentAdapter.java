@@ -23,7 +23,7 @@ public class BuyCommentAdapter extends RecyclerView.Adapter<BuyCommentAdapter.Co
     @NonNull
     @Override
     public CommentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recruit_buycommentlist_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recruit_plus_comment, parent, false);
         return new CommentViewHolder(view);
     }
 
@@ -39,15 +39,31 @@ public class BuyCommentAdapter extends RecyclerView.Adapter<BuyCommentAdapter.Co
     }
 
     public static class CommentViewHolder extends RecyclerView.ViewHolder {
-        private TextView commentTextView;
+        private TextView promiseTextView, accountTextView, bankTextView, dateTextView, timeTextView, placeTextView, priceTextView, divisionTextView, paymentTextView;
 
         public CommentViewHolder(@NonNull View itemView) {
             super(itemView);
-            commentTextView = itemView.findViewById(R.id.commentTextView);
+            promiseTextView = itemView.findViewById(R.id.commentTextView);
+            accountTextView = itemView.findViewById(R.id.account);
+            bankTextView = itemView.findViewById(R.id.bank);
+            dateTextView = itemView.findViewById(R.id.date);
+            timeTextView = itemView.findViewById(R.id.time);
+            placeTextView = itemView.findViewById(R.id.place);
+            priceTextView = itemView.findViewById(R.id.price);
+            divisionTextView = itemView.findViewById(R.id.division);
+            paymentTextView = itemView.findViewById(R.id.payment);
         }
 
         public void bind(BuyCommentList_Item_Recruit comment) {
-            commentTextView.setText(comment.getContent());
+            promiseTextView.setText(comment.getPromise());
+            accountTextView.setText(comment.getAccount());
+            bankTextView.setText(comment.getBank());
+            dateTextView.setText(comment.getDate());
+            timeTextView.setText(comment.getTime());
+            placeTextView.setText(comment.getPlace());
+            priceTextView.setText(comment.getPrice());
+            divisionTextView.setText(comment.getDivision());
+            paymentTextView.setText(comment.getPayment());
         }
     }
 }

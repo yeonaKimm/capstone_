@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp" >
-        <!-- 제목 -->
+            <!-- 제목 -->
 
             <TextView
                 android:id="@+id/item_topic"
@@ -36,72 +36,72 @@
                 android:textStyle="bold" />
 
             <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <!-- 구매가 -->
-            <TextView
-                android:id="@+id/item_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="40,000원"
-                android:textColor="#000000" />
+                <!-- 구매가 -->
+                <TextView
+                    android:id="@+id/item_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="40,000원"
+                    android:textColor="#000000" />
 
-            <!-- 구매가 -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="  -->  "
-                android:textColor="#000000"/>
+                <!-- 구매가 -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  -->  "
+                    android:textColor="#000000"/>
 
-            <!-- 각자 값 -->
-            <TextView
-                android:id="@+id/item_divprice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="10,000원"
-                android:textColor="#000000"/>
+                <!-- 각자 값 -->
+                <TextView
+                    android:id="@+id/item_divprice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10,000원"
+                    android:textColor="#000000"/>
 
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- 구매가 -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2분 전" />
+
+
+                <!-- 모집인원 -->
+                <TextView
+                    android:id="@+id/item_people"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="1/2"
+                    android:textSize="16sp"
+                    android:textColor="#94E87F"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    android:drawableLeft="@drawable/ic_people" />
+
+
+                <!-- 빈 영역 (왼쪽 여백 조절을 위해 추가) -->
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+                <Button
+                    android:id="@+id/recruit"
+                    android:layout_width="61dp"
+                    android:layout_height="40dp"
+                    android:text="모집"/>
+            </LinearLayout>
         </LinearLayout>
-
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <!-- 구매가 -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2분 전" />
-
-
-            <!-- 모집인원 -->
-            <TextView
-                android:id="@+id/item_people"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="1/2"
-                android:textSize="16sp"
-                android:textColor="#94E87F"
-                android:textAppearance="?attr/textAppearanceHeadline6"
-                android:drawableLeft="@drawable/ic_people" />
-
-
-            <!-- 빈 영역 (왼쪽 여백 조절을 위해 추가) -->
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-            <Button
-                android:id="@+id/recruit"
-                android:layout_width="61dp"
-                android:layout_height="40dp"
-                android:text="모집"/>
-        </LinearLayout>
-    </LinearLayout>
     </LinearLayout>
 </LinearLayout>

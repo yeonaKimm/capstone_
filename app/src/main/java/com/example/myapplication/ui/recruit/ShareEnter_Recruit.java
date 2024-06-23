@@ -42,7 +42,7 @@ public class ShareEnter_Recruit extends Fragment {
                 // UI 요소에 데이터 설정
                 binding.itemTopic.setText(selectedItem.getTopic());
                 binding.itemContent.setText(selectedItem.getContent());
-                binding.itemPlace.setText(String.valueOf(selectedItem.getPlace()));
+                binding.itemPlace.setText(selectedItem.getPlace()); // 수정된 부분
                 binding.itemQuantity.setText(String.valueOf(selectedItem.getQuantity()));
 
                 // Glide를 사용하여 이미지 로드
@@ -80,11 +80,22 @@ public class ShareEnter_Recruit extends Fragment {
 
         return binding.getRoot();
     }
+
     private void sendComment() {
         String commentContent = binding.commentET.getText().toString().trim();
         if (!commentContent.isEmpty()) {
             // 새로운 댓글을 생성하고 어댑터에 추가
-            BuyCommentList_Item_Recruit newComment = new BuyCommentList_Item_Recruit(commentContent);
+            BuyCommentList_Item_Recruit newComment = new BuyCommentList_Item_Recruit(
+                    commentContent,
+                    "", // 예시로 비어있는 문자열을 추가
+                    "", // 예시로 비어있는 문자열을 추가
+                    "", // 예시로 비어있는 문자열을 추가
+                    "", // 예시로 비어있는 문자열을 추가
+                    "", // 예시로 비어있는 문자열을 추가
+                    "", // 예시로 비어있는 문자열을 추가
+                    "", // 예시로 비어있는 문자열을 추가
+                    ""  // 예시로 비어있는 문자열을 추가
+            );
             commentList.add(newComment);
             buycommentAdapter.notifyDataSetChanged();
             binding.commentET.setText("");
