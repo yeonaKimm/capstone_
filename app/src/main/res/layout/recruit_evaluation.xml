@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.recruit.RecruitEvaluation"
+    android:layout_margin="30dp">
+
+    <!-- Profile Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:paddingBottom="16dp">
+
+        <ImageView
+            android:id="@+id/profile_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_bokdak_round" />
+
+        <TextView
+            android:id="@+id/profile_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="황제펭귄"
+            android:textStyle="bold"
+            android:textAppearance="?attr/textAppearanceHeadline6" />
+
+        <TextView
+            android:id="@+id/profile_gender_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="♀ 여 · 20대"
+            android:textAppearance="?attr/textAppearanceBody2" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal">
+
+        <!-- 평가하기 -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="평가점수"
+                android:textSize="23sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/ic_bokdak_background"/>
+
+            <LinearLayout
+                android:id="@+id/star"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/edittext_line"
+                android:padding="8dp"
+                android:gravity="center" >
+
+                <!-- 평점 -->
+                <ImageView
+                    android:id="@+id/star1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_star_none"
+                    android:onClick="onStarClick"
+                    android:tag="1"/>
+
+                <ImageView
+                    android:id="@+id/star2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_star_none"
+                    android:onClick="onStarClick"
+                    android:tag="2"/>
+
+                <ImageView
+                    android:id="@+id/star3"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_star_none"
+                    android:onClick="onStarClick"
+                    android:tag="3"/>
+
+                <ImageView
+                    android:id="@+id/star4"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_star_none"
+                    android:onClick="onStarClick"
+                    android:tag="4"/>
+
+                <ImageView
+                    android:id="@+id/star5"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_star_none"
+                    android:onClick="onStarClick"
+                    android:tag="5"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- 한줄 평가 -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="한줄평가"
+                android:textSize="23sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"
+                android:background="#EAC9FF"/>
+
+            <EditText
+                android:id="@+id/review"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_line"
+                android:padding="8dp"
+                android:textColor="#000000"
+                android:hint="어떤 점이 좋았나요?"
+                android:inputType="text"
+                android:gravity="center_horizontal" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- 평가 등록 버튼 -->
+    <Button
+        android:id="@+id/evaluation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:text="평가등록"
+        android:textSize="18dp"
+        android:onClick="onEvaluationClick"/>
+
+</LinearLayout>
