@@ -57,7 +57,7 @@
                             android:id="@+id/itemNickname"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="나홀로"
+                            android:text="새콤달콤"
                             android:textSize="15dp"
                             android:textStyle="bold"
                             android:textAppearance="?attr/textAppearanceHeadline6" />
@@ -66,7 +66,7 @@
                             android:id="@+id/itemGenderAge"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="남, 30대"
+                            android:text="여, 20대"
                             android:layout_marginLeft="10dp"
                             android:textAppearance="?attr/textAppearanceBody2" />
                     </LinearLayout>
@@ -441,8 +441,65 @@
                         android:layout_marginRight="10dp"
                         android:clipToPadding="false"
                         android:paddingTop="10dp"
-                        android:paddingBottom="80dp"/>
+                        android:paddingBottom="20dp"/>
                 </LinearLayout>
+
+                <!-- 임시 참여자 댓글 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/edittext_line"
+                    android:padding="16dp"
+                    android:layout_marginBottom="80dp"
+                    android:visibility="invisible">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@mipmap/ic_bokdak_round"
+                            android:layout_marginRight="5dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="나홀로"
+                            android:textSize="15dp"
+                            android:textStyle="bold"
+                            android:textAppearance="?attr/textAppearanceHeadline6" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="6/23 23:51"
+                            android:layout_marginLeft="10dp"
+                            android:textAppearance="?attr/textAppearanceBody2" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+                        <Button
+                            android:id="@+id/recruit"
+                            android:layout_width="100dp"
+                            android:layout_height="40dp"
+                            android:text="평가하기"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/commentTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="저 같이 구매하고 싶어요"
+                        android:textSize="18dp"
+                        android:textAppearance="?attr/textAppearanceBody2" />
+                </LinearLayout>
+
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

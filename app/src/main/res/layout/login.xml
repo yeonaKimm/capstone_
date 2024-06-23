@@ -23,6 +23,6 @@
         android:layout_below="@id/login"
         android:layout_centerHorizontal="true"
         android:text="사용자 정보 삭제"
-        />
+        android:visibility="visible"/>
 
 </RelativeLayout>

@@ -28,12 +28,23 @@
         android:textSize="24sp"
         android:textColor="@android:color/black" />
 
+    <!-- 설명 텍스트 -->
+    <TextView
+        android:id="@+id/nicknameDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nicknameTitle"
+        android:layout_marginTop="8dp"
+        android:text="복닥복닥에서 사용할 닉네임을 입력하세요."
+        android:textSize="16sp"
+        android:textColor="@android:color/black" />
+
     <!-- 닉네임 입력 필드 -->
     <EditText
         android:id="@+id/nicknameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/nicknameTitle"
+        android:layout_below="@id/nicknameDescription"
         android:layout_marginTop="16dp"
         android:hint="닉네임을 입력하세요."
         android:inputType="textPersonName"

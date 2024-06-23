@@ -2,6 +2,7 @@ package com.example.myapplication.ui.recruit;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,10 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,7 +38,7 @@ public class BuyPrint_Recruit extends Fragment {
 
     private ImageView itemImage, itemProfileImage;
     private TextView itemTopic, itemContent, itemPrice, itemPeople, itemNickname, itemGenderAge;
-    private TextView enterButton;
+    private Button enterButton;
     private BuyRecruitDBHelper dbHelper;
     private BuyList_Item_Recruit selectedItem;
 
@@ -116,7 +119,7 @@ public class BuyPrint_Recruit extends Fragment {
                     enterButton.setText("모집마감");
                     enterButton.setEnabled(false);
                 } else {
-                    enterButton.setText("참여하기");
+                    enterButton.setText("모집마감");
                     enterButton.setEnabled(true);
                     enterButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -125,6 +128,7 @@ public class BuyPrint_Recruit extends Fragment {
                             selectedItem.setClosed(true);
                             enterButton.setText("모집마감");
                             enterButton.setEnabled(false);
+                            Toast.makeText(getContext(), "모집이 마감되었습니다", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -176,6 +180,15 @@ public class BuyPrint_Recruit extends Fragment {
             @Override
             public void onClick(View v) {
                 showTimePickerDialog();
+            }
+        });
+
+        // "평가하기" 버튼 클릭 이벤트 설정
+        Button evaluationButton = view.findViewById(R.id.recruit);
+        evaluationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToEvaluation();
             }
         });
 
@@ -282,5 +295,11 @@ public class BuyPrint_Recruit extends Fragment {
         TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(),
                 (view, hourOfDay, minute1) -> timeEditText.setText(String.format("%02d:%02d", hourOfDay, minute1)), hour, minute, true);
         timePickerDialog.show();
+    }
+
+    // 평가하기 버튼 클릭 시 호출되는 메서드
+    private void navigateToEvaluation() {
+        Intent intent = new Intent(getActivity(), RecruitEvaluation.class);
+        startActivity(intent);
     }
 }
